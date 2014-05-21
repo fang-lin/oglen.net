@@ -1,0 +1,8 @@
+{
+    "name": "oglen.net",
+    "version": "0.1.0",
+    "repository": "https://github.com/oglen/oglen.net",
+    "devDependencies": {},
+    "licenses": "MIT",
+    "dependencies": {}
+}
