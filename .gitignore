@@ -2,7 +2,6 @@ logs/*
 npm-debug.log
 !.gitkeep
 node_modules/
-client_src/libs/
-client/
+client/libs/
 .DS_Store
 .idea
