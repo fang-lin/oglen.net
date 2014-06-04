@@ -5,12 +5,11 @@
 
 define(function () {
     return {
-        appName: 'writer.oglen.net',
-        debugEnable: true,
-        languages: {
-            el: 'el',
-            zh: 'zh-CN',
-            en: 'en'
-        }
+        'name': 'writer.oglen.net',
+        'description': 'A Blog for oglen.net',
+        'keywords': 'a, b, c',
+        'version': '0.1.0',
+        'debug': true,
+        'languages': {}
     }
 });

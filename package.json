@@ -26,7 +26,8 @@
         "morgan": "^1.1.1",
         "nodemon": "^1.1.1",
         "redis": "^0.10.3",
-        "requirejs": "^2.1.14"
+        "requirejs": "^2.1.14",
+        "underscore": "^1.6.0"
     },
     "scripts": {
         "start": ""

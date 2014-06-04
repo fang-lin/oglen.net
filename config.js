@@ -3,41 +3,46 @@
  * Author: isaac.fang@grapecity.com
  */
 
-// NODE_ENV
-function env(NODE_ENV) {
-    return NODE_ENV === process.env.NODE_ENV;
-}
+define(function () {
+    'use strict';
 
-// DataBase
-var db = {
-    connect: 'mongodb://127.0.0.1/',
-    name: '',
-    auth: ''
-};
+    // NODE_ENV
+    function env(NODE_ENV) {
+        return NODE_ENV === process.env.NODE_ENV;
+    }
 
-// Cache
-var cache = {
-    enable: false,
-    server: '',
-    port: '6379',
-    auth: 'swift'
-};
+    // DataBase
+    var db = {
+        connect: 'mongodb://127.0.0.1/',
+        name: '',
+        auth: ''
+    };
 
-// Express listen port
-var port = 8080;
+    // Cache
+    var cache = {
+        enable: false,
+        server: '',
+        port: '6379',
+        auth: 'swift'
+    };
 
-if (env('development')) {
+    // Express listen port
+    var port = 8080;
 
-    db.connect = 'mongodb://server/';
+    if (env('development')) {
 
-} else {
+        db.connect = 'mongodb://server/';
 
-    cache.enable = false;
-}
+    } else {
 
-module.exports = {
-    env: env,
-    db: db,
-    cache: cache,
-    port: port
-};
+        cache.enable = false;
+    }
+
+    return {
+        env: env,
+        db: db,
+        cache: cache,
+        port: port
+    };
+});
+
