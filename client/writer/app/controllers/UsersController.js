@@ -5,7 +5,7 @@
 
 define(['angular'], function () {
 
-    angular.module('UsersController', []).controller('UsersController', ['$scope', function ($scope) {
+    return ['$scope', function ($scope) {
         console.log($scope);
-    }]);
+    }];
 });

@@ -27,7 +27,7 @@ define(function () {
     };
 
     // Express listen port
-    var port = 8080;
+    var port = 8000;
 
     if (env('development')) {
 

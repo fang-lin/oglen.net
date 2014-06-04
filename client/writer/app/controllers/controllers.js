@@ -5,21 +5,28 @@
 
 define([
     'config',
-    'angular',
     'controllers/CommentsController',
     'controllers/HomeController',
     'controllers/PostsController',
     'controllers/SettingsController',
-    'controllers/UsersController'
-], function (config) {
+    'controllers/UsersController',
+    'angular'
+], function (config, CommentsController, HomeController, PostsController, SettingsController, UsersController) {
 
-    var controllers = angular.module(config.name + '.controllers', [
-        'CommentsController',
-        'HomeController',
-        'PostsController',
-        'SettingsController',
-        'UsersController'
-    ]);
+//    var controllers = angular.module(config.name + '.controllers', [
+//        'CommentsController',
+//        'HomeController',
+//        'PostsController',
+//        'SettingsController',
+//        'UsersController'
+//    ]);
 
-    console.log(controllers);
+    var controllers = angular.module(config.name + '.controllers', []).
+        controller('CommentsController', CommentsController).
+        controller('HomeController', HomeController).
+        controller('PostsController', PostsController).
+        controller('SettingsController', SettingsController).
+        controller('UsersController', UsersController);
+
+//    console.log(controllers);
 });

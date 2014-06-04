@@ -5,7 +5,7 @@
 
 define(['angular'], function () {
 
-    angular.module('HomeController', []).controller('HomeController', ['$scope', function ($scope) {
+    return ['$scope', function ($scope) {
         console.log($scope);
-    }]);
+    }];
 });
