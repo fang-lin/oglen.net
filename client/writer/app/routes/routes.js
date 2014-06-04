@@ -7,8 +7,8 @@ define([
     'angular'
 ], function (config) {
 
-    var router = angular.module(config.name + '.routes', []).config(['$routeProvider', function ($routeProvider) {
-        
+    angular.module(config.name + '.routes', []).config(['$routeProvider', function ($routeProvider) {
+
         $routeProvider.when('/home', {
             templateUrl: 'app/templates/home.html',
             controller: 'HomeController'

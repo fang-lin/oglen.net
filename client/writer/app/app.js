@@ -10,6 +10,6 @@ define([
     'app/routes/routes'
 ], function (config) {
 
-    var name = config.name,
-        app = angular.module(name, ['ngRoute', 'ngAnimate', name + '.controllers', name + '.routes']);
+    var name = config.name;
+    angular.module(name, ['ngRoute', 'ngAnimate', name + '.controllers', name + '.routes']);
 });
