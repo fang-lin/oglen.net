@@ -1,13 +1,10 @@
 {
     "name": "oglen.net",
-    "description": "A Website for oglen.net",
+    "description": "A Blog for oglen.net",
     "version": "0.1.0",
     "repository": "https://github.com/oglen/oglen.net",
-    "devDependencies": {
-        "express": "^4.3.0"
-    },
     "licenses": "MIT",
     "dependencies": {
-        "express": "^4.3.0"
+        "express": "~4.4.1"
     }
 }
