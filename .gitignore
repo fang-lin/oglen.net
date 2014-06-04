@@ -3,6 +3,6 @@ npm-debug.log
 !.gitkeep
 node_modules/
 client_src/libs/
-temp
+client/
 .DS_Store
 .idea
