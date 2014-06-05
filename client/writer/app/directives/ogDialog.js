@@ -9,13 +9,15 @@ define(function () {
     return [
         function () {
             var link = function (scope, ele, attrs) {
-
+                console.log(scope.list);
             };
             return {
-                restrict: 'E',
-                templateUrl: 'app/templates/dialog.html',
+                restrict: 'A',
+                templateUrl: 'app/templates/ogDialog.html',
                 replace: true,
-                scope: {},
+                scope: {
+                    list: '=list'
+                },
                 link: link
             };
         }

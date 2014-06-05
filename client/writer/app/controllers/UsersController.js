@@ -5,7 +5,9 @@
 
 define(function () {
 
-    return ['$scope', function ($scope) {
-        console.log($scope);
+    return ['$rootScope', '$scope', '$route', '$location', 'mainMenu', function ($rootScope, $scope, $route, $location, mainMenu) {
+
+        $rootScope.list = mainMenu;
+
     }];
 });

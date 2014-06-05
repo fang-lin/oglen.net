@@ -2,6 +2,7 @@
  * Copyright 2006-2014 GrapeCity inc
  * Author: isaac.fang@grapecity.com
  */
+
 define(function () {
     'use strict';
 
@@ -12,7 +13,7 @@ define(function () {
             };
             return {
                 restrict: 'E',
-                templateUrl: 'app/templates/menu.html',
+                templateUrl: 'app/templates/ogDropdown.html',
                 replace: true,
                 scope: {},
                 link: link
