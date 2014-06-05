@@ -6,10 +6,19 @@
 define([
     'config',
     'angular',
-    'app/controllers/controllers',
-    'app/routes/routes'
+    'routes/routes',
+    'controllers/controllers',
+    'directives/directives',
+    'filters/filters'
 ], function (config) {
 
     var name = config.name;
-    angular.module(name, ['ngRoute', 'ngAnimate', name + '.controllers', name + '.routes']);
+    angular.module(name, [
+        'ngRoute',
+        'ngAnimate',
+            name + '.routes',
+            name + '.controllers',
+            name + '.directives',
+            name + '.filters'
+    ]);
 });

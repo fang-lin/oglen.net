@@ -6,12 +6,16 @@
 define(function () {
     'use strict';
 
-    // NODE_ENV
-    function env(NODE_ENV) {
-        return NODE_ENV === process.env.NODE_ENV;
-    }
+    // Is NODE_ENV
+    var env = function (NODE_ENV) {
+        return (
+            NODE_ENV ?
+                NODE_ENV === process.env.NODE_ENV :
+                process.env.NODE_ENV
+            );
+    };
 
-    // DataBase
+    // Database
     var db = {
         connect: 'mongodb://127.0.0.1/',
         name: '',
@@ -26,8 +30,8 @@ define(function () {
         auth: 'swift'
     };
 
-    // Express listen port
-    var port = 8000;
+    // Express listening on port
+    var port = process.env.PORT || 8000;
 
     if (env('development')) {
 

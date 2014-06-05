@@ -47,10 +47,8 @@ require('requirejs')([
         logger.setLevel('ERROR');
     }
 
-    var port = process.env.PORT || config.port;
-
-    app.listen(port) &&
-    logger.info('Http server listening on port ' + port);
+    app.listen(config.port) &&
+    logger.info('Http server listening on port ' + config.port);
 
 });
 

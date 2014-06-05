@@ -13,11 +13,12 @@ define([
     'angular'
 ], function (config, CommentsController, HomeController, PostsController, SettingsController, UsersController) {
 
-    angular.module(config.name + '.controllers', []).
+    var controllers = angular.module(config.name + '.controllers', []).
         controller('CommentsController', CommentsController).
         controller('HomeController', HomeController).
         controller('PostsController', PostsController).
         controller('SettingsController', SettingsController).
         controller('UsersController', UsersController);
 
+    return controllers;
 });

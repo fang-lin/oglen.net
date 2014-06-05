@@ -15,7 +15,12 @@ requirejs.config({
         'angular-translate': '/libs/angular-translate/angular-translate',
         // Apps
         'config': 'config',
-        'controllers': 'app/controllers'
+        'app': 'app/app',
+        'controllers': 'app/controllers',
+        'routes': 'app/routes',
+        'directives': 'app/directives',
+        'filters': 'app/filters',
+        'services': 'app/services'
     },
     shim: {
         angular: {
@@ -42,8 +47,9 @@ require([
     'angular-route',
     'angular-animate',
     'angular-translate',
-    'app/app'
+    'app'
 ], function (config) {
 
     angular.bootstrap(document, [config.name]);
+
 });

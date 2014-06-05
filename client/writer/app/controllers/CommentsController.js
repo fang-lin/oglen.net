@@ -3,7 +3,7 @@
  * Author: isaac.fang@grapecity.com
  */
 
-define(['angular'], function () {
+define(function () {
 
     return ['$scope', function ($scope) {
         console.log($scope);

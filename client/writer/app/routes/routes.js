@@ -7,23 +7,31 @@ define([
     'angular'
 ], function (config) {
 
-    angular.module(config.name + '.routes', []).config(['$routeProvider', function ($routeProvider) {
+    var routes = angular.module(config.name + '.routes', []).config(['$routeProvider', function ($routeProvider) {
 
-        $routeProvider.when('/home', {
-            templateUrl: 'app/templates/home.html',
+        $routeProvider.when('/', {
+            templateUrl: 'app/views/home.html',
+            controller: 'HomeController'
+        }).when('/home', {
+            templateUrl: 'app/views/home.html',
             controller: 'HomeController'
         }).when('/posts', {
-            templateUrl: 'app/templates/posts.html',
+            templateUrl: 'app/views/posts.html',
             controller: 'PostsController'
         }).when('/comments', {
-            templateUrl: 'app/templates/comments.html',
+            templateUrl: 'app/views/comments.html',
             controller: 'PostsController'
         }).when('/users', {
-            templateUrl: 'app/templates/users.html',
+            templateUrl: 'app/views/users.html',
             controller: 'UsersController'
         }).when('/settings', {
-            templateUrl: 'app/templates/settings.html',
+            templateUrl: 'app/views/settings.html',
             controller: 'SettingsController'
+        }).otherwise({
+            redirectTo: '/'
         });
+
     }]);
+
+    return routes;
 });
