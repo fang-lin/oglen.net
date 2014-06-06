@@ -4,14 +4,17 @@
  */
 
 require('requirejs')([
-    'config',
-    'express',
-    'mongoose',
-    'log4js',
-    'morgan',
-    'compression',
-    'errorhandler'
+
+    'config', // Project configuration.
+    'express', // Web application framework for node.
+    'mongoose', // Elegant mongodb object modeling for node.js.
+    'log4js', // Port of Log4js to work with node.
+    'morgan', // Logging middleware for node.js http apps.
+    'compression', // Node.js compression middleware.
+    'errorhandler' // Create new middleware to handle errors and respond with content negotiation.
+
 ], function (config, express, mongoose, log4js, morgan, compress, errorhandler) {
+
     'use strict';
 
     var app = express(),
@@ -19,7 +22,7 @@ require('requirejs')([
 
     if (config.env('development')) {
 
-        // Development
+        // Development mode
 
         app.use(morgan('short'));
         app.use(errorhandler());
@@ -29,7 +32,7 @@ require('requirejs')([
 
     } else if (config.env('production')) {
 
-        // Production
+        // Production mode
 
         app.use(compress());
         app.use(express.static('client'));
@@ -38,7 +41,7 @@ require('requirejs')([
 
     } else {
 
-        // Default
+        // Unknown mode
 
         app.use(morgan('short'));
         app.use(compress());
@@ -46,6 +49,8 @@ require('requirejs')([
 
         logger.setLevel('ERROR');
     }
+
+    // Start Listening
 
     app.listen(config.port) &&
     logger.info('Http server listening on port ' + config.port);

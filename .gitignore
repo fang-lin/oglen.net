@@ -1,6 +1,6 @@
 logs/*
 npm-debug.log
 node_modules/
-client/libs/
+client/vendor/
 .DS_Store
 .idea
