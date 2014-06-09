@@ -26,14 +26,16 @@ define([
     ]).run([
         '$rootScope',
         'mainMenu',
-        'extConfig',
-        function ($rootScope, mainMenu, extConfig) {
-            $rootScope.config = {
-                menu: mainMenu,
+        'siteConfig',
+        function ($rootScope, mainMenu, siteConfig) {
 
-            }
+            $rootScope.menu = mainMenu;
+            $rootScope.title = siteConfig.title;
+            $rootScope.description = siteConfig.description;
+            $rootScope.keywords = siteConfig.keywords;
+            $rootScope.generator = siteConfig.generator;
+            $rootScope.version = siteConfig.version;
+
         }
     ]);
-
-    console.log(WebSocket);
 });

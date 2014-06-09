@@ -1,0 +1,14 @@
+/**
+ * Copyright 2006-2014 GrapeCity inc
+ * Author: isaac.fang@grapecity.com
+ */
+
+define(function () {
+    return {
+        'title': 'writer.oglen.net',
+        'description': 'A Blog for oglen.net',
+        'keywords': 'a, b, c',
+        'generator': 'oglen.net',
+        'version': '0.1.0'
+    }
+});
