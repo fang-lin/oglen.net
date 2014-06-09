@@ -3,9 +3,13 @@
  * Author: isaac.fang@grapecity.com
  */
 
-define(function () {
+define(function (wysiwyg) {
 
-    return ['$rootScope', '$scope', '$route', '$location', function ($rootScope, $scope, $route) {
+    return ['$rootScope', '$scope', '$route', function ($rootScope, $scope, $route) {
+
         console.log($route.current.params['postId']);
+        console.log($scope);
+
+
     }];
 });

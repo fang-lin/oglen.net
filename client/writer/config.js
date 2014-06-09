@@ -12,6 +12,7 @@ define(function () {
                 'jquery': '/vendor/jquery/dist/jquery',
                 'underscore': '/vendor/underscore/underscore',
                 'bootstrap': '/vendor/bootstrap/dist/js/bootstrap',
+                'bootstrap-wysiwyg': '/vendor/bootstrap-wysiwyg/bootstrap-wysiwyg',
                 'angular': '/vendor/angular/angular',
                 'angular-resource': '/vendor/angular-resource/angular-resource',
                 'angular-route': '/vendor/angular-route/angular-route',
