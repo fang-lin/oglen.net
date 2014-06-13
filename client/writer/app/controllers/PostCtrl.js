@@ -3,12 +3,18 @@
  * Author: isaac.fang@grapecity.com
  */
 
-define(function (wysiwyg) {
+define(function () {
 
     return ['$rootScope', '$scope', '$route', function ($rootScope, $scope, $route) {
 
         console.log($route.current.params['postId']);
         console.log($scope);
+
+        $scope.tinymceOptions = {
+            handle_event_callback: function (e) {
+                // put logic here for keypress
+            }
+        };
 
 
     }];

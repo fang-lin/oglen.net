@@ -8,15 +8,13 @@ define([
     'directives/ogMenu',
     'directives/ogDialog',
     'directives/ogDropdown',
-    'directives/ogWysiwyg',
     'angular'
-], function (config, ogMainmenu, ogDialog, ogDropdown, ogWysiwyg) {
+], function (config, ogMainmenu, ogDialog, ogDropdown) {
 
     var directives = angular.module(config.name + '.directives', [])
         .directive('ogMenu', ogMainmenu)
         .directive('ogDialog', ogDialog)
-        .directive('ogDropdown', ogDropdown)
-        .directive('ogWysiwyg', ogWysiwyg);
+        .directive('ogDropdown', ogDropdown);
 
     return directives;
 });
