@@ -7,17 +7,17 @@ define(function () {
     return [
         {
             name: 'Home',
-            url: '#/home',
+            url: null,
             children: [
                 {
                     name: 'Dashboard',
-                    url: '#/posts'
+                    url: '#/dashboard'
                 }
             ]
         },
         {
             name: 'Posts',
-            url: '#/posts',
+            url: null,
             children: [
                 {
                     name: 'Posts List',
@@ -25,17 +25,17 @@ define(function () {
                 },
                 {
                     name: 'Add Post',
-                    url: '#/posts'
+                    url: '#/post/'
                 },
                 {
                     name: 'Categories',
-                    url: '#/posts'
+                    url: '#/post-cates'
                 }
             ]
         },
         {
             name: 'Comments',
-            url: '#/comments',
+            url: null,
             children: [
                 {
                     name: 'Comments List',
@@ -45,25 +45,25 @@ define(function () {
         },
         {
             name: 'Users',
-            url: '#/users',
+            url: null,
             children: [
                 {
                     name: 'Users List',
                     url: '#/users'
                 },
                 {
-                    name: 'Add Users',
-                    url: '#/users'
+                    name: 'Add User',
+                    url: '#/user'
                 }
             ]
         },
         {
             name: 'Settings',
-            url: '#/settings',
+            url: null,
             children: [
                 {
                     name: 'Options',
-                    url: '#/settings'
+                    url: '#/options'
                 }
             ]
         }

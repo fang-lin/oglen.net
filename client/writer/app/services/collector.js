@@ -6,13 +6,13 @@
 define([
     'config',
     'services/mainMenu',
-    'services/extConfig',
+    'services/siteConfig',
     'angular'
-], function (config, mainMenu, extConfig) {
+], function (config, mainMenu, siteConfig) {
 
     var services = angular.module(config.name + '.services', [])
         .constant('mainMenu', mainMenu)
-        .constant('extConfig', extConfig);
+        .constant('siteConfig', siteConfig);
 
     return services;
 });

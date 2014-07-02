@@ -5,20 +5,26 @@
 
 define([
     'config',
-    'controllers/CommentsController',
-    'controllers/HomeController',
-    'controllers/PostsController',
-    'controllers/SettingsController',
-    'controllers/UsersController',
+    'controllers/DashboardCtrl',
+    'controllers/PostsCtrl',
+    'controllers/PostCtrl',
+    'controllers/PostCatesCtrl',
+    'controllers/CommentsCtrl',
+    'controllers/UsersCtrl',
+    'controllers/UserCtrl',
+    'controllers/SettingsCtrl',
     'angular'
-], function (config, CommentsController, HomeController, PostsController, SettingsController, UsersController) {
+], function (config, DashboardCtrl, PostsCtrl, PostCtrl, PostCatesCtrl, CommentsCtrl, UsersCtrl, UserCtrl, SettingsCtrl) {
 
     var controllers = angular.module(config.name + '.controllers', []).
-        controller('CommentsController', CommentsController).
-        controller('HomeController', HomeController).
-        controller('PostsController', PostsController).
-        controller('SettingsController', SettingsController).
-        controller('UsersController', UsersController);
+        controller('DashboardCtrl', DashboardCtrl).
+        controller('PostsCtrl', PostsCtrl).
+        controller('PostCtrl', PostCtrl).
+        controller('PostCatesCtrl', PostCatesCtrl).
+        controller('CommentsCtrl', CommentsCtrl).
+        controller('UsersCtrl', UsersCtrl).
+        controller('UserCtrl', UserCtrl).
+        controller('SettingsCtrl', SettingsCtrl);
 
     return controllers;
 });

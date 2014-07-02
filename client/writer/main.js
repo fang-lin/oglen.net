@@ -7,8 +7,9 @@ require([
     'config'
 ], function (config) {
 
-    requirejs.config(config.require);
+    requirejs.config(config.requirejs);
     require([
+        'bootstrap',
         'angular',
         'angular-route',
         'angular-animate',

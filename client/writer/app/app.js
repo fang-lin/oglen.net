@@ -10,7 +10,8 @@ define([
     'controllers/collector',
     'directives/collector',
     'filters/filters',
-    'services/collector'
+    'services/collector',
+    'angular-ui-tinymce'
 ], function (config) {
 
     var name = config.name;
@@ -22,18 +23,21 @@ define([
             name + '.controllers',
             name + '.directives',
             name + '.filters',
-            name + '.services'
+            name + '.services',
+        'ui.tinymce'
     ]).run([
         '$rootScope',
         'mainMenu',
-        'extConfig',
-        function ($rootScope, mainMenu, extConfig) {
-            $rootScope.config = {
-                menu: mainMenu,
+        'siteConfig',
+        function ($rootScope, mainMenu, siteConfig) {
 
-            }
+            $rootScope.menu = mainMenu;
+            $rootScope.title = siteConfig.title;
+            $rootScope.description = siteConfig.description;
+            $rootScope.keywords = siteConfig.keywords;
+            $rootScope.generator = siteConfig.generator;
+            $rootScope.version = siteConfig.version;
+
         }
     ]);
-
-    console.log(WebSocket);
 });
