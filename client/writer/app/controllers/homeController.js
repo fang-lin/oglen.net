@@ -7,7 +7,6 @@ define(function () {
 
     return ['$rootScope', '$scope', '$route', '$location', 'mainMenu', function ($rootScope, $scope, $route, $location, mainMenu) {
 
-        $rootScope.list = mainMenu;
 
     }];
 });
