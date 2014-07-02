@@ -11,7 +11,7 @@ define(function () {
 
             return {
                 restrict: 'A',
-                templateUrl: 'app/templates/ogMenu.html',
+                templateUrl: 'app/templates/ogMainNav.html',
                 scope: {
                     list: '='
                 },

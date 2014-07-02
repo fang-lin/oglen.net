@@ -25,11 +25,11 @@ define([
             name + '.services'
     ]).run([
         '$rootScope',
-        'mainMenu',
+        'mainNav',
         'siteConfig',
-        function ($rootScope, mainMenu, siteConfig) {
+        function ($rootScope, mainNav, siteConfig) {
 
-            $rootScope.menu = mainMenu;
+            $rootScope.mainNav = mainNav;
             $rootScope.title = siteConfig.title;
             $rootScope.description = siteConfig.description;
             $rootScope.keywords = siteConfig.keywords;

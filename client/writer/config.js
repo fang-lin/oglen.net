@@ -9,17 +9,16 @@ define(function () {
         'requirejs': {
             paths: {
                 // Libs
-                'jquery': '/bowers/jquery/dist/jquery',
-                'underscore': '/bowers/underscore/underscore',
-                'bootstrap': '/bowers/bootstrap/dist/js/bootstrap',
-                'redactor': '/libs/redactor/redactor.min',
-                'redactor-plugins': '/libs/redactor/plugins',
-
-                'angular': '/bowers/angular/angular',
-                'angular-resource': '/bowers/angular-resource/angular-resource',
-                'angular-route': '/bowers/angular-route/angular-route',
-                'angular-animate': '/bowers/angular-animate/angular-animate',
-                'angular-translate': '/bowers/angular-translate/angular-translate',
+                'jquery': '/vendor/jquery/dist/jquery',
+                'underscore': '/vendor/underscore/underscore',
+                'bootstrap': '/vendor/bootstrap/dist/js/bootstrap',
+//                'tinymce': '/vendor/tinymce/tinymce.min',
+                'angular': '/vendor/angular/angular',
+                'angular-resource': '/vendor/angular-resource/angular-resource',
+                'angular-route': '/vendor/angular-route/angular-route',
+                'angular-animate': '/vendor/angular-animate/angular-animate',
+                'angular-translate': '/vendor/angular-translate/angular-translate',
+//                'angular-ui-tinymce': '/vendor/angular-ui-tinymce/src/tinymce',
                 // Apps
                 'config': 'config',
                 'app': 'app/app',
@@ -32,9 +31,6 @@ define(function () {
             shim: {
                 bootstrap: {
                     deps: ['jquery']
-                },
-                redactor: {
-                    deps: ['jquery', 'redactor-plugins']
                 },
                 angular: {
                     deps: ['jquery']
@@ -51,6 +47,9 @@ define(function () {
                 'angular-translate': {
                     deps: ['angular']
                 }
+//                'angular-ui-tinymce': {
+//                    deps: ['angular', 'tinymce']
+//                }
             }
         },
         'name': 'writer.oglen.net',

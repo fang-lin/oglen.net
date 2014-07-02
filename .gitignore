@@ -2,6 +2,6 @@ logs/*
 npm-debug.log
 node_modules/
 client/vendor/
-client/bowers/
+dist/
 .DS_Store
 .idea

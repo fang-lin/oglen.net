@@ -17,7 +17,7 @@ define(function () {
 
     // Database
     var db = {
-        connect: 'mongodb://127.0.0.1/',
+        connect: 'mongodb://localhost/',
         name: '',
         auth: ''
     };

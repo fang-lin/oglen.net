@@ -5,7 +5,7 @@
 
 define(function () {
 
-    return ['$rootScope', '$scope', '$route', '$location', 'mainMenu', function ($rootScope, $scope, $route, $location, mainMenu) {
+    return ['$rootScope', '$scope', '$route', '$location', function ($rootScope, $scope, $route, $location) {
 
 
     }];

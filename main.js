@@ -20,7 +20,7 @@ require('requirejs')([
     var app = express(),
         logger = log4js.getLogger('server'); // TRACE, DEBUG, INFO, WARN, ERROR, FATAL
 
-    if (config.env('development')) {
+    if (config.env('debug')) {
 
         // Development mode
 
@@ -29,26 +29,27 @@ require('requirejs')([
         app.use(express.static('client'));
         app.use('/api', router);
 
-        logger.setLevel('DEBUG');
+        logger.setLevel('TRACE');
+
+    } else if (config.env('development')) {
+
+        // Development mode
+
+        app.use(morgan('short'));
+        app.use(errorhandler());
+        app.use(express.static('client'));
+
+        logger.setLevel('INFO');
 
     } else if (config.env('production')) {
 
         // Production mode
 
         app.use(compress());
-        app.use(express.static('client'));
+        app.use(express.static('dist'));
 
         logger.setLevel('ERROR');
 
-    } else {
-
-        // Unknown mode
-
-        app.use(morgan('short'));
-        app.use(compress());
-        app.use(express.static('client'));
-
-        logger.setLevel('ERROR');
     }
 
     // Start Listening
