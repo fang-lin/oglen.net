@@ -10,8 +10,7 @@ define([
     'controllers/collector',
     'directives/collector',
     'filters/filters',
-    'services/collector',
-    'angular-ui-tinymce'
+    'services/collector'
 ], function (config) {
 
     var name = config.name;
@@ -23,15 +22,14 @@ define([
             name + '.controllers',
             name + '.directives',
             name + '.filters',
-            name + '.services',
-        'ui.tinymce'
+            name + '.services'
     ]).run([
         '$rootScope',
-        'mainMenu',
+        'mainNav',
         'siteConfig',
-        function ($rootScope, mainMenu, siteConfig) {
+        function ($rootScope, mainNav, siteConfig) {
 
-            $rootScope.menu = mainMenu;
+            $rootScope.mainNav = mainNav;
             $rootScope.title = siteConfig.title;
             $rootScope.description = siteConfig.description;
             $rootScope.keywords = siteConfig.keywords;
