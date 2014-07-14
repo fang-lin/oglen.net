@@ -1,21 +1,19 @@
 {
-    "name": "oglen.net",
-    "description": "A Website for oglen.net",
-    "version": "0.1.0",
-    "homepage": "https://github.com/oglen/ogeln-net",
-    "license": "MIT",
-    "private": true,
-    "dependencies": {
-        "angular": "~1.2.16",
-        "angular-resource": "~1.2.16",
-        "angular-route": "~1.2.16",
-        "angular-animate": "~1.2.16",
-        "angular-translate": "~2.2.0",
-        "requirejs": "~2.1.14",
-        "jquery": "~2.1.1",
-        "underscore": "~1.6.0",
-        "d3": "~3.4.8",
-        "bootstrap": "~3.1.1",
-        "pure": "~0.5.0"
-    }
+  "name": "oglen.net",
+  "description": "A Website for oglen.net",
+  "version": "0.1.0",
+  "homepage": "https://github.com/oglen/ogeln-net",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "angular": "~1.2.16",
+    "angular-resource": "~1.2.16",
+    "angular-route": "~1.2.16",
+    "angular-animate": "~1.2.16",
+    "angular-translate": "~2.2.0",
+    "requirejs": "~2.1.14",
+    "jquery": "~2.1.1",
+    "underscore": "~1.6.0",
+    "d3": "~3.4.8"
+  }
 }

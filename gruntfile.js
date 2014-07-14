@@ -5,7 +5,7 @@ module.exports = function (grunt) {
         pkg: grunt.file.readJSON('package.json'),
 
         // region clean
-        clean: ['dist'],
+        clean: ['dist', 'client/writer/css'],
         // endregion clean
 
         // region copy
@@ -22,10 +22,7 @@ module.exports = function (grunt) {
                     {expand: true, flatten: true, src: ['client/writer/app/templates/*'], dest: 'dist/writer/app/templates/', filter: 'isFile'},
                     {expand: true, flatten: true, src: ['client/writer/images/*'], dest: 'dist/writer/images/*', filter: 'isFile'},
 
-                    {expand: true, flatten: true, src: ['client/vendor/bootstrap/dist/fonts/*'], dest: 'dist/vendor/bootstrap/dist/fonts/', filter: 'isFile'},
-                    {src: 'client/vendor/requirejs/require.js', dest: 'dist/vendor/requirejs/require.js'},
-                    {src: 'client/vendor/html5shiv/dist/html5shiv.js', dest: 'dist/vendor/html5shiv/dist/html5shiv.js'},
-                    {src: 'client/vendor/respond/respond.min.js', dest: 'dist/vendor/respond/respond.min.js'}
+                    {src: 'client/bowers/requirejs/require.js', dest: 'dist/libs/requirejs/require.js'}
                 ]
             }
         },
@@ -36,7 +33,12 @@ module.exports = function (grunt) {
         less: {
             compile: {
                 files: {
-                    'client/writer/style/main.css': 'client/writer/style/main.less'
+                    'client/writer/css/base.css': 'client/writer/less/base.less',
+                    'client/writer/css/layout.css': 'client/writer/less/layout.less',
+                    'client/writer/css/form.css': 'client/writer/less/form.less',
+                    'client/writer/css/button.css': 'client/writer/less/button.less',
+                    'client/writer/css/menu.css': 'client/writer/less/menu.less',
+                    'client/writer/css/main.css': 'client/writer/less/main.less'
                 }
             }
         },
@@ -48,7 +50,7 @@ module.exports = function (grunt) {
         },
         watch: {
             less: {
-                files: ['client/writer/style/*.less'],
+                files: ['client/writer/less/*.less'],
                 tasks: ['less']
             }
         },
