@@ -6,6 +6,7 @@
 require('requirejs')([
 
     'config', // Project configuration.
+    'server/router',
     'express', // Web application framework for node.
     'mongoose', // Elegant mongodb object modeling for node.js.
     'log4js', // Port of Log4js to work with node.
@@ -13,8 +14,7 @@ require('requirejs')([
     'compression', // Node.js compression middleware.
     'errorhandler' // Create new middleware to handle errors and respond with content negotiation.
 
-], function (config, express, mongoose, log4js, morgan, compress, errorhandler) {
-
+], function (config, router, express, mongoose, log4js, morgan, compress, errorhandler) {
     'use strict';
 
     var app = express(),
@@ -27,6 +27,7 @@ require('requirejs')([
         app.use(morgan('short'));
         app.use(errorhandler());
         app.use(express.static('client'));
+        app.use('/api', router);
 
         logger.setLevel('TRACE');
 
