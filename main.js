@@ -6,7 +6,7 @@
 require('requirejs')([
 
     'config', // Project configuration.
-    'server/router',
+    'server/routers/index',
     'express', // Web application framework for node.
     'mongoose', // Elegant mongodb object modeling for node.js.
     'log4js', // Port of Log4js to work with node.
@@ -14,11 +14,13 @@ require('requirejs')([
     'compression', // Node.js compression middleware.
     'errorhandler' // Create new middleware to handle errors and respond with content negotiation.
 
-], function (config, router, express, mongoose, log4js, morgan, compress, errorhandler) {
+], function (config, routers, express, mongoose, log4js, morgan, compress, errorhandler) {
     'use strict';
 
     var app = express(),
         logger = log4js.getLogger('server'); // TRACE, DEBUG, INFO, WARN, ERROR, FATAL
+
+    mongoose.connect('mongodb://localhost/oglen-db');
 
     if (config.env('debug')) {
 
@@ -27,7 +29,7 @@ require('requirejs')([
         app.use(morgan('short'));
         app.use(errorhandler());
         app.use(express.static('client'));
-        app.use('/api', router);
+        app.use('/rest', routers);
 
         logger.setLevel('TRACE');
 
@@ -38,6 +40,7 @@ require('requirejs')([
         app.use(morgan('short'));
         app.use(errorhandler());
         app.use(express.static('client'));
+        app.use('/rest', routers);
 
         logger.setLevel('INFO');
 

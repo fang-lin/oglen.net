@@ -12,24 +12,35 @@ define([
     var Schema = mongoose.Schema;
 
     // Define User schema
-    var User = new Schema({
+    var userSchema = new Schema({
+        id: String,
         email: String,
         name: String,
         salt: String,
         password: String
     });
 
-    return mongoose.model('User', User);
-});
+    userSchema.index({id: 1}, {unique: true});
+    userSchema.index({name: 1}, {unique: true});
 
-db.createUser(
-    {
-        user: "root",
-        pwd: "swift",
-        roles: [
-            { role: "read", db: "reporting" },
-            { role: "read", db: "products" },
-            { role: "read", db: "sales" }
-        ]
-    }
-)
+    var User = mongoose.model('User', userSchema);
+
+    User.update({
+        name: 'Justin'
+    }, {
+        email: 'Fang'
+    });
+
+//    var user = new User({
+//        id: 'asdasdas34324',
+//        email: 'justin@oglen.net',
+//        name: 'Justin'
+//    });
+//
+//    user.save(function (err) {
+//        if (err)
+//            console.log('meow');
+//    });
+
+
+});

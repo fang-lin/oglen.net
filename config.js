@@ -18,7 +18,8 @@ define(function () {
     // Database
     var db = {
         connect: 'mongodb://localhost/',
-        name: '',
+        port: 27017,
+        collection: '',
         auth: ''
     };
 
@@ -35,7 +36,7 @@ define(function () {
 
     if (env('development')) {
 
-        db.connect = 'mongodb://server/';
+        db.connect = 'mongodb://localhost/test';
 
     } else {
 
