@@ -9,13 +9,42 @@ define([
     'use strict';
 
     var Schema = mongoose.Schema,
+        ObjectId = Schema.Types.ObjectId,
+        Now = Date.now,
 
         PostSchema = new Schema({
-            title: String,
-            commits: {
+            title: {
                 type: String,
-                ref: db.CsbNode
-            }
+                index: true
+            },
+            abstract: String,
+            author: {
+                type: String,
+                ref: 'User'
+            },
+            body: {
+                type: ObjectId,
+                ref: 'Draft'
+            },
+            tags: [
+                {
+                    type: ObjectId,
+                    ref: 'Tag'
+                }
+            ],
+//            comments: [
+//                {
+//                    type: Schema.Types.ObjectId,
+//                    ref: 'Comment'
+//                }
+//            ],
+            createAt: {
+                type: Date,
+                default: Now
+            },
+            clicks: Number,
+            hidden: Boolean,
+            publish: Boolean
         });
 
     return PostSchema;
