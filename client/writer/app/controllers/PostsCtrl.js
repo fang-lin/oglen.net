@@ -5,7 +5,9 @@
 
 define(function () {
 
-    return ['$rootScope', '$scope', '$route', '$location', function ($rootScope, $scope, $route, $location) {
+    return ['$rootScope', '$scope', '$route', '$location', 'Posts', function ($rootScope, $scope, $route, $location, Posts) {
+
+        $scope.posts = Posts.query();
 
     }];
 });

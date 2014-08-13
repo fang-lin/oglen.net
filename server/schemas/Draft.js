@@ -10,14 +10,18 @@ define([
 
     var Schema = mongoose.Schema,
         ObjectId = Schema.Types.ObjectId,
+        Now = Date.now,
 
         DraftSchema = new Schema({
-            _postId: {
+            post: {
                 type: ObjectId,
                 index: true
             },
             text: String,
-            data: Date,
+            saveAt: {
+                type: Date,
+                default: Now
+            },
             flag: String
         });
 

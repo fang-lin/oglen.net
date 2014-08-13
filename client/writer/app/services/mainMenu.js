@@ -28,8 +28,12 @@ define(function () {
                     url: '#/post/'
                 },
                 {
-                    name: 'Categories',
-                    url: '#/post-cates'
+                    name: 'Tags',
+                    url: '#/tags'
+                },
+                {
+                    name: 'Add Tag',
+                    url: '#/tag'
                 }
             ]
         },

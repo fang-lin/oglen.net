@@ -33,12 +33,12 @@ module.exports = function (grunt) {
         less: {
             compile: {
                 files: {
-                    'client/writer/css/base.css': 'client/writer/less/base.less',
-                    'client/writer/css/layout.css': 'client/writer/less/layout.less',
-                    'client/writer/css/form.css': 'client/writer/less/form.less',
-                    'client/writer/css/button.css': 'client/writer/less/button.less',
-                    'client/writer/css/menu.css': 'client/writer/less/menu.less',
-                    'client/writer/css/main.css': 'client/writer/less/main.less'
+                    'client/writer/css/base.css': 'client/writer/css/base.less'
+//                    'client/writer/css/layout.css': 'client/writer/css/layout.less',
+//                    'client/writer/css/form.css': 'client/writer/css/form.less',
+//                    'client/writer/css/button.css': 'client/writer/css/button.less',
+//                    'client/writer/css/menu.css': 'client/writer/css/menu.less',
+//                    'client/writer/css/main.css': 'client/writer/css/main.less'
                 }
             }
         },
@@ -50,7 +50,7 @@ module.exports = function (grunt) {
         },
         watch: {
             less: {
-                files: ['client/writer/less/*.less'],
+                files: ['client/writer/css/*.less'],
                 tasks: ['less']
             }
         },

@@ -5,42 +5,12 @@
  */
 
 define([
-    'mongoose'
-], function (mongoose) {
+    'mongoose',
+    'server/schemas/User'
+], function (mongoose, UserSchema) {
     'use strict';
 
-    var Schema = mongoose.Schema;
+    var User = mongoose.model('User', UserSchema);
 
-    // Define User schema
-    var userSchema = new Schema({
-        id: String,
-        email: String,
-        name: String,
-        salt: String,
-        password: String
-    });
-
-    userSchema.index({id: 1}, {unique: true});
-    userSchema.index({name: 1}, {unique: true});
-
-    var User = mongoose.model('User', userSchema);
-
-    User.update({
-        name: 'Justin'
-    }, {
-        email: 'Fang'
-    });
-
-//    var user = new User({
-//        id: 'asdasdas34324',
-//        email: 'justin@oglen.net',
-//        name: 'Justin'
-//    });
-//
-//    user.save(function (err) {
-//        if (err)
-//            console.log('meow');
-//    });
-
-
+    return User;
 });

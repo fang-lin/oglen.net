@@ -6,19 +6,20 @@
 require('requirejs')([
 
     'config', // Project configuration.
-    'server/routers/index',
+    'server/routers/all',
     'express', // Web application framework for node.
+    'body-parser', // Node.js body parsing middleware.
     'mongoose', // Elegant mongodb object modeling for node.js.
     'log4js', // Port of Log4js to work with node.
     'morgan', // Logging middleware for node.js http apps.
     'compression', // Node.js compression middleware.
     'errorhandler' // Create new middleware to handle errors and respond with content negotiation.
 
-], function (config, routers, express, mongoose, log4js, morgan, compress, errorhandler) {
+], function (config, router, express, bodyParser, mongoose, log4js, morgan, compress, errorhandler) {
     'use strict';
 
     var app = express(),
-        logger = log4js.getLogger('server'); // TRACE, DEBUG, INFO, WARN, ERROR, FATAL
+        logger = log4js.getLogger('app'); // TRACE, DEBUG, INFO, WARN, ERROR, FATAL
 
     mongoose.connect('mongodb://localhost/oglen-db');
 
@@ -29,7 +30,8 @@ require('requirejs')([
         app.use(morgan('short'));
         app.use(errorhandler());
         app.use(express.static('client'));
-        app.use('/rest', routers);
+        app.use(bodyParser.json());
+        app.use('/rest', router);
 
         logger.setLevel('TRACE');
 
@@ -40,7 +42,8 @@ require('requirejs')([
         app.use(morgan('short'));
         app.use(errorhandler());
         app.use(express.static('client'));
-        app.use('/rest', routers);
+        app.use(bodyParser.json());
+        app.use('/rest', router);
 
         logger.setLevel('INFO');
 

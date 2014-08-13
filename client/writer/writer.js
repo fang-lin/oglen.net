@@ -11,9 +11,6 @@ require([
     require([
         'bootstrap',
         'angular',
-        'angular-route',
-        'angular-animate',
-        'angular-translate',
         'app'
     ], function () {
 

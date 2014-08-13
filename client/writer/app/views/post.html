@@ -1,1 +1,76 @@
-<textarea id="editor" name="editor"></textarea>
+<h2>Post</h2>
+<form action="../rest/post" method="post">
+    <ul>
+        <li>
+            <label for="_id">_id</label>
+            <br/>
+            <input type="text" id="_id" name="_id" ng-model="post._id"/>
+        </li>
+        <li>
+            <label for="title">title</label>
+            <br/>
+            <input type="text" id="title" name="title" ng-model="post.title"/>
+        </li>
+        <li>
+
+            <label for="abstract">abstract</label>
+            <br/>
+            <input type="text" id="abstract" name="abstract" ng-model="post.abstract"/>
+
+        </li>
+        <li>
+            <label for="author">author</label>
+            <br/>
+            <input type="text" id="author" name="author" ng-model="post.author"/>
+
+        </li>
+        <li>
+            <label for="tags">tags</label>
+            <br/>
+            <input type="text" id="tags" name="tags" ng-model="post.tags"/>
+
+        </li>
+        <li>
+            <label for="publish">publish</label>
+            <br/>
+            <input type="text" id="publish" name="publish" ng-model="post.publish"/>
+        </li>
+        <li>
+            <label for="hidden">hidden</label>
+            <br/>
+            <input type="text" id="hidden" name="hidden" ng-model="post.hidden"/>
+        </li>
+        <li>
+            <label for="clicks">clicks</label>
+            <br/>
+            <input type="text" id="clicks" name="clicks" ng-model="post.clicks"/>
+        </li>
+        <li>
+            <label for="createAt">createAt</label>
+            <br/>
+            <input type="text" id="createAt" name="createAt" ng-model="post.createAt"/>
+        </li>
+        <li>
+            <label for="updateAt">updateAt</label>
+            <br/>
+            <input type="text" id="updateAt" name="updateAt" ng-model="post.updateAt"/>
+        </li>
+        <li>
+            <label for="body">body</label>
+            <br/>
+            <textarea id="body" name="body" ng-model="post.body"></textarea>
+        </li>
+        <li>
+            <input type="submit" value="save" ng-click="submit()"/>
+        </li>
+    </ul>
+</form>
+
+
+
+
+
+
+
+
+

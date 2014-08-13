@@ -4,17 +4,12 @@
  */
 
 define([
-    'mongoose'
-], function (mongoose) {
+    'mongoose',
+    'server/schemas/Post'
+], function (mongoose, PostSchema) {
     'use strict';
 
-    var Schema = mongoose.Schema;
+    var Post = mongoose.model('Post', PostSchema);
 
-    // Define User schema
-    var PostSchema = new Schema({
-
-    });
-
-    var User = mongoose.model('User', PostSchema);
-
+    return Post;
 });

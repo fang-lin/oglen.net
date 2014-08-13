@@ -4,26 +4,28 @@
  */
 
 define([
-    'server/models/User'
-], function (User) {
+    'server/models/Tag'
+], function (Tag) {
 
-    var userRouter = function (router, logger) {
+    var tagRouter = function (router, logger) {
+
         router
-            .route('/user')
+            .route('/tag')
             .post(function (req, res, next) {
-                var user = new User(req.body);
-                
-                user.save(function (err, product, numberAffected) {
+
+                var tag = new Tag(req.body);
+
+                tag.save(function (err, product, numberAffected) {
                     if (err) {
                         logger.error(err);
                         res.status(500).json({status: 'failure'});
                     } else {
-                        res.json(user);
+                        res.json(tag);
                     }
                 });
             });
     };
 
-    return userRouter;
-
+    return tagRouter;
 });
+

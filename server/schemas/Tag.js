@@ -15,7 +15,10 @@ define([
                 type: String,
                 index: true
             },
-            count: Number
+            count: {
+                type: Number,
+                default: 0
+            }
         });
 
     return TagSchema;

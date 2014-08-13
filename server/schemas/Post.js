@@ -19,7 +19,7 @@ define([
             },
             abstract: String,
             author: {
-                type: String,
+                type: ObjectId,
                 ref: 'User'
             },
             body: {
@@ -42,9 +42,18 @@ define([
                 type: Date,
                 default: Now
             },
-            clicks: Number,
-            hidden: Boolean,
-            publish: Boolean
+            clicks: {
+                type: Number,
+                default: 0
+            },
+            hidden: {
+                type: Boolean,
+                default: false
+            },
+            publish: {
+                type: Boolean,
+                default: false
+            }
         });
 
     return PostSchema;

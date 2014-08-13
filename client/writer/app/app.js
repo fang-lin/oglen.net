@@ -6,11 +6,14 @@
 define([
     'config',
     'angular',
+    'angular-route',
+    'angular-animate',
+    'angular-translate',
     'routes/routes',
-    'controllers/collector',
-    'directives/collector',
+    'controllers/all',
+    'directives/all',
     'filters/filters',
-    'services/collector'
+    'services/all'
 ], function (config) {
 
     var name = config.name;
@@ -25,16 +28,12 @@ define([
             name + '.services'
     ]).run([
         '$rootScope',
-        'mainNav',
+        'mainMenu',
         'siteConfig',
-        function ($rootScope, mainNav, siteConfig) {
+        function ($rootScope, mainMenu, siteConfig) {
 
-            $rootScope.mainNav = mainNav;
-            $rootScope.title = siteConfig.title;
-            $rootScope.description = siteConfig.description;
-            $rootScope.keywords = siteConfig.keywords;
-            $rootScope.generator = siteConfig.generator;
-            $rootScope.version = siteConfig.version;
+            $rootScope.mainMenu = mainMenu;
+            $rootScope.siteConfig = siteConfig;
 
         }
     ]);
