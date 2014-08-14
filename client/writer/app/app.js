@@ -17,25 +17,26 @@ define([
     'constants/all'
 ], function (config) {
 
-    var name = config.name,
-        app = angular.module(name, [
-            'ngRoute',
-            'ngAnimate',
-                name + '.routes',
-                name + '.controllers',
-                name + '.directives',
-                name + '.filters',
-                name + '.resources',
-                name + '.constants'
-        ]).run([
-            '$rootScope',
-            'Menu',
-            'Info',
-            function ($rootScope, Menu, Info) {
+    var name = config.name;
 
-                $rootScope.Menu = Menu;
-                $rootScope.Info = Info;
+    angular.module(name, [
+        'ngRoute',
+        'ngAnimate',
+            name + '.routes',
+            name + '.controllers',
+            name + '.directives',
+            name + '.filters',
+            name + '.resources',
+            name + '.constants'
+    ]).run([
+        '$rootScope',
+        'Menu',
+        'Info',
+        function ($rootScope, Menu, Info) {
 
-            }
-        ]);
+            $rootScope.menu = Menu;
+            $rootScope.info = Info;
+
+        }
+    ]);
 });
