@@ -1,7 +1,7 @@
 logs/*
 npm-debug.log
 node_modules/
-client/bowers/
+client/lib/
 dist/
 .DS_Store
 .idea

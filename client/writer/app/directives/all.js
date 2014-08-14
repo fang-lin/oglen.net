@@ -4,7 +4,7 @@
  */
 
 define([
-    'config',
+    'app-config',
     'directives/ogMenu',
     'directives/ogDialog',
     'directives/ogDropdown',

@@ -4,7 +4,7 @@
  */
 
 define([
-    'config',
+    'app-config',
     'resources/Post',
     'resources/Posts',
     'resources/Tag',

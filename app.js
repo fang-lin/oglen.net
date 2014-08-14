@@ -15,53 +15,59 @@ require('requirejs')([
     'compression', // Node.js compression middleware.
     'errorhandler' // Create new middleware to handle errors and respond with content negotiation.
 
-], function (config, router, express, bodyParser, mongoose, log4js, morgan, compress, errorhandler) {
+], function (config, router, express, bodyParser, mongoose, log4js, morgan, compression, errorhandler) {
     'use strict';
 
-    var app = express(),
-        logger = log4js.getLogger('app'); // TRACE, DEBUG, INFO, WARN, ERROR, FATAL
+    // TRACE, DEBUG, INFO, WARN, ERROR, FATAL
+    var logger = log4js.getLogger('app'),
+        app = express();
 
-    mongoose.connect('mongodb://localhost/oglen-db');
+    switch (config.env()) {
+        case 'debug':
 
-    if (config.env('debug')) {
+            logger.setLevel('TRACE');
 
-        // Development mode
+            app.use(morgan('short'));
+            app.use(errorhandler());
+            app.use(express.static('client'));
 
-        app.use(morgan('short'));
-        app.use(errorhandler());
-        app.use(express.static('client'));
-        app.use(bodyParser.json());
-        app.use('/rest', router);
+            break;
+        case 'development':
 
-        logger.setLevel('TRACE');
+            logger.setLevel('INFO');
 
-    } else if (config.env('development')) {
+            app.use(morgan('short'));
+            app.use(errorhandler());
+            app.use(express.static('client'));
 
-        // Development mode
+            break;
+        case 'production':
 
-        app.use(morgan('short'));
-        app.use(errorhandler());
-        app.use(express.static('client'));
-        app.use(bodyParser.json());
-        app.use('/rest', router);
+            logger.setLevel('ERROR');
 
-        logger.setLevel('INFO');
+            app.use(compression());
+            app.use(express.static('dist'));
 
-    } else if (config.env('production')) {
+            break;
 
-        // Production mode
+        default :
 
-        app.use(compress());
-        app.use(express.static('dist'));
+            logger.setLevel('WARN');
+            app.use(express.static('client'));
 
-        logger.setLevel('ERROR');
-
+            break;
     }
 
-    // Start Listening
+    app.use(bodyParser.json());
+    app.use('/rest', router);
 
-    app.listen(config.port) &&
-    logger.info('Http server listening on port ' + config.port);
+    var port = config.port();
+    app.listen(port);
+    logger.info('Http server listening on port ' + port);
+
+    var mongooseLink = config.mongooseLink();
+    mongoose.connect(mongooseLink);
+    logger.info('Mongoose connect to ' + mongooseLink);
 
 });
 

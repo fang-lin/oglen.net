@@ -15,14 +15,6 @@ define(function () {
             );
     };
 
-    // Database
-    var db = {
-        connect: 'mongodb://localhost/',
-        port: 27017,
-        collection: '',
-        auth: ''
-    };
-
     // Cache
     var cache = {
         enable: false,
@@ -32,22 +24,31 @@ define(function () {
     };
 
     // Express listening on port
-    var port = process.env.PORT || 8000;
+    var ports = {
+            debug: 8000,
+            development: 8000,
+            production: 80,
+            default: 80
+        },
+        port = function () {
+            return  process.env.PORT || ports[env()] || ports.default;
+        };
 
-    if (env('development')) {
-
-        db.connect = 'mongodb://localhost/test';
-
-    } else {
-
-        cache.enable = false;
-    }
+    // mongoose connect link
+    var mongooseLinks = {
+            debug: 'mongodb://localhost/oglen-db',
+            development: 'mongodb://localhost/oglen-db',
+            production: 'mongodb://localhost/oglen-db',
+            default: 'mongodb://localhost/oglen-db'
+        },
+        mongooseLink = function () {
+            return mongooseLinks[env()] || mongooseLinks.default;
+        };
 
     return {
         env: env,
-        db: db,
-        cache: cache,
-        port: port
+        port: port,
+        mongooseLink: mongooseLink
     };
 });
 

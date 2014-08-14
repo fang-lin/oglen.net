@@ -4,7 +4,7 @@
  */
 
 define([
-    'config',
+    'app-config',
     'constants/Menu',
     'constants/Info',
     'angular'

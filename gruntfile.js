@@ -5,7 +5,7 @@ module.exports = function (grunt) {
         pkg: grunt.file.readJSON('package.json'),
 
         // region clean
-        clean: ['dist', 'client/writer/css'],
+        clean: ['dist'],
         // endregion clean
 
         // region copy
@@ -22,7 +22,7 @@ module.exports = function (grunt) {
                     {expand: true, flatten: true, src: ['client/writer/app/templates/*'], dest: 'dist/writer/app/templates/', filter: 'isFile'},
                     {expand: true, flatten: true, src: ['client/writer/images/*'], dest: 'dist/writer/images/*', filter: 'isFile'},
 
-                    {src: 'client/bowers/requirejs/require.js', dest: 'dist/libs/requirejs/require.js'}
+                    {src: 'client/lib/requirejs/require.js', dest: 'dist/lib/requirejs/require.js'}
                 ]
             }
         },
@@ -48,6 +48,18 @@ module.exports = function (grunt) {
                 dest: 'build/<%= pkg.name %>.min.js'
             }
         },
+
+        requirejs: {
+            compile: {
+                options: {
+                    baseUrl: './client/',
+                    name: 'writer/init',
+                    mainConfigFile: 'client/writer/config-build.js',
+                    out: 'dist/writer/init.js',
+                    findNestedDependencies: true
+                }
+            }
+        },
         watch: {
             less: {
                 files: ['client/writer/css/*.less'],
@@ -61,19 +73,12 @@ module.exports = function (grunt) {
         shell: {
 
         },
+        // region bower
         bower: {
             install: {
-                options: {
-                    targetDir: './client/vendor',
-                    layout: 'byComponent',
-                    install: true,
-                    verbose: false,
-                    cleanTargetDir: false,
-                    cleanBowerDir: false,
-                    bowerOptions: {}
-                }
             }
         }
+        // endregion bower
     });
 
     // Load npm tasks
@@ -81,6 +86,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -93,5 +99,5 @@ module.exports = function (grunt) {
     // Register grunt tasks
     grunt.registerTask('default', ['uglify']);
     grunt.registerTask('developing', ['watch:less']);
-    grunt.registerTask('build', ['bower', 'clean', 'less', 'copy']);
+    grunt.registerTask('build', ['bower', 'clean', 'less', 'copy', 'requirejs']);
 };

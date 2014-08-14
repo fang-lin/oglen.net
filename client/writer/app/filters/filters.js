@@ -4,7 +4,7 @@
  */
 
 define([
-    'config',
+    'app-config',
     'angular'
 ], function (config) {
     'use strict';

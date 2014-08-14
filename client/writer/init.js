@@ -4,20 +4,20 @@
  */
 
 require([
-    'config'
-], function (config) {
+    'config' // requirejs config
+], function () {
 
-    requirejs.config(config.requirejs);
     require([
-        'bootstrap',
+        'app-config',
         'angular',
         'app'
-    ], function () {
+    ], function (config) {
 
         angular.bootstrap(document, [config.name]);
 
     });
 });
+
 
 
 

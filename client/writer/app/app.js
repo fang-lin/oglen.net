@@ -4,7 +4,7 @@
  */
 
 define([
-    'config',
+    'app-config',
     'angular',
     'angular-route',
     'angular-animate',
@@ -17,26 +17,25 @@ define([
     'constants/all'
 ], function (config) {
 
-    var name = config.name;
+    var name = config.name,
+        app = angular.module(name, [
+            'ngRoute',
+            'ngAnimate',
+                name + '.routes',
+                name + '.controllers',
+                name + '.directives',
+                name + '.filters',
+                name + '.resources',
+                name + '.constants'
+        ]).run([
+            '$rootScope',
+            'Menu',
+            'Info',
+            function ($rootScope, Menu, Info) {
 
-    var app = angular.module(name, [
-        'ngRoute',
-        'ngAnimate',
-            name + '.routes',
-            name + '.controllers',
-            name + '.directives',
-            name + '.filters',
-            name + '.resources',
-            name + '.constants'
-    ]).run([
-        '$rootScope',
-        'Menu',
-        'Info',
-        function ($rootScope, Menu, Info) {
+                $rootScope.Menu = Menu;
+                $rootScope.Info = Info;
 
-            $rootScope.Menu = Menu;
-            $rootScope.Info = Info;
-
-        }
-    ]);
+            }
+        ]);
 });
