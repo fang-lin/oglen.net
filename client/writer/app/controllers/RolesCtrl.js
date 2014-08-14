@@ -10,10 +10,9 @@ define(function () {
         '$scope',
         '$route',
         '$location',
-        'Users',
-        function ($rootScope, $scope, $route, $location, Users) {
+        'Roles',
+        function ($rootScope, $scope, $route, $location, Roles) {
 
-            $scope.users = Users.query();
-
+            $scope.roles = Roles.query();
         }];
 });

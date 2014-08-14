@@ -15,14 +15,18 @@ define([
         DraftSchema = new Schema({
             post: {
                 type: ObjectId,
-                index: true
+                index: true,
+                required: true
             },
             text: String,
             saveAt: {
                 type: Date,
                 default: Now
             },
-            flag: String
+            flag: {
+                type: String,
+                enum: ['birth', 'auto', 'hand']
+            }
         });
 
     return DraftSchema;

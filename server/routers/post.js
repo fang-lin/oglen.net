@@ -37,7 +37,7 @@ define([
                         var draft = new Draft({
                             post: post._id,
                             text: form.body,
-                            flag: 'draft'
+                            flag: 'birth'
                         });
 
                         draft.save(function (err, product, numberAffected) {

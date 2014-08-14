@@ -15,14 +15,16 @@ define([
         PostSchema = new Schema({
             title: {
                 type: String,
-                index: true
+                index: true,
+                required: true
             },
             abstract: String,
             author: {
                 type: ObjectId,
-                ref: 'User'
+                ref: 'User',
+                required: true
             },
-            body: {
+            draft: {
                 type: ObjectId,
                 ref: 'Draft'
             },
@@ -32,12 +34,6 @@ define([
                     ref: 'Tag'
                 }
             ],
-//            comments: [
-//                {
-//                    type: Schema.Types.ObjectId,
-//                    ref: 'Comment'
-//                }
-//            ],
             createAt: {
                 type: Date,
                 default: Now
@@ -46,11 +42,20 @@ define([
                 type: Number,
                 default: 0
             },
+            password: String,
             hidden: {
                 type: Boolean,
                 default: false
             },
+            isPage: {
+                type: Boolean,
+                default: false
+            },
             publish: {
+                type: Boolean,
+                default: false
+            },
+            removed: {
                 type: Boolean,
                 default: false
             }

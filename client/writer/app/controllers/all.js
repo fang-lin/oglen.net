@@ -6,26 +6,34 @@
 define([
     'config',
     'controllers/DashboardCtrl',
-    'controllers/PostsCtrl',
     'controllers/PostCtrl',
-    'controllers/TagsCtrl',
+    'controllers/PostsCtrl',
     'controllers/TagCtrl',
+    'controllers/TagsCtrl',
+    'controllers/CommentCtrl',
     'controllers/CommentsCtrl',
-    'controllers/UsersCtrl',
     'controllers/UserCtrl',
+    'controllers/UsersCtrl',
+    'controllers/RoleCtrl',
+    'controllers/RolesCtrl',
+    'controllers/SettingCtrl',
     'controllers/SettingsCtrl',
     'angular'
-], function (config, DashboardCtrl, PostsCtrl, PostCtrl, TagsCtrl, TagCtrl, CommentsCtrl, UsersCtrl, UserCtrl, SettingsCtrl) {
+], function (config, DashboardCtrl, PostCtrl, PostsCtrl, TagCtrl, TagsCtrl, CommentCtrl, CommentsCtrl, UserCtrl, UsersCtrl, RoleCtrl, RolesCtrl, SettingCtrl, SettingsCtrl) {
 
     var controllers = angular.module(config.name + '.controllers', [])
         .controller('DashboardCtrl', DashboardCtrl)
-        .controller('PostsCtrl', PostsCtrl)
         .controller('PostCtrl', PostCtrl)
-        .controller('TagsCtrl', TagsCtrl)
+        .controller('PostsCtrl', PostsCtrl)
         .controller('TagCtrl', TagCtrl)
+        .controller('TagsCtrl', TagsCtrl)
+        .controller('CommentCtrl', CommentsCtrl)
         .controller('CommentsCtrl', CommentsCtrl)
-        .controller('UsersCtrl', UsersCtrl)
         .controller('UserCtrl', UserCtrl)
+        .controller('UsersCtrl', UsersCtrl)
+        .controller('RoleCtrl', RoleCtrl)
+        .controller('RolesCtrl', RolesCtrl)
+        .controller('SettingCtrl', SettingCtrl)
         .controller('SettingsCtrl', SettingsCtrl);
 
     return controllers;

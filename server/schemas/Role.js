@@ -9,18 +9,19 @@ define([
     'use strict';
 
     var Schema = mongoose.Schema,
+        ObjectId = Schema.Types.ObjectId,
+        Now = Date.now,
 
-        TagSchema = new Schema({
+        RoleSchema = new Schema({
             name: {
                 type: String,
+                unique: true,
                 index: true,
                 required: true
             },
-            count: {
-                type: Number,
-                default: 0
-            }
+            privilege: Array,
+            note: String
         });
 
-    return TagSchema;
+    return RoleSchema;
 });

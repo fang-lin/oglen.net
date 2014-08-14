@@ -13,8 +13,12 @@ define([
         '$interval',
         '$routeParams',
         'Post',
-        function ($rootScope, $scope, $interval, $routeParams, Post) {
+        'Tags',
+        function ($rootScope, $scope, $interval, $routeParams, Post, Tags) {
+
             var id = $routeParams.id;
+
+            $scope.tags = Tags.query();
 
             if (id) {
 
@@ -26,7 +30,7 @@ define([
                     title: 'Default Title',
                     abstract: 'Default Abstract',
                     author: '53eb365dc22341f81f624b39',
-                    tags: null,
+                    tags: [],
                     body: null
                 };
             }
@@ -35,14 +39,19 @@ define([
 
                 event.preventDefault();
 
-                if ($scope.post._id) {
+                var post = $scope.post;
 
-                    Post.update($scope.post, function (post) {
+                if (post._id) {
+
+                    Post.update(post, function (post) {
                         $scope.post = post;
                     });
 
                 } else {
-                    Post.save($scope.post, function (post) {
+                    post.tags = post.tags.map(function (tag) {
+                        return tag;
+                    });
+                    Post.save(post, function (post) {
                         $scope.post = post;
                     });
                 }

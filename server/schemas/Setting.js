@@ -14,10 +14,11 @@ define([
             key: {
                 type: String,
                 unique: true,
-                index: true
+                index: true,
+                required: true
             },
-            name: String,
-            value: String
+            value: String,
+            note: String
         });
 
     return SettingSchema;

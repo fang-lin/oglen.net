@@ -26,7 +26,8 @@ define(function () {
                 'routes': 'app/routes',
                 'directives': 'app/directives',
                 'filters': 'app/filters',
-                'services': 'app/services'
+                'resources': 'app/resources',
+                'constants': 'app/constants'
             },
             shim: {
                 bootstrap: {

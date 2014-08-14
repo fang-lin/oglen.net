@@ -1,1 +1,13 @@
-<h1>settings</h1>
+<h2>settings</h2>
+<table>
+    <tr>
+        <th>key</th>
+        <th>value</th>
+        <th>note</th>
+    </tr>
+    <tr ng-repeat="setting in settings">
+        <td>{{setting.key}}</td>
+        <td>{{setting.value}}</td>
+        <td>{{setting.note}}</td>
+    </tr>
+</table>

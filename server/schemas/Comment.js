@@ -13,16 +13,31 @@ define([
         Now = Date.now,
 
         CommentSchema = new Schema({
-            _postId: {
+            post: {
                 type: ObjectId,
-                index: true
+                index: true,
+                required: true
             },
-            username: String,
-            email: String,
-            body: String,
-            data: {
+            username: {
+                type: String,
+                required: true
+            },
+            email: {
+                type: String,
+                required: true
+            },
+            text: String,
+            createAt: {
                 type: Date,
                 default: Now
+            },
+            clientIp: {
+                type: String,
+                default: '0.0.0.0'
+            },
+            removed: {
+                type: Boolean,
+                default: false
             }
         });
 

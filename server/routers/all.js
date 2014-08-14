@@ -8,12 +8,17 @@ define([
     '../../config', // Project configuration.
     'log4js',
     'express',
-    'server/routers/posts',
     'server/routers/post',
-    'server/routers/tags',
+    'server/routers/posts',
     'server/routers/tag',
-    'server/routers/user'
-], function (config, log4js, express, postsRouter, postRouter, tagsRouter, tagRouter, userRouter) {
+    'server/routers/tags',
+    'server/routers/user',
+    'server/routers/users',
+    'server/routers/role',
+    'server/routers/roles',
+    'server/routers/setting',
+    'server/routers/settings'
+], function (config, log4js, express, postRouter, postsRouter, tagRouter, tagsRouter, userRouter, usersRouter, roleRouter, rolesRouter, roleSetting, roleSettings) {
     'use strict';
 
     var logger = log4js.getLogger('router'); // TRACE, DEBUG, INFO, WARN, ERROR, FATAL
@@ -21,11 +26,16 @@ define([
 
     var router = express.Router();
 
-    postsRouter(router, logger);
     postRouter(router, logger);
-    tagsRouter(router, logger);
+    postsRouter(router, logger);
     tagRouter(router, logger);
+    tagsRouter(router, logger);
     userRouter(router, logger);
+    usersRouter(router, logger);
+    roleRouter(router, logger);
+    rolesRouter(router, logger);
+    roleSetting(router, logger);
+    roleSettings(router, logger);
 
     return router;
 });

@@ -10,17 +10,14 @@ define(function () {
         '$scope',
         '$route',
         '$location',
-        'Tag',
-        function ($rootScope, $scope, $route, $location, Tag) {
+        'Role',
+        function ($rootScope, $scope, $route, $location, Role) {
 
-            $scope.tag = {};
+            $scope.role = {};
 
             $scope.submit = function () {
                 event.preventDefault();
-
-                Tag.save($scope.tag, function (tag) {
-                    $scope.tag = tag;
-                });
-            };
+                Role.save($scope.role);
+            }
         }];
 });

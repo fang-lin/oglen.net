@@ -5,9 +5,15 @@
 
 define(function () {
 
-    return ['$rootScope', '$scope', '$route', '$location', 'Posts', function ($rootScope, $scope, $route, $location, Posts) {
+    return [
+        '$rootScope',
+        '$scope',
+        '$route',
+        '$location',
+        'Posts',
+        function ($rootScope, $scope, $route, $location, Posts) {
 
-        $scope.posts = Posts.query();
+            $scope.posts = Posts.query();
 
-    }];
+        }];
 });

@@ -24,7 +24,7 @@ define(function () {
                     url: '#/posts'
                 },
                 {
-                    name: 'Add Post',
+                    name: 'Post',
                     url: '#/post/'
                 },
                 {
@@ -32,7 +32,7 @@ define(function () {
                     url: '#/tags'
                 },
                 {
-                    name: 'Add Tag',
+                    name: 'Tag',
                     url: '#/tag'
                 }
             ]
@@ -44,6 +44,10 @@ define(function () {
                 {
                     name: 'Comments List',
                     url: '#/comments'
+                },
+                {
+                    name: 'Comment',
+                    url: '#/comment'
                 }
             ]
         },
@@ -56,8 +60,16 @@ define(function () {
                     url: '#/users'
                 },
                 {
-                    name: 'Add User',
+                    name: 'User',
                     url: '#/user'
+                },
+                {
+                    name: 'Role List',
+                    url: '#/roles'
+                },
+                {
+                    name: 'Role',
+                    url: '#/role'
                 }
             ]
         },
@@ -66,8 +78,12 @@ define(function () {
             url: null,
             children: [
                 {
-                    name: 'Options',
-                    url: '#/options'
+                    name: 'Settings List',
+                    url: '#/settings'
+                },
+                {
+                    name: 'Setting',
+                    url: '#/setting'
                 }
             ]
         }

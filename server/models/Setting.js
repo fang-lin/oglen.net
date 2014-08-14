@@ -6,7 +6,7 @@
 define([
     'mongoose',
     'server/schemas/Setting'
-], function (mongoose,SettingSchema) {
+], function (mongoose, SettingSchema) {
     'use strict';
 
     var Setting = mongoose.model('Setting', SettingSchema);

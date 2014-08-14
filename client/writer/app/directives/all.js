@@ -5,14 +5,14 @@
 
 define([
     'config',
-    'directives/ogMainNav',
+    'directives/ogMenu',
     'directives/ogDialog',
     'directives/ogDropdown',
     'angular'
-], function (config, ogMainNav, ogDialog, ogDropdown) {
+], function (config, ogMenu, ogDialog, ogDropdown) {
 
     var directives = angular.module(config.name + '.directives', [])
-        .directive('ogMainNav', ogMainNav)
+        .directive('ogMenu', ogMenu)
         .directive('ogDialog', ogDialog)
         .directive('ogDropdown', ogDropdown);
 

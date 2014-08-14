@@ -13,7 +13,8 @@ define([
     'controllers/all',
     'directives/all',
     'filters/filters',
-    'services/all'
+    'resources/all',
+    'constants/all'
 ], function (config) {
 
     var name = config.name;
@@ -25,15 +26,16 @@ define([
             name + '.controllers',
             name + '.directives',
             name + '.filters',
-            name + '.services'
+            name + '.resources',
+            name + '.constants'
     ]).run([
         '$rootScope',
-        'mainMenu',
-        'siteConfig',
-        function ($rootScope, mainMenu, siteConfig) {
+        'Menu',
+        'Info',
+        function ($rootScope, Menu, Info) {
 
-            $rootScope.mainMenu = mainMenu;
-            $rootScope.siteConfig = siteConfig;
+            $rootScope.Menu = Menu;
+            $rootScope.Info = Info;
 
         }
     ]);

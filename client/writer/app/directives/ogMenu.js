@@ -11,9 +11,9 @@ define(function () {
 
             return {
                 restrict: 'A',
-                templateUrl: 'app/templates/ogMainNav.html',
+                templateUrl: 'app/templates/ogMenu.html',
                 scope: {
-                    list: '='
+                    menu: '='
                 },
                 compile: function (tEle) {
                     var contents = tEle.contents().remove(),

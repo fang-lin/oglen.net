@@ -22,11 +22,7 @@ define([
                 templateUrl: 'app/views/posts.html',
                 controller: 'PostsCtrl'
             })
-            .when('/post/:id', {
-                templateUrl: 'app/views/post.html',
-                controller: 'PostCtrl'
-            })
-            .when('/post', {
+            .when('/post/:id?', {
                 templateUrl: 'app/views/post.html',
                 controller: 'PostCtrl'
             })
@@ -34,9 +30,13 @@ define([
                 templateUrl: 'app/views/tags.html',
                 controller: 'TagsCtrl'
             })
-            .when('/tag', {
+            .when('/tag/:id?', {
                 templateUrl: 'app/views/tag.html',
                 controller: 'TagCtrl'
+            })
+            .when('/comment/:id?', {
+                templateUrl: 'app/views/comment.html',
+                controller: 'CommentCtrl'
             })
             .when('/comments', {
                 templateUrl: 'app/views/comments.html',
@@ -46,17 +46,25 @@ define([
                 templateUrl: 'app/views/users.html',
                 controller: 'UsersCtrl'
             })
-            .when('/user/:userId', {
+            .when('/user/:id?', {
                 templateUrl: 'app/views/user.html',
                 controller: 'UserCtrl'
             })
-            .when('/user', {
-                templateUrl: 'app/views/user.html',
-                controller: 'UserCtrl'
+            .when('/roles', {
+                templateUrl: 'app/views/roles.html',
+                controller: 'RolesCtrl'
+            })
+            .when('/role/:id?', {
+                templateUrl: 'app/views/role.html',
+                controller: 'RoleCtrl'
             })
             .when('/settings', {
                 templateUrl: 'app/views/settings.html',
                 controller: 'SettingsCtrl'
+            })
+            .when('/setting/:id?', {
+                templateUrl: 'app/views/setting.html',
+                controller: 'SettingCtrl'
             })
             .otherwise({
                 redirectTo: '/'

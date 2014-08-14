@@ -4,27 +4,28 @@
  */
 
 define([
-    'server/models/Setting'
-], function (Setting) {
+    'server/models/Role'
+], function (Role) {
 
-    var settingRouter = function (router, logger) {
+    var roleRouter = function (router, logger) {
 
         router
-            .route('/setting')
+            .route('/role')
             .post(function (req, res, next) {
 
-                var setting = new Setting(req.body);
+                var role = new Role(req.body);
 
-                setting.save(function (err, product, numberAffected) {
+                role.save(function (err, product, numberAffected) {
                     if (err) {
                         logger.error(err);
                         res.status(500).json({status: 'failure'});
                     } else {
-                        res.json(setting);
+                        res.json(role);
                     }
                 });
             });
     };
 
-    return settingRouter;
+    return roleRouter;
 });
+

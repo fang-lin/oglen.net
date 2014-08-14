@@ -6,14 +6,14 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "angular": "~1.2.16",
-    "angular-resource": "~1.2.16",
-    "angular-route": "~1.2.16",
-    "angular-animate": "~1.2.16",
+    "angular": "~1.2.22",
+    "angular-resource": "~1.2.22",
+    "angular-route": "~1.2.22",
+    "angular-animate": "~1.2.22",
     "angular-translate": "~2.2.0",
     "requirejs": "~2.1.14",
     "jquery": "~2.1.1",
     "underscore": "~1.6.0",
-    "d3": "~3.4.8"
+    "d3": "~3.4.11"
   }
 }

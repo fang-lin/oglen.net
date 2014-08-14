@@ -5,7 +5,15 @@
 
 define(function () {
 
-    return ['$rootScope', '$scope', '$route', '$location', function ($rootScope, $scope, $route, $location) {
+    return [
+        '$rootScope',
+        '$scope',
+        '$route',
+        '$location',
+        'Settings',
+        function ($rootScope, $scope, $route, $location, Settings) {
 
-    }];
+            $scope.settings = Settings.query();
+
+        }];
 });

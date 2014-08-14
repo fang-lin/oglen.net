@@ -3,17 +3,17 @@
 <head lang="en">
     <meta charset="UTF-8">
 
-    <meta name="description" content="{{siteConfig.description}}"/>
-    <meta name="keywords" content="{{siteConfig.keywords}}"/>
-    <meta name="generator" content="{{siteConfig.generator}}"/>
-    <meta name="version" content="{{siteConfig.version}}"/>
+    <meta name="description" content="{{Info.description}}"/>
+    <meta name="keywords" content="{{Info.keywords}}"/>
+    <meta name="generator" content="{{Info.generator}}"/>
+    <meta name="version" content="{{Info.version}}"/>
 
     <link rel="stylesheet" href="css/base.css"/>
 
     <title ng-bind="title">oglen.net</title>
 </head>
 <body>
-<div og-main-nav list="mainMenu"></div>
+<div og-menu menu="Menu"></div>
 <div ng-view>
 </div>
 

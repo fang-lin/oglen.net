@@ -1,5 +1,5 @@
 <h2>Post</h2>
-<form action="../rest/post" method="post">
+<form>
     <ul>
         <li>
             <label for="_id">_id</label>
@@ -12,7 +12,16 @@
             <input type="text" id="title" name="title" ng-model="post.title"/>
         </li>
         <li>
-
+            <label for="tags">tags</label>
+            <br/>
+            <ul id="tags">
+                <li ng-repeat="tag in tags">
+                    <label for="tags-{{tag.name}}" ng-bind="tag.name"></label>
+                    <input type="checkbox" name="tags" id="tags-{{tag.name}}" ng-model="post.tags[$index]" ng-true-value="{{tag._id}}"/>
+                </li>
+            </ul>
+        </li>
+        <li>
             <label for="abstract">abstract</label>
             <br/>
             <input type="text" id="abstract" name="abstract" ng-model="post.abstract"/>
@@ -22,12 +31,6 @@
             <label for="author">author</label>
             <br/>
             <input type="text" id="author" name="author" ng-model="post.author"/>
-
-        </li>
-        <li>
-            <label for="tags">tags</label>
-            <br/>
-            <input type="text" id="tags" name="tags" ng-model="post.tags"/>
 
         </li>
         <li>

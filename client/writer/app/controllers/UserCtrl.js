@@ -11,9 +11,11 @@ define(function () {
         '$route',
         '$location',
         'User',
-        function ($rootScope, $scope, $route, $location, User) {
+        'Roles',
+        function ($rootScope, $scope, $route, $location, User, Roles) {
 
             $scope.user = {};
+            $scope.roles = Roles.query();
 
             $scope.submit = function () {
                 event.preventDefault();
