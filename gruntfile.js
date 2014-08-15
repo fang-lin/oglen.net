@@ -31,7 +31,7 @@ module.exports = function (grunt) {
         jshint: {
         },
         less: {
-            compile: {
+            development: {
                 files: {
                     'client/writer/css/base.css': 'client/writer/css/base.less'
 //                    'client/writer/css/layout.css': 'client/writer/css/layout.less',

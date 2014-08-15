@@ -10,7 +10,7 @@ define(function () {
         function ($compile) {
 
             return {
-                restrict: 'A',
+                restrict: 'E',
                 templateUrl: 'app/templates/ogMenu.html',
                 scope: {
                     menu: '='

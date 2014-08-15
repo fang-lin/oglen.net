@@ -12,9 +12,10 @@ define([
         '$scope',
         '$interval',
         '$routeParams',
+        '$location',
         'Post',
         'Tags',
-        function ($rootScope, $scope, $interval, $routeParams, Post, Tags) {
+        function ($rootScope, $scope, $interval, $routeParams, $location, Post, Tags) {
 
             var id = $routeParams.id;
 
@@ -53,6 +54,9 @@ define([
                     });
                     Post.save(post, function (post) {
                         $scope.post = post;
+
+//                        $location.path($location.path() + post._id, false);
+
                     });
                 }
             }

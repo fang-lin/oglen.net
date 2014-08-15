@@ -3,3 +3,20 @@ body {
   padding: 0;
   font: 12px/18px "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif;
 }
+#menu > ul {
+  float: left;
+  width: 140px;
+}
+#menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+#menu:after {
+  content: ' ';
+  display: block;
+  height: 0px;
+  font-size: 0px;
+  line-height: 0px;
+  clear: both;
+}
