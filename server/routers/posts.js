@@ -8,16 +8,14 @@ define([
     'server/models/Draft'
 ], function (Post, Draft) {
 
-    var postsRouter = function (router, logger) {
-
+    var postsRouter = function (router, util) {
         router
             .route('/posts')
             .get(function (req, res, next) {
-
                 Post
                     .find()
                     .populate({
-                        path: 'body',
+                        path: 'draft',
                         select: '_id post text saveAt flag'
                     })
                     .populate({
@@ -25,16 +23,9 @@ define([
                         select: '_id name count'
                     })
                     .exec(function (err, docs) {
-
-                        if (err) {
-
-                            logger.error(err);
-                            res.status(500).json({status: 'failure'});
-
-                        } else {
-
+                        util.suit(err, function () {
                             res.json(docs);
-                        }
+                        });
                     });
             })
     };

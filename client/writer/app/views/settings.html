@@ -4,10 +4,12 @@
         <th>key</th>
         <th>value</th>
         <th>note</th>
+        <th>operate</th>
     </tr>
     <tr ng-repeat="setting in settings">
         <td>{{setting.key}}</td>
         <td>{{setting.value}}</td>
         <td>{{setting.note}}</td>
+        <td><a ng-href="#/setting/{{setting._id}}">edit</a></td>
     </tr>
 </table>

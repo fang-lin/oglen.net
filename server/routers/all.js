@@ -26,16 +26,28 @@ define([
 
     var router = express.Router();
 
-    postRouter(router, logger);
-    postsRouter(router, logger);
-    tagRouter(router, logger);
-    tagsRouter(router, logger);
-    userRouter(router, logger);
-    usersRouter(router, logger);
-    roleRouter(router, logger);
-    rolesRouter(router, logger);
-    roleSetting(router, logger);
-    roleSettings(router, logger);
+    var util = {
+        suit: function (err, callback) {
+            if (err) {
+                logger.error(err);
+                res.status(500).json({status: 'failure'});
+            } else {
+                callback(logger);
+            }
+        }
+    };
+
+
+    postRouter(router, util);
+    postsRouter(router, util);
+    tagRouter(router, util);
+    tagsRouter(router, util);
+    userRouter(router, util);
+    usersRouter(router, util);
+    roleRouter(router, util);
+    rolesRouter(router, util);
+    roleSetting(router, util);
+    roleSettings(router, util);
 
     return router;
 });

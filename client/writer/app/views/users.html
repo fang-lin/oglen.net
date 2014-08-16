@@ -9,6 +9,7 @@
         <th>loginAt</th>
         <th>clientIp</th>
         <th>password</th>
+        <th>operate</th>
     </tr>
     <tr ng-repeat="user in users">
         <td>{{user._id}}</td>
@@ -19,5 +20,6 @@
         <td>{{user.loginAt}}</td>
         <td>{{user.clientIp}}</td>
         <td>{{user.password}}</td>
+        <td><a ng-href="#/user/{{user._id}}">edit</a></td>
     </tr>
 </table>

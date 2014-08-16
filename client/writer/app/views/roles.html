@@ -4,10 +4,12 @@
         <th>name</th>
         <th>privilege</th>
         <th>note</th>
+        <th>operate</th>
     </tr>
     <tr ng-repeat="role in roles">
         <td>{{role.name}}</td>
         <td>{{role.privilege}}</td>
         <td>{{role.note}}</td>
+        <td><a ng-href="#/role/{{role._id}}">edit</a></td>
     </tr>
 </table>

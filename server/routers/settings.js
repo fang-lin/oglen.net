@@ -7,23 +7,14 @@ define([
     'server/models/Setting'
 ], function (Setting) {
 
-    var settingsRouter = function (router, logger) {
-
+    var settingsRouter = function (router, util) {
         router
             .route('/settings')
             .get(function (req, res, next) {
-
                 Setting.find(function (err, docs) {
-
-                    if (err) {
-
-                        logger.error(err);
-                        res.status(500).json({status: 'failure'});
-
-                    } else {
-
+                    util.suit(err, function () {
                         res.json(docs);
-                    }
+                    });
                 });
             });
     };

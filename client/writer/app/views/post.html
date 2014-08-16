@@ -2,11 +2,6 @@
 <form>
     <ul>
         <li>
-            <label for="_id">_id</label>
-            <br/>
-            <input type="text" id="_id" name="_id" ng-model="post._id"/>
-        </li>
-        <li>
             <label for="title">title</label>
             <br/>
             <input type="text" id="title" name="title" ng-model="post.title"/>
@@ -54,14 +49,14 @@
             <input type="text" id="createAt" name="createAt" ng-model="post.createAt"/>
         </li>
         <li>
-            <label for="updateAt">updateAt</label>
+            <label for="draft.saveAt">draft.saveAt</label>
             <br/>
-            <input type="text" id="updateAt" name="updateAt" ng-model="post.updateAt"/>
+            <input type="text" id="draft.saveAt" name="draft.saveAt" ng-model="post.draft.saveAt"/>
         </li>
         <li>
-            <label for="body">body</label>
+            <label for="draft.text">draft.text</label>
             <br/>
-            <textarea id="body" name="body" ng-model="post.body"></textarea>
+            <textarea id="draft.text" name="draft.text" ng-model="post.draft.text"></textarea>
         </li>
         <li>
             <input type="submit" value="save" ng-click="submit()"/>

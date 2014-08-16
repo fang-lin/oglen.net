@@ -19,7 +19,7 @@ define([
 
     var name = config.name;
 
-    angular.module(name, [
+    var app = angular.module(name, [
         'ngRoute',
         'ngAnimate',
             name + '.routes',
@@ -29,14 +29,28 @@ define([
             name + '.resources',
             name + '.constants'
     ]).run([
+        '$route',
         '$rootScope',
+        '$location',
         'Menu',
         'Info',
-        function ($rootScope, Menu, Info) {
+        function ($route, $rootScope, $location, Menu, Info) {
 
             $rootScope.menu = Menu;
             $rootScope.info = Info;
 
+            var original = $location.path;
+            // rewrite $location.path to provide change url without reload.
+            $location.path = function (path, reload) {
+                if (reload === false) {
+                    var lastRoute = $route.current;
+                    var un = $rootScope.$on('$locationChangeSuccess', function () {
+                        $route.current = lastRoute;
+                        un();
+                    });
+                }
+                return original.call($location, path);
+            };
         }
     ]);
 

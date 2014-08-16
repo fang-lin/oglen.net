@@ -7,8 +7,8 @@ define(function () {
     return ['$resource', function ($resource) {
 
         var Role = $resource('../rest/role/:id', null, {
-            'save': {method: 'POST'},
-            'update': { method: 'PUT' }
+            save: {method: 'POST'},
+            update: { method: 'PUT' }
         });
 
         return Role;

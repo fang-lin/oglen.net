@@ -7,23 +7,14 @@ define([
     'server/models/Tag'
 ], function (Tag) {
 
-    var tagsRouter = function (router, logger) {
-
+    var tagsRouter = function (router, util) {
         router
             .route('/tags')
             .get(function (req, res, next) {
-
                 Tag.find(function (err, docs) {
-
-                    if (err) {
-
-                        logger.error(err);
-                        res.status(500).json({status: 'failure'});
-
-                    } else {
-
+                    util.suit(err, function () {
                         res.json(docs);
-                    }
+                    });
                 });
             });
     };
