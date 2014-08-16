@@ -6,7 +6,7 @@
 define(function () {
     return ['$resource', function ($resource) {
 
-        var Draft = $resource('../rest/draft/:id', {id: '@id'});
+        var Draft = $resource('../rest/draft/:id');
 
 //        Draft.default = function () {
 //            return {

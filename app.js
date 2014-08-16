@@ -9,13 +9,12 @@ require('requirejs')([
     'server/routers/all',
     'express', // Web application framework for node.
     'body-parser', // Node.js body parsing middleware.
-    'mongoose', // Elegant mongodb object modeling for node.js.
-    'log4js', // Port of Log4js to work with node.
     'morgan', // Logging middleware for node.js http apps.
     'compression', // Node.js compression middleware.
-    'errorhandler' // Create new middleware to handle errors and respond with content negotiation.
-
-], function (config, router, express, bodyParser, mongoose, log4js, morgan, compression, errorhandler) {
+    'errorhandler', // Create new middleware to handle errors and respond with content negotiation.
+    'mongoose', // Elegant mongodb object modeling for node.js.
+    'log4js' // Port of Log4js to work with node.
+], function (config, router, express, bodyParser, morgan, compression, errorhandler, mongoose, log4js) {
     'use strict';
 
     // TRACE, DEBUG, INFO, WARN, ERROR, FATAL
@@ -39,6 +38,7 @@ require('requirejs')([
             app.use(morgan('short'));
             app.use(errorhandler());
             app.use(express.static('client'));
+
 
             break;
         case 'production':

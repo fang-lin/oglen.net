@@ -8,15 +8,6 @@ define(function () {
 
         var Drafts = $resource('../rest/drafts/:postId', null);
 
-        Drafts.default = function () {
-            return {
-                _postId: 'Default Title',
-                text: 'Default Text',
-                data: 'Default Data',
-                flag: 'Default Flag'
-            };
-        };
-
         return Drafts;
     }];
 });

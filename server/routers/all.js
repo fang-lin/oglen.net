@@ -10,6 +10,8 @@ define([
     'express',
     'server/routers/post',
     'server/routers/posts',
+    'server/routers/draft',
+    'server/routers/drafts',
     'server/routers/tag',
     'server/routers/tags',
     'server/routers/user',
@@ -18,7 +20,7 @@ define([
     'server/routers/roles',
     'server/routers/setting',
     'server/routers/settings'
-], function (config, log4js, express, postRouter, postsRouter, tagRouter, tagsRouter, userRouter, usersRouter, roleRouter, rolesRouter, roleSetting, roleSettings) {
+], function (config, log4js, express, postRouter, postsRouter, draftRouter, draftsRouter, tagRouter, tagsRouter, userRouter, usersRouter, roleRouter, rolesRouter, roleSetting, roleSettings) {
     'use strict';
 
     var logger = log4js.getLogger('router'); // TRACE, DEBUG, INFO, WARN, ERROR, FATAL
@@ -40,6 +42,8 @@ define([
 
     postRouter(router, util);
     postsRouter(router, util);
+    draftRouter(router, util);
+    draftsRouter(router, util);
     tagRouter(router, util);
     tagsRouter(router, util);
     userRouter(router, util);

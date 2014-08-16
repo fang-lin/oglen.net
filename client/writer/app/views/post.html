@@ -59,6 +59,15 @@
             <textarea id="draft.text" name="draft.text" ng-model="post.draft.text"></textarea>
         </li>
         <li>
+            <label for="drafts">drafts</label>
+            <br/>
+            <div id="drafts" name="drafts">
+                <ul>
+                    <li class="draft" ng-repeat="draft in drafts" ng-bind="draft.saveAt | date:'short'" ng-click="setDraft(draft._id)"></li>
+                </ul>
+            </div>
+        </li>
+        <li>
             <input type="submit" value="save" ng-click="submit()"/>
         </li>
     </ul>

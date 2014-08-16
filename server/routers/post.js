@@ -20,6 +20,10 @@ define([
                         path: 'draft',
                         select: '_id text saveAt flag'
                     })
+                    .populate({
+                        path: 'tags',
+                        select: '_id name count'
+                    })
                     .exec(function (err, docs) {
                         util.suit(err, function () {
                             res.json(docs);
@@ -27,7 +31,6 @@ define([
                     });
             })
             .post(function (req, res, next) {
-
                 var form = req.body,
 
                     post = new Post({
