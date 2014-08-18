@@ -39,6 +39,13 @@ define([
         }
     };
 
+    router
+        .route('*')
+        .get(function (req, res, next) {
+            setTimeout(function () {
+                next();
+            }, 200);
+        });
 
     postRouter(router, util);
     postsRouter(router, util);

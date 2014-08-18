@@ -9,6 +9,7 @@ require([
 
     require([
         'app-config',
+        'bootstrap',
         'angular',
         'app'
     ], function (config) {

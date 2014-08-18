@@ -51,12 +51,11 @@ define([
 
                 if ($post._id) {
                     // update existing post
-                    $scope.drafts = Drafts.query({postId: $post._id});
-
                     Post.update($post, function (post) {
                         $post.draft._id = post.draft._id;
                         $post.draft.saveAt = post.draft.saveAt;
 
+                        $scope.drafts = Drafts.query({postId: $post._id});
                         // todo: alert success.
                     });
                 } else {

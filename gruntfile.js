@@ -33,7 +33,7 @@ module.exports = function (grunt) {
         less: {
             development: {
                 files: {
-                    'client/writer/css/base.css': 'client/writer/css/base.less'
+                    'client/writer/css/all.css': 'client/writer/css/all.less'
 //                    'client/writer/css/layout.css': 'client/writer/css/layout.less',
 //                    'client/writer/css/form.css': 'client/writer/css/form.less',
 //                    'client/writer/css/button.css': 'client/writer/css/button.less',
