@@ -16,6 +16,7 @@ define([
     'resources/all',
     'constants/all'
 ], function (config) {
+    'use strict';
 
     var name = config.name;
 
@@ -34,10 +35,19 @@ define([
         '$location',
         'Menu',
         'Info',
-        function ($route, $rootScope, $location, Menu, Info) {
+        'Settings',
+        function ($route, $rootScope, $location, Menu, Info, Settings) {
 
             $rootScope.menu = Menu;
             $rootScope.info = Info;
+
+            Settings.query(function (res) {
+                var settings = {};
+                res.forEach(function (setting) {
+                    settings[setting.key] = setting.value;
+                });
+                $rootScope.settings = settings;
+            });
 
             var original = $location.path;
             // rewrite $location.path to provide change url without reload.

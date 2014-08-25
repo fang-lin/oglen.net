@@ -6,6 +6,7 @@
 define([
     'server/models/Setting'
 ], function (Setting) {
+    'use strict';
 
     var settingRouter = function (router, util) {
         router
@@ -16,7 +17,7 @@ define([
                 Setting
                     .findById(id)
                     .exec(function (err, docs) {
-                        util.suit(err, function () {
+                        router.cap(err, res, function () {
                             res.json(docs);
                         });
                     });
@@ -25,7 +26,7 @@ define([
                 var setting = new Setting(req.body);
 
                 setting.save(function (err, product, numberAffected) {
-                    util.suit(err, function () {
+                    router.cap(err, res, function () {
                         res.json(setting);
                     });
                 });
@@ -38,7 +39,7 @@ define([
                     value: form.value,
                     note: form.note
                 }, function (err, numberAffected, raw) {
-                    util.suit(err, function () {
+                    router.cap(err, res, function () {
                         res.json(form);
                     });
                 });

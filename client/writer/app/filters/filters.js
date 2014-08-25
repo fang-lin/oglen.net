@@ -13,7 +13,7 @@ define([
             function () {
                 return function (text) {
                     //将空字符转换成半角空格（\u2000），用于字符占位，修复UI上的Bug。
-                    if (text == null || text === '') {
+                    if (text === null || text === '') {
                         return '\u2000';
                     } else {
                         return text;

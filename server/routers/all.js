@@ -14,13 +14,15 @@ define([
     'server/routers/drafts',
     'server/routers/tag',
     'server/routers/tags',
+    'server/routers/comment',
+    'server/routers/comments',
     'server/routers/user',
     'server/routers/users',
     'server/routers/role',
     'server/routers/roles',
     'server/routers/setting',
     'server/routers/settings'
-], function (config, log4js, express, postRouter, postsRouter, draftRouter, draftsRouter, tagRouter, tagsRouter, userRouter, usersRouter, roleRouter, rolesRouter, roleSetting, roleSettings) {
+], function (config, log4js, express, postRouter, postsRouter, draftRouter, draftsRouter, tagRouter, tagsRouter, commentRouter, commentsRouter, userRouter, usersRouter, roleRouter, rolesRouter, roleSetting, roleSettings) {
     'use strict';
 
     var logger = log4js.getLogger('router'); // TRACE, DEBUG, INFO, WARN, ERROR, FATAL
@@ -28,37 +30,46 @@ define([
 
     var router = express.Router();
 
-    var util = {
-        suit: function (err, callback) {
-            if (err) {
-                logger.error(err);
-                res.status(500).json({status: 'failure'});
-            } else {
-                callback(logger);
-            }
+    router.cap = function (err, res, callback) {
+        if (err) {
+            logger.error(err);
+            res.status(500).json({status: 'failure'});
+        } else {
+            callback(logger);
         }
     };
 
-    router
-        .route('*')
-        .get(function (req, res, next) {
-            setTimeout(function () {
-                next();
-            }, 200);
-        });
+    var delay = config.delay;
 
-    postRouter(router, util);
-    postsRouter(router, util);
-    draftRouter(router, util);
-    draftsRouter(router, util);
-    tagRouter(router, util);
-    tagsRouter(router, util);
-    userRouter(router, util);
-    usersRouter(router, util);
-    roleRouter(router, util);
-    rolesRouter(router, util);
-    roleSetting(router, util);
-    roleSettings(router, util);
+    if (delay) {
+        router
+            .route('*')
+            .get(function (req, res, next) {
+                setTimeout(function () {
+                    next();
+                }, delay);
+            });
+    }
+
+    [
+        postRouter,
+        postsRouter,
+        draftRouter,
+        draftsRouter,
+        tagRouter,
+        tagsRouter,
+        commentRouter,
+        commentsRouter,
+        userRouter,
+        usersRouter,
+        roleRouter,
+        rolesRouter,
+        roleSetting,
+        roleSettings
+    ]
+        .forEach(function (route) {
+            route(router);
+        });
 
     return router;
 });

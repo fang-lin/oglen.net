@@ -18,7 +18,10 @@ define([
                 required: true
             },
             value: String,
-            note: String
+            note: {
+                type: String,
+                default: ''
+            }
         });
 
     var Setting = mongoose.model('Setting', SettingSchema);

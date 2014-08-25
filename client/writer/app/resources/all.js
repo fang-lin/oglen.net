@@ -11,6 +11,8 @@ define([
     'resources/Drafts',
     'resources/Tag',
     'resources/Tags',
+    'resources/Comment',
+    'resources/Comments',
     'resources/Role',
     'resources/Roles',
     'resources/User',
@@ -19,7 +21,8 @@ define([
     'resources/Settings',
     'angular',
     'angular-resource'
-], function (config, Post, Posts, Draft, Drafts, Tag, Tags, Role, Roles, User, Users, Setting, Settings) {
+], function (config, Post, Posts, Draft, Drafts, Tag, Tags, Comment, Comments, Role, Roles, User, Users, Setting, Settings) {
+    'use strict';
 
     var resources = angular.module(config.name + '.resources', ['ngResource'])
         .factory('Post', Post)
@@ -28,6 +31,8 @@ define([
         .factory('Drafts', Drafts)
         .factory('Tag', Tag)
         .factory('Tags', Tags)
+        .factory('Comment', Comment)
+        .factory('Comments', Comments)
         .factory('Role', Role)
         .factory('Roles', Roles)
         .factory('User', User)

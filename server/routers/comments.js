@@ -4,16 +4,16 @@
  */
 
 define([
-    'server/models/Setting'
-], function (Setting) {
+    'server/models/Comment'
+], function (Comment) {
     'use strict';
 
-    var settingsRouter = function (router, util) {
+    var commentsRouter = function (router, util) {
         router
-            .route('/settings/count')
+            .route('/comments/count')
             .get(function (req, res, next) {
 
-                Setting
+                Comment
                     .count()
                     .exec(function (err, docs) {
                         router.cap(err, res, function () {
@@ -23,11 +23,16 @@ define([
             });
 
         router
-            .route('/settings')
+            .route('/comments/:skip?/:limit?')
             .get(function (req, res, next) {
+                var skip = req.param('skip') || 0,
+                    limit = req.param('limit') || 100;
 
-                Setting
-                    .find(function (err, docs) {
+                Comment
+                    .find()
+                    .skip(skip)
+                    .limit(limit)
+                    .exec(function (err, docs) {
                         router.cap(err, res, function () {
                             res.json(docs);
                         });
@@ -35,5 +40,5 @@ define([
             });
     };
 
-    return settingsRouter;
+    return commentsRouter;
 });

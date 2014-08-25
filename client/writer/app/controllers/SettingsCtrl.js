@@ -4,16 +4,22 @@
  */
 
 define(function () {
+    'use strict';
 
     return [
         '$rootScope',
         '$scope',
         '$route',
+        '$routeParams',
         '$location',
         'Settings',
-        function ($rootScope, $scope, $route, $location, Settings) {
+        function ($rootScope, $scope, $route, $routeParams, $location, Settings) {
 
-            $scope.settings = Settings.query();
+            $rootScope.$watch('settings', function (settings) {
+                if (settings) {
 
+                    $scope.settings = Settings.query();
+                }
+            });
         }];
 });

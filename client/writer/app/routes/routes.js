@@ -6,7 +6,8 @@ define([
     'app-config',
     'angular'
 ], function (config) {
-
+    'use strict';
+    
     var routes = angular.module(config.name + '.routes', []).config(['$routeProvider', function ($routeProvider) {
 
         $routeProvider
@@ -18,7 +19,7 @@ define([
                 templateUrl: 'app/views/dashboard.html',
                 controller: 'DashboardCtrl'
             })
-            .when('/posts', {
+            .when('/posts/:skip?/:limit?', {
                 templateUrl: 'app/views/posts.html',
                 controller: 'PostsCtrl'
             })

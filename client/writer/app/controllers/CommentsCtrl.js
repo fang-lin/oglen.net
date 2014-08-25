@@ -4,8 +4,25 @@
  */
 
 define(function () {
+    'use strict';
 
-    return ['$rootScope', '$scope', '$route', '$location', function ($rootScope, $scope, $route, $location) {
+    return [
+        '$rootScope',
+        '$scope',
+        '$route',
+        '$routeParams',
+        '$location',
+        'Comments',
+        function ($rootScope, $scope, $route, $routeParams, $location, Comments) {
 
-    }];
+            $rootScope.$watch('settings', function (settings) {
+                if (settings) {
+                    var skip = $routeParams.skip || 0,
+                        limit = $routeParams.limit || settings['pager_limit'],
+                        count = Comments.count.get();
+
+                    $scope.comments = Comments.query({skip: skip, limit: limit});
+                }
+            });
+        }];
 });

@@ -31,5 +31,9 @@ define([
 
     var Draft = mongoose.model('Draft', DraftSchema);
 
+    Draft.on('error', function () {
+        console.log('<<<<<<<<<<<<<<<<<')
+    });
+
     return Draft;
 });

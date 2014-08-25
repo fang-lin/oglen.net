@@ -4,6 +4,8 @@
  */
 
 define(function () {
+    'use strict';
+
     return ['$resource', function ($resource) {
 
         var Tag = $resource('../rest/tag/:id', null, {

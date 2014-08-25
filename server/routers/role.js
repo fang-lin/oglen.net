@@ -6,6 +6,7 @@
 define([
     'server/models/Role'
 ], function (Role) {
+    'use strict';
 
     var roleRouter = function (router, util) {
         router
@@ -16,7 +17,7 @@ define([
                 Role
                     .findById(id)
                     .exec(function (err, docs) {
-                        util.suit(err, function () {
+                        router.cap(err, res, function () {
                             res.json(docs);
                         });
                     });
@@ -25,7 +26,7 @@ define([
                 var role = new Role(req.body);
 
                 role.save(function (err, product, numberAffected) {
-                    util.suit(err, function () {
+                    router.cap(err, res, function () {
                         res.json(role);
                     });
                 });
@@ -38,7 +39,7 @@ define([
                     privilege: form.privilege,
                     note: form.note
                 }, function (err, numberAffected, raw) {
-                    util.suit(err, function () {
+                    router.cap(err, res, function () {
                         res.json(form);
                     });
                 });

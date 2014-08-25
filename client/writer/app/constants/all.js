@@ -9,6 +9,7 @@ define([
     'constants/Info',
     'angular'
 ], function (config, Menu, Info) {
+    'use strict';
 
     var constants = angular.module(config.name + '.constants', [])
         .constant('Menu', Menu)

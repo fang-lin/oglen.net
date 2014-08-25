@@ -10,6 +10,7 @@ define([
     'directives/ogDropdown',
     'angular'
 ], function (config, ogMenu, ogDialog, ogDropdown) {
+    'use strict';
 
     var directives = angular.module(config.name + '.directives', [])
         .directive('ogMenu', ogMenu)

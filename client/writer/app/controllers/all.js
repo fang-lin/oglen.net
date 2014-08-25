@@ -20,6 +20,7 @@ define([
     'controllers/SettingsCtrl',
     'angular'
 ], function (config, DashboardCtrl, PostCtrl, PostsCtrl, TagCtrl, TagsCtrl, CommentCtrl, CommentsCtrl, UserCtrl, UsersCtrl, RoleCtrl, RolesCtrl, SettingCtrl, SettingsCtrl) {
+    'use strict';
 
     var controllers = angular.module(config.name + '.controllers', [])
         .controller('DashboardCtrl', DashboardCtrl)
@@ -27,7 +28,7 @@ define([
         .controller('PostsCtrl', PostsCtrl)
         .controller('TagCtrl', TagCtrl)
         .controller('TagsCtrl', TagsCtrl)
-        .controller('CommentCtrl', CommentsCtrl)
+        .controller('CommentCtrl', CommentCtrl)
         .controller('CommentsCtrl', CommentsCtrl)
         .controller('UserCtrl', UserCtrl)
         .controller('UsersCtrl', UsersCtrl)

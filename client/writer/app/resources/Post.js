@@ -4,6 +4,8 @@
  */
 
 define(function () {
+    'use strict';
+
     return ['$resource', function ($resource) {
 
         var Post = $resource('../rest/post/:id', null, {

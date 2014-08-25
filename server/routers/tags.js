@@ -6,16 +6,37 @@
 define([
     'server/models/Tag'
 ], function (Tag) {
+    'use strict';
 
     var tagsRouter = function (router, util) {
         router
-            .route('/tags')
+            .route('/tags/count')
             .get(function (req, res, next) {
-                Tag.find(function (err, docs) {
-                    util.suit(err, function () {
-                        res.json(docs);
+
+                Tag
+                    .count()
+                    .exec(function (err, docs) {
+                        router.cap(err, res, function () {
+                            res.json({count: docs});
+                        });
                     });
-                });
+            });
+
+        router
+            .route('/tags/:skip?/:limit?')
+            .get(function (req, res, next) {
+                var skip = req.param('skip') || 0,
+                    limit = req.param('limit') || 100;
+
+                Tag
+                    .find()
+                    .skip(skip)
+                    .limit(limit)
+                    .exec(function (err, docs) {
+                        router.cap(err, res, function () {
+                            res.json(docs);
+                        });
+                    });
             });
     };
 

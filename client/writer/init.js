@@ -6,6 +6,7 @@
 require([
     'config' // requirejs config
 ], function () {
+    'use strict';
 
     require([
         'app-config',

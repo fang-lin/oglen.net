@@ -6,6 +6,7 @@
 define([
     'underscore'
 ], function (_) {
+    'use strict';
 
     return [
         '$rootScope',
@@ -78,7 +79,7 @@ define([
                 event.preventDefault();
 
                 $scope.post.draft = Draft.get({id: id});
-            }
+            };
         }
     ];
 });

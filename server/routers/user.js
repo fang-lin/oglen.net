@@ -6,6 +6,7 @@
 define([
     'server/models/User'
 ], function (User) {
+    'use strict';
 
     var userRouter = function (router, util) {
         router
@@ -16,7 +17,7 @@ define([
                 User
                     .findById(id)
                     .exec(function (err, docs) {
-                        util.suit(err, function () {
+                        router.cap(err, res, function () {
                             res.json(docs);
                         });
                     });
@@ -25,7 +26,7 @@ define([
                 var user = new User(req.body);
 
                 user.save(function (err, product, numberAffected) {
-                    util.suit(err, function () {
+                    router.cap(err, res, function () {
                         res.json(user);
                     });
                 });
@@ -39,7 +40,7 @@ define([
                     password: form.password,
                     role: form.role
                 }, function (err, numberAffected, raw) {
-                    util.suit(err, function () {
+                    router.cap(err, res, function () {
                         res.json(form);
                     });
                 });

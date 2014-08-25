@@ -7,6 +7,7 @@ define([
     'server/models/Post',
     'server/models/Draft'
 ], function (Post, Draft) {
+    'use strict';
 
     var postRouter = function (router, util) {
         router
@@ -25,14 +26,13 @@ define([
                         select: '_id name count'
                     })
                     .exec(function (err, docs) {
-                        util.suit(err, function () {
+                        router.cap(err, res, function () {
                             res.json(docs);
                         });
                     });
             })
             .post(function (req, res, next) {
                 var form = req.body,
-
                     post = new Post({
                         title: form.title,
                         abstract: form.abstract,
@@ -43,16 +43,16 @@ define([
                     });
 
                 post.save(function (err, product, numberAffected) {
-                    util.suit(err, function () {
+                    router.cap(err, res, function () {
                         var draft = new Draft({
                             post: post._id,
                             text: form.draft.text
                         });
 
                         draft.save(function (err, product, numberAffected) {
-                            util.suit(err, function () {
+                            router.cap(err, res, function () {
                                 Post.update({_id: post._id}, {draft: draft._id}, function (err, numberAffected, raw) {
-                                    util.suit(err, function () {
+                                    router.cap(err, res, function () {
                                         res.json({
                                             _id: post._id,
                                             draft: {
@@ -70,7 +70,6 @@ define([
             })
             .put(function (req, res, next) {
                 var form = req.body,
-
                     draft = new Draft({
                         post: form._id,
                         text: form.draft.text,
@@ -78,7 +77,8 @@ define([
                     });
 
                 draft.save(function (err, product, numberAffected) {
-                    util.suit(err, function () {
+                    router.cap(err, res, function () {
+
                         Post.update({_id: form._id}, {
                             title: form.title,
                             abstract: form.abstract,
@@ -87,7 +87,7 @@ define([
                             publish: form.publish,
                             hidden: form.hidden
                         }, function (err, numberAffected, raw) {
-                            util.suit(err, function () {
+                            router.cap(err, res, function () {
                                 res.json({
                                     draft: {
                                         _id: draft._id,

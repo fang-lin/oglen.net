@@ -6,6 +6,7 @@
 define([
     'server/models/Tag'
 ], function (Tag) {
+    'use strict';
 
     var tagRouter = function (router, util) {
         router
@@ -16,7 +17,7 @@ define([
                 Tag
                     .findById(id)
                     .exec(function (err, docs) {
-                        util.suit(err, function () {
+                        router.cap(err, res, function () {
                             res.json(docs);
                         });
                     });
@@ -26,7 +27,7 @@ define([
 
                 tag.save(function (err, product, numberAffected) {
 
-                    util.suit(err, function () {
+                    router.cap(err, res, function () {
                         res.json(tag);
                     });
                 });
@@ -37,7 +38,7 @@ define([
                 Tag.update({_id: form._id}, {
                     name: form.name
                 }, function (err, numberAffected, raw) {
-                    util.suit(err, function () {
+                    router.cap(err, res, function () {
                         res.json(form);
                     });
                 });

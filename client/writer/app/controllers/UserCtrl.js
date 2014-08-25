@@ -4,6 +4,7 @@
  */
 
 define(function () {
+    'use strict';
 
     return [
         '$rootScope',
@@ -46,6 +47,6 @@ define(function () {
                         path(path() + $user._id, false);
                     });
                 }
-            }
+            };
         }];
 });
