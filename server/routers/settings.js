@@ -23,11 +23,17 @@ define([
             });
 
         router
-            .route('/settings')
+            .route('/settings/:skip?/:limit?')
             .get(function (req, res, next) {
+                var skip = req.param('skip') || 0,
+                    limit = req.param('limit') || 100;
 
                 Setting
-                    .find(function (err, docs) {
+                    .find()
+                    .skip(skip)
+                    .limit(limit)
+                    .sort({_id: -1})
+                    .exec(function (err, docs) {
                         router.cap(err, res, function () {
                             res.json(docs);
                         });

@@ -32,6 +32,7 @@ define([
                     .find()
                     .skip(skip)
                     .limit(limit)
+                    .sort({_id: -1})
                     .populate({
                         path: 'role',
                         select: '_id name'

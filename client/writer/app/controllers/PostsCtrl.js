@@ -17,15 +17,14 @@ define(function () {
 
             $rootScope.$watch('settings', function (settings) {
                 if (settings) {
-                    var skip = $routeParams.skip || 0,
-                        limit = $routeParams.limit || settings['pager_limit'];
+                    var skip = $scope.skip = $routeParams.skip || 0,
+                        limit = $scope.limit = settings['page_size'] || 10,
+                        size = settings['pager_size'] || 5;
+
+                    skip === 0 && $location.path('/posts/0', false);
 
                     Posts.count.get(function (res) {
-                        var pager = [];
-                        for (var index = 0, len = Math.ceil(res.count / limit); index < len; ++index) {
-                            pager.push(index * limit);
-                        }
-                        $scope.pager = pager;
+                        $scope.pager = $rootScope.pager(res.count, skip, limit, size);
                     });
 
                     $scope.posts = Posts.query({skip: skip, limit: limit});

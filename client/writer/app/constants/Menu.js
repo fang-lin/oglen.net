@@ -66,7 +66,7 @@ define(function () {
                     url: '#/user/'
                 },
                 {
-                    name: 'Role List',
+                    name: 'Roles List',
                     url: '#/roles/'
                 },
                 {

@@ -7,7 +7,7 @@ define([
     'angular'
 ], function (config) {
     'use strict';
-    
+
     var routes = angular.module(config.name + '.routes', []).config(['$routeProvider', function ($routeProvider) {
 
         $routeProvider
@@ -19,7 +19,7 @@ define([
                 templateUrl: 'app/views/dashboard.html',
                 controller: 'DashboardCtrl'
             })
-            .when('/posts/:skip?/:limit?', {
+            .when('/posts/:skip?', {
                 templateUrl: 'app/views/posts.html',
                 controller: 'PostsCtrl'
             })
@@ -27,7 +27,7 @@ define([
                 templateUrl: 'app/views/post.html',
                 controller: 'PostCtrl'
             })
-            .when('/tags', {
+            .when('/tags/:skip?', {
                 templateUrl: 'app/views/tags.html',
                 controller: 'TagsCtrl'
             })
@@ -39,11 +39,11 @@ define([
                 templateUrl: 'app/views/comment.html',
                 controller: 'CommentCtrl'
             })
-            .when('/comments', {
+            .when('/comments/:skip?', {
                 templateUrl: 'app/views/comments.html',
                 controller: 'CommentsCtrl'
             })
-            .when('/users', {
+            .when('/users/:skip?', {
                 templateUrl: 'app/views/users.html',
                 controller: 'UsersCtrl'
             })
@@ -51,7 +51,7 @@ define([
                 templateUrl: 'app/views/user.html',
                 controller: 'UserCtrl'
             })
-            .when('/roles', {
+            .when('/roles/:skip?', {
                 templateUrl: 'app/views/roles.html',
                 controller: 'RolesCtrl'
             })
@@ -59,7 +59,7 @@ define([
                 templateUrl: 'app/views/role.html',
                 controller: 'RoleCtrl'
             })
-            .when('/settings', {
+            .when('/settings/:skip?', {
                 templateUrl: 'app/views/settings.html',
                 controller: 'SettingsCtrl'
             })

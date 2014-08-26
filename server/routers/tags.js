@@ -32,6 +32,7 @@ define([
                     .find()
                     .skip(skip)
                     .limit(limit)
+                    .sort({_id: -1})
                     .exec(function (err, docs) {
                         router.cap(err, res, function () {
                             res.json(docs);

@@ -33,6 +33,7 @@ define([
                     .find()
                     .skip(skip)
                     .limit(limit)
+                    .sort({_id: -1})
                     .populate({
                         path: 'draft',
                         select: '_id post text saveAt flag'

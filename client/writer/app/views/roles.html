@@ -1,4 +1,7 @@
 <h2>Roles</h2>
+<ul class="pagination">
+    <li ng-repeat="page in pager" ng-class="{active: page.skip == skip}"><a ng-href="#/roles/{{page.skip}}" ng-bind="page.page"></a></li>
+</ul>
 <table>
     <tr>
         <th>name</th>
