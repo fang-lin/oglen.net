@@ -4,27 +4,40 @@ module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
-        clean: ['dist'],
+        clean: ['dist/*'],
 
         copy: {
             main: {
                 files: [
+                    // index
                     {src: 'client/index.html', dest: 'dist/index.html'},
                     {src: 'client/robots.txt', dest: 'dist/robots.txt'},
-
+                    // writer
                     {src: 'client/writer/index.html', dest: 'dist/writer/index.html'},
                     {src: 'client/writer/config.js', dest: 'dist/writer/config.js'},
-                    {src: 'client/writer/main.js', dest: 'dist/writer/main.js'},
+                    {src: 'client/writer/css/all.css', dest: 'dist/writer/css/all.css'},
                     {expand: true, flatten: true, src: ['client/writer/app/views/*'], dest: 'dist/writer/app/views/', filter: 'isFile'},
                     {expand: true, flatten: true, src: ['client/writer/app/templates/*'], dest: 'dist/writer/app/templates/', filter: 'isFile'},
                     {expand: true, flatten: true, src: ['client/writer/images/*'], dest: 'dist/writer/images/*', filter: 'isFile'},
-
-                    {src: 'client/lib/requirejs/require.js', dest: 'dist/lib/requirejs/require.js'}
+                    // blog
+                    {src: 'client/blog/index.html', dest: 'dist/blog/index.html'},
+                    {src: 'client/blog/config.js', dest: 'dist/blog/config.js'},
+                    {src: 'client/blog/css/all.css', dest: 'dist/blog/css/all.css'},
+                    {expand: true, flatten: true, src: ['client/blog/app/views/*'], dest: 'dist/blog/app/views/', filter: 'isFile'},
+                    {expand: true, flatten: true, src: ['client/blog/app/templates/*'], dest: 'dist/blog/app/templates/', filter: 'isFile'},
+                    {expand: true, flatten: true, src: ['client/blog/images/*'], dest: 'dist/blog/images/*', filter: 'isFile'}
                 ]
             }
         },
 
-        cssmin: [],
+        cssmin: {
+            combine: {
+                files: {
+                    'dist/writer/css/main.css': ['client/writer/css/main.css'],
+                    'dist/blog/css/main.css': ['client/blog/css/main.css']
+                }
+            }
+        },
 
         jshint: {
             files: ['*.js', 'server/**/*.js', 'client/writer/*.js', 'client/writer/app/**/*.js'],
@@ -65,34 +78,50 @@ module.exports = function (grunt) {
         less: {
             development: {
                 files: {
-                    'client/writer/css/all.css': 'client/writer/css/all.less',
-                    'client/blog/css/all.css': 'client/blog/css/all.less'
+                    'client/writer/css/writer.css': 'client/writer/less/writer.less',
+                    'client/blog/css/blog.css': 'client/blog/less/blog.less'
                 }
             }
         },
 
         uglify: {
             build: {
-                src: 'src/<%= pkg.name %>.js',
-                dest: 'build/<%= pkg.name %>.min.js'
+                files: {
+                    'dist/lib/requirejs/require.js': ['client/lib/requirejs/require.js']
+                }
+            },
+            options: {
+                preserveComments: 'some'
             }
         },
 
         requirejs: {
-            compile: {
+            writer: {
                 options: {
-                    baseUrl: './client/',
+                    baseUrl: 'client/',
                     name: 'writer/init',
-                    mainConfigFile: 'client/writer/config-build.js',
-                    out: 'dist/writer/init.js',
-                    findNestedDependencies: true
+                    mainConfigFile: 'client/writer/build.js',
+                    out: 'dist/writer/init.js'
                 }
+            },
+            blog: {
+                options: {
+                    baseUrl: 'client/',
+                    name: 'blog/init',
+                    mainConfigFile: 'client/blog/build.js',
+                    out: 'dist/blog/init.js'
+                }
+            },
+            options: {
+                findNestedDependencies: true,
+                preserveLicenseComments: false,
+                optimize: 'uglify2'
             }
         },
 
         watch: {
             less: {
-                files: ['client/writer/css/*.less'],
+                files: ['client/writer/less/*.less'],
                 tasks: ['less']
             }
         },
@@ -129,7 +158,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-shell');
 
     // Register grunt tasks
-    grunt.registerTask('default', ['uglify']);
-    grunt.registerTask('developing', ['watch:less']);
-    grunt.registerTask('build', ['bower', 'clean', 'less', 'copy', 'requirejs']);
+    grunt.registerTask('watching', ['watch:less']);
+    grunt.registerTask('build', ['bower', 'clean', 'less', 'uglify', 'copy', 'cssmin', 'requirejs:writer', 'requirejs:blog']);
 };

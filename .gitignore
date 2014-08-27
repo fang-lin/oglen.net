@@ -4,4 +4,3 @@ node_modules/
 client/lib/
 dist/
 .DS_Store
-.idea
