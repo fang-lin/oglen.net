@@ -4,7 +4,7 @@
  */
 
 define([
-    'app-config',
+    'config',
     'angular',
     'angular-route',
     'angular-animate',
@@ -35,13 +35,13 @@ define([
         ])
         .run([
             '$rootScope',
-            'Menu',
-            'Info',
+            'menu',
+            'info',
             'Settings',
-            function ($rootScope, Menu, Info, Settings) {
+            function ($rootScope, menu, info, Settings) {
 
-                $rootScope.menu = Menu;
-                $rootScope.info = Info;
+                $rootScope.menu = menu;
+                $rootScope.info = info;
 
                 Settings.query(function (res) {
                     var settings = {};

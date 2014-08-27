@@ -6,16 +6,12 @@
 define([
     'config',
     'directives/ogMenu',
-    'directives/ogDialog',
-    'directives/ogDropdown',
     'angular'
-], function (config, ogMenu, ogDialog, ogDropdown) {
+], function (config, ogMenu) {
     'use strict';
 
     var directives = angular.module(config.name + '.directives', [])
-        .directive('ogMenu', ogMenu)
-        .directive('ogDialog', ogDialog)
-        .directive('ogDropdown', ogDropdown);
+        .directive('ogMenu', ogMenu);
 
     return directives;
 });

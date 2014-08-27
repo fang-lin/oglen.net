@@ -15,7 +15,7 @@ requirejs.config({
         'angular-animate': '/lib/angular-animate/angular-animate',
         'angular-translate': '/lib/angular-translate/angular-translate',
         // Apps
-        'app-config': 'app/config',
+        'config': 'app/config',
         'app': 'app/app',
         'utilities': 'app/utilities',
         'controllers': 'app/controllers',
@@ -48,7 +48,7 @@ requirejs.config({
 });
 
 require([
-    'app-config',
+    'config',
     'bootstrap',
     'angular',
     'app'

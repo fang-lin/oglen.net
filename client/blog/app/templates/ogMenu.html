@@ -1,0 +1,7 @@
+<ul ng-repeat="item in menu">
+    <li><a ng-href="{{item.url}}">{{item.name}}</a></li>
+    <li ng-if="item.children">
+        <og-menu menu="item.children"></og-menu>
+    </li>
+</ul>
+

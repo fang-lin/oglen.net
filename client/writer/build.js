@@ -15,7 +15,7 @@ requirejs.config({
         'angular-animate': 'lib/angular-animate/angular-animate.min',
         'angular-translate': 'lib/angular-translate/angular-translate.min',
         // Apps
-        'app-config': 'writer/app/config',
+        'config': 'writer/app/config',
         'app': 'writer/app/app',
         'utilities': 'writer/app/utilities',
         'controllers': 'writer/app/controllers',

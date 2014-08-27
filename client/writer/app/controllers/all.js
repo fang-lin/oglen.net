@@ -4,7 +4,7 @@
  */
 
 define([
-    'app-config',
+    'config',
     'controllers/DashboardCtrl',
     'controllers/PostCtrl',
     'controllers/PostsCtrl',
