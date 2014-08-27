@@ -5,6 +5,7 @@
       <w>contrib</w>
       <w>dropdown</w>
       <w>endif</w>
+      <w>eqeqeq</w>
       <w>errorhandler</w>
       <w>githooks</w>
       <w>mainmenu</w>

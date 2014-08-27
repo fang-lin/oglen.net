@@ -44,12 +44,12 @@ module.exports = function (grunt) {
             options: {
                 force: false,
                 reporter: './test/jshint_reporter.js',
-//                asi: false, //如果是真，JSHint会无视没有加分号的行尾， 自动补全分号一直是Javascript很有争议的一个语法特性。默认，JSHint会要求你在每个语句后面加上分号，但是如果你认为自己理解了asi(automatic semicolon insertion)，你可以抛弃JSHint对分号的检查。
+                asi: false,
 //                bitwise: false, //如果为真，JSHint会禁用位运算符 Javascript允许位运算，但是他却没有整型，位运算符要把参与运算的数字从浮点数变为整数，并在运算后再转换回来。这样他们的效率就不如在别的语言中那么高。
 //                boss: false, //如果为真，那么JSHint会允许在if，for，while里面编写赋值语句。 一般来说，我们会在循环、判断等语句中加入值的比较来做语句的运行条件，有时候会把==错写成赋值的=，通常，JSHint会把这个认定为一个错误，但是开启这个选项的化，JSHint就不会检查判断条件中的赋值 ，你是boss，你说的算。
 //                curly: false, //如果为真，JSHint会要求你在使用if和while等结构语句时加上{}来明确代码块。 Javascript允许在if等结构语句体只有一句的情况下不加括号。不过这样做可能会让你的代码读起来有些晦涩。
 //                debug: false, //如果为真，JSHint会允许代码中出现debugger的语句。不过建议你最好在检测代码前去掉debug的语句。
-//                eqeqeq: true, //如果为真，JSHint会看你在代码中是否都用了===或者是!==，而不是使用==和!=。 我们建议你在比较0，''(空字符)，undefined，null，false和true的时候使用===和!===。
+                eqeqeq: true, //如果为真，JSHint会看你在代码中是否都用了===或者是!==，而不是使用==和!=。 我们建议你在比较0，''(空字符)，undefined，null，false和true的时候使用===和!===。
 //                eqnull: true, //如果为真，JSHint会允许使用'== null'作比较。 == null 通常用来判断一个变量是undefined或者是null（当时用==，null和undefined都会转化为false）。
 //                evil: false, //如果为真，JSHint会允许使用eval eval提供了访问Javascript编译器的途径，这有时很有用，但是同时也对你的代码形成了注入攻击的危险，并且会对debug造成一些困难。 记住，Function构造函数也是另一个‘eval’，另外，当传入的参数是字符串的时候，setTimeout和setInterval也会类似于eval。
 //                forin: true, //如果为真，那么，JSHint允许在for in 循环里面不出现hasOwnProperty， for in循环一般用来遍历一个对象的属性，这其中也包括他继承自原型链的属性，而hasOwnProperty可以来判断一个属性是否是对象本身的属性而不是继承得来的。
@@ -127,7 +127,11 @@ module.exports = function (grunt) {
         },
 
         githooks: {
-
+            all: {
+                'pre-commit': {
+                    taskNames: 'jshint'
+                }
+            }
         },
 
         karma: {},
