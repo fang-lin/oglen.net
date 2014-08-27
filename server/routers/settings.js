@@ -6,25 +6,38 @@
 define([
     'server/models/Setting'
 ], function (Setting) {
+    'use strict';
 
-    var settingsRouter = function (router, logger) {
-
+    var settingsRouter = function (router, util) {
         router
-            .route('/settings')
+            .route('/settings/count')
             .get(function (req, res, next) {
 
-                Setting.find(function (err, docs) {
+                Setting
+                    .count()
+                    .exec(function (err, docs) {
+                        router.cap(err, res, function () {
+                            res.json({count: docs});
+                        });
+                    });
+            });
 
-                    if (err) {
+        router
+            .route('/settings/:skip?/:limit?')
+            .get(function (req, res, next) {
+                var skip = req.param('skip') || 0,
+                    limit = req.param('limit') || 100;
 
-                        logger.error(err);
-                        res.status(500).json({status: 'failure'});
-
-                    } else {
-
-                        res.json(docs);
-                    }
-                });
+                Setting
+                    .find()
+                    .skip(skip)
+                    .limit(limit)
+                    .sort({_id: -1})
+                    .exec(function (err, docs) {
+                        router.cap(err, res, function () {
+                            res.json(docs);
+                        });
+                    });
             });
     };
 

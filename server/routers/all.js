@@ -10,15 +10,19 @@ define([
     'express',
     'server/routers/post',
     'server/routers/posts',
+    'server/routers/draft',
+    'server/routers/drafts',
     'server/routers/tag',
     'server/routers/tags',
+    'server/routers/comment',
+    'server/routers/comments',
     'server/routers/user',
     'server/routers/users',
     'server/routers/role',
     'server/routers/roles',
     'server/routers/setting',
     'server/routers/settings'
-], function (config, log4js, express, postRouter, postsRouter, tagRouter, tagsRouter, userRouter, usersRouter, roleRouter, rolesRouter, roleSetting, roleSettings) {
+], function (config, log4js, express, postRouter, postsRouter, draftRouter, draftsRouter, tagRouter, tagsRouter, commentRouter, commentsRouter, userRouter, usersRouter, roleRouter, rolesRouter, roleSetting, roleSettings) {
     'use strict';
 
     var logger = log4js.getLogger('router'); // TRACE, DEBUG, INFO, WARN, ERROR, FATAL
@@ -26,16 +30,46 @@ define([
 
     var router = express.Router();
 
-    postRouter(router, logger);
-    postsRouter(router, logger);
-    tagRouter(router, logger);
-    tagsRouter(router, logger);
-    userRouter(router, logger);
-    usersRouter(router, logger);
-    roleRouter(router, logger);
-    rolesRouter(router, logger);
-    roleSetting(router, logger);
-    roleSettings(router, logger);
+    router.cap = function (err, res, callback) {
+        if (err) {
+            logger.error(err);
+            res.status(500).json({status: 'failure'});
+        } else {
+            callback(logger);
+        }
+    };
+
+    var delay = config.delay;
+
+    if (delay) {
+        router
+            .route('*')
+            .get(function (req, res, next) {
+                setTimeout(function () {
+                    next();
+                }, delay);
+            });
+    }
+
+    [
+        postRouter,
+        postsRouter,
+        draftRouter,
+        draftsRouter,
+        tagRouter,
+        tagsRouter,
+        commentRouter,
+        commentsRouter,
+        userRouter,
+        usersRouter,
+        roleRouter,
+        rolesRouter,
+        roleSetting,
+        roleSettings
+    ]
+        .forEach(function (route) {
+            route(router);
+        });
 
     return router;
 });

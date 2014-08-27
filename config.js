@@ -48,7 +48,8 @@ define(function () {
     return {
         env: env,
         port: port,
-        mongooseLink: mongooseLink
+        mongooseLink: mongooseLink,
+        delay: 500
     };
 });
 

@@ -4,16 +4,31 @@
  */
 
 define(function () {
+    'use strict';
 
     return [
         '$rootScope',
         '$scope',
-        '$route',
+        '$routeParams',
         '$location',
         'Users',
-        function ($rootScope, $scope, $route, $location, Users) {
+        'pager',
+        function ($rootScope, $scope, $routeParams, $location, Users, pager) {
 
-            $scope.users = Users.query();
+            $rootScope.$watch('settings', function (settings) {
+                if (settings) {
+                    var skip = $scope.skip = $routeParams.skip || 0,
+                        limit = $scope.limit = settings['page_size'] || 10,
+                        size = settings['pager_size'] || 5;
 
+                    skip === 0 && $location.path('/users/0', false);
+
+                    Users.count.get(function (res) {
+                        $scope.pager = pager.init(res.count, skip, limit, size);
+                    });
+
+                    $scope.users = Users.query({skip: skip, limit: limit});
+                }
+            });
         }];
 });

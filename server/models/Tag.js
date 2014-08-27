@@ -4,10 +4,23 @@
  */
 
 define([
-    'mongoose',
-    'server/schemas/Tag'
-], function (mongoose, TagSchema) {
+    'mongoose'
+], function (mongoose) {
     'use strict';
+
+    var Schema = mongoose.Schema,
+
+        TagSchema = new Schema({
+            name: {
+                type: String,
+                index: true,
+                required: true
+            },
+            count: {
+                type: Number,
+                default: 0
+            }
+        });
 
     var Tag = mongoose.model('Tag', TagSchema);
 

@@ -7,17 +7,35 @@ define([
     'server/models/Post',
     'server/models/Draft'
 ], function (Post, Draft) {
+    'use strict';
 
-    var postsRouter = function (router, logger) {
-
+    var postsRouter = function (router, util) {
         router
-            .route('/posts')
+            .route('/posts/count')
             .get(function (req, res, next) {
 
                 Post
+                    .count()
+                    .exec(function (err, docs) {
+                        router.cap(err, res, function () {
+                            res.json({count: docs});
+                        });
+                    });
+            });
+
+        router
+            .route('/posts/:skip?/:limit?')
+            .get(function (req, res, next) {
+                var skip = req.param('skip') || 0,
+                    limit = req.param('limit') || 100;
+
+                Post
                     .find()
+                    .skip(skip)
+                    .limit(limit)
+                    .sort({_id: -1})
                     .populate({
-                        path: 'body',
+                        path: 'draft',
                         select: '_id post text saveAt flag'
                     })
                     .populate({
@@ -25,21 +43,13 @@ define([
                         select: '_id name count'
                     })
                     .exec(function (err, docs) {
-
-                        if (err) {
-
-                            logger.error(err);
-                            res.status(500).json({status: 'failure'});
-
-                        } else {
-
+                        router.cap(err, res, function () {
                             res.json(docs);
-                        }
+                        });
                     });
-            })
+            });
     };
 
     return postsRouter;
-
 });
 

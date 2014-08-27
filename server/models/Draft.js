@@ -4,12 +4,36 @@
  */
 
 define([
-    'mongoose',
-    'server/schemas/Draft'
-], function (mongoose, DraftSchema) {
+    'mongoose'
+], function (mongoose) {
     'use strict';
 
+    var Schema = mongoose.Schema,
+        ObjectId = Schema.Types.ObjectId,
+        Now = Date.now,
+
+        DraftSchema = new Schema({
+            post: {
+                type: ObjectId,
+                index: true,
+                required: true
+            },
+            text: String,
+            saveAt: {
+                type: Date,
+                default: Now
+            },
+            flag: {
+                type: String,
+                default: 'birth'
+            }
+        });
+
     var Draft = mongoose.model('Draft', DraftSchema);
+
+    Draft.on('error', function () {
+        console.log('<<<<<<<<<<<<<<<<<')
+    });
 
     return Draft;
 });

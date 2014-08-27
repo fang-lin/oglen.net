@@ -4,12 +4,13 @@
  */
 
 define([
-    'app-config',
+    'config',
     'directives/ogMenu',
     'directives/ogDialog',
     'directives/ogDropdown',
     'angular'
 ], function (config, ogMenu, ogDialog, ogDropdown) {
+    'use strict';
 
     var directives = angular.module(config.name + '.directives', [])
         .directive('ogMenu', ogMenu)

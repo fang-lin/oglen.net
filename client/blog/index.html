@@ -2,10 +2,35 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Site Information -->
+    <meta name="description" content="{{info.description}}"/>
+    <meta name="keywords" content="{{info.keywords}}"/>
+    <meta name="generator" content="{{info.generator}}"/>
+    <meta name="version" content="{{info.version}}"/>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="/lib/html5shiv/dist/html5shiv.min.js"></script>
+    <script src="/lib/respond/dest/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="css/main.css"/>
+
+    <title ng-bind="title">oglen.net</title>
 </head>
 <body>
-    HELLO WORLD!
-    <script type="text/javascript" data-main="main" src="/bowers/requirejs/require.js"></script>
+<header id="logo" class="container-fluid">
+    sdsd
+</header>
+
+<div id="menu">
+    <og-menu menu="menu"></og-menu>
+</div>
+
+<div ng-view>
+</div>
+
+<script type="text/javascript" data-main="init" src="/lib/requirejs/require.js"></script>
 </body>
 </html>

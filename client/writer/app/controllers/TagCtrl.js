@@ -4,23 +4,44 @@
  */
 
 define(function () {
+    'use strict';
 
     return [
         '$rootScope',
         '$scope',
-        '$route',
+        '$routeParams',
         '$location',
         'Tag',
-        function ($rootScope, $scope, $route, $location, Tag) {
+        function ($rootScope, $scope, $routeParams, $location, Tag) {
+            var id = $routeParams.id;
 
-            $scope.tag = {};
+            if (id) {
+                // edit
+                $scope.tag = Tag.get({id: id});
+            } else {
+                // add
+                $scope.tag = {};
+            }
 
             $scope.submit = function () {
                 event.preventDefault();
 
-                Tag.save($scope.tag, function (tag) {
-                    $scope.tag = tag;
-                });
+                var $tag = $scope.tag;
+
+                if ($tag._id) {
+                    // update existing tag
+                    Tag.update($tag, function (tag) {
+                        // todo: alert success.
+                    });
+                } else {
+                    // create new tag
+                    Tag.save($tag, function (tag) {
+                        $tag._id = tag._id;
+
+                        var path = $location.path;
+                        path(path() + $tag._id, false);
+                    });
+                }
             };
         }];
 });

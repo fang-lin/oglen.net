@@ -4,20 +4,48 @@
  */
 
 define(function () {
+    'use strict';
 
     return [
         '$rootScope',
         '$scope',
-        '$route',
+        '$routeParams',
         '$location',
         'Setting',
-        function ($rootScope, $scope, $route, $location, Setting) {
+        function ($rootScope, $scope, $routeParams, $location, Setting) {
+            var id = $routeParams.id;
 
-            $scope.setting = {};
+            if (id) {
+                // edit
+                $scope.setting = Setting.get({id: id});
+            } else {
+                // add
+                $scope.setting = {};
+            }
 
             $scope.submit = function () {
                 event.preventDefault();
-                Setting.save($scope.setting);
-            }
+
+                var $setting = $scope.setting;
+
+                if ($setting._id) {
+                    // update existing setting
+                    Setting.update($setting, function (setting) {
+                        // update local setting
+                        $rootScope.settings[setting.key] = setting.value;
+                        // todo: alert success.
+                    });
+                } else {
+                    // create new setting
+                    Setting.save($setting, function (setting) {
+                        $setting._id = setting._id;
+                        // update local setting
+                        $rootScope.settings[setting.key] = setting.value;
+
+                        var path = $location.path;
+                        path(path() + $setting._id, false);
+                    });
+                }
+            };
         }];
 });

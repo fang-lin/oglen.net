@@ -6,25 +6,38 @@
 define([
     'server/models/Role'
 ], function (Role) {
+    'use strict';
 
-    var rolesRouter = function (router, logger) {
-
+    var rolesRouter = function (router, util) {
         router
-            .route('/roles')
+            .route('/roles/count')
             .get(function (req, res, next) {
 
-                Role.find(function (err, docs) {
+                Role
+                    .count()
+                    .exec(function (err, docs) {
+                        router.cap(err, res, function () {
+                            res.json({count: docs});
+                        });
+                    });
+            });
 
-                    if (err) {
+        router
+            .route('/roles/:skip?/:limit?')
+            .get(function (req, res, next) {
+                var skip = req.param('skip') || 0,
+                    limit = req.param('limit') || 100;
 
-                        logger.error(err);
-                        res.status(500).json({status: 'failure'});
-
-                    } else {
-
-                        res.json(docs);
-                    }
-                });
+                Role
+                    .find()
+                    .skip(skip)
+                    .limit(limit)
+                    .sort({_id: -1})
+                    .exec(function (err, docs) {
+                        router.cap(err, res, function () {
+                            res.json(docs);
+                        });
+                    });
             });
     };
 

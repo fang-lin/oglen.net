@@ -4,57 +4,81 @@
  */
 
 define([
-
-], function () {
+    'underscore'
+], function (_) {
+    'use strict';
 
     return [
         '$rootScope',
         '$scope',
         '$interval',
         '$routeParams',
+        '$location',
         'Post',
         'Tags',
-        function ($rootScope, $scope, $interval, $routeParams, Post, Tags) {
-
+        'Drafts',
+        'Draft',
+        function ($rootScope, $scope, $interval, $routeParams, $location, Post, Tags, Drafts, Draft) {
             var id = $routeParams.id;
 
-            $scope.tags = Tags.query();
-
             if (id) {
-
+                // edit
                 $scope.post = Post.get({id: id});
-
+                $scope.drafts = Drafts.query({postId: id, short: true});
             } else {
-
+                // add
                 $scope.post = {
                     title: 'Default Title',
                     abstract: 'Default Abstract',
                     author: '53eb365dc22341f81f624b39',
                     tags: [],
-                    body: null
+                    draft: {}
                 };
+
+                $scope.drafts = [];
             }
+
+            $scope.tags = Tags.query();
 
             $scope.submit = function () {
-
                 event.preventDefault();
 
-                var post = $scope.post;
+                var $post = $scope.post;
 
-                if (post._id) {
+                $post.tags = _.compact($post.tags);
+                $post.draft = {
+                    text: $post.draft.text
+                };
 
-                    Post.update(post, function (post) {
-                        $scope.post = post;
+                if ($post._id) {
+                    // update existing post
+                    Post.update($post, function (post) {
+                        $post.draft._id = post.draft._id;
+                        $post.draft.saveAt = post.draft.saveAt;
+
+                        $scope.drafts = Drafts.query({postId: $post._id});
+                        // todo: alert success.
                     });
-
                 } else {
-                    post.tags = post.tags.map(function (tag) {
-                        return tag;
-                    });
-                    Post.save(post, function (post) {
-                        $scope.post = post;
+                    // create new post
+                    Post.save($post, function (post) {
+                        $post._id = post._id;
+                        $post.createAt = post.createAt;
+                        $post.draft._id = post.draft._id;
+                        $post.draft.saveAt = post.draft.saveAt;
+
+                        $scope.drafts = Drafts.query({postId: $post._id});
+
+                        $location.path('/post/' + $post._id, false);
                     });
                 }
-            }
-        }];
+            };
+
+            $scope.setDraft = function (id) {
+                event.preventDefault();
+
+                $scope.post.draft = Draft.get({id: id});
+            };
+        }
+    ];
 });
