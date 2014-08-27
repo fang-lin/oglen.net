@@ -10,7 +10,6 @@ define(function () {
 
         var Comment = $resource('../rest/comment/:id');
 
-
         return Comment;
     }];
 });

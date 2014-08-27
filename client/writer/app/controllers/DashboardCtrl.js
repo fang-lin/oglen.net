@@ -6,7 +6,11 @@
 define(function () {
     'use strict';
 
-    return ['$rootScope', '$scope', '$route', '$location', function ($rootScope, $scope, $route, $location) {
+    return [
+        '$rootScope',
+        '$scope',
+        '$location',
+        function ($rootScope, $scope, $location) {
 
-    }];
+        }];
 });

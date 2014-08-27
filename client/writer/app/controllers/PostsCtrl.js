@@ -9,11 +9,11 @@ define(function () {
     return [
         '$rootScope',
         '$scope',
-        '$route',
         '$routeParams',
         '$location',
         'Posts',
-        function ($rootScope, $scope, $route, $routeParams, $location, Posts) {
+        'pager',
+        function ($rootScope, $scope, $routeParams, $location, Posts, pager) {
 
             $rootScope.$watch('settings', function (settings) {
                 if (settings) {
@@ -24,7 +24,7 @@ define(function () {
                     skip === 0 && $location.path('/posts/0', false);
 
                     Posts.count.get(function (res) {
-                        $scope.pager = $rootScope.pager(res.count, skip, limit, size);
+                        $scope.pager = pager.init(res.count, skip, limit, size);
                     });
 
                     $scope.posts = Posts.query({skip: skip, limit: limit});

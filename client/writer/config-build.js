@@ -17,6 +17,7 @@ requirejs.config({
         // Apps
         'app-config': 'writer/app/config',
         'app': 'writer/app/app',
+        'utilities': 'writer/app/utilities',
         'controllers': 'writer/app/controllers',
         'routes': 'writer/app/routes',
         'directives': 'writer/app/directives',

@@ -9,9 +9,8 @@ define(function () {
     return [
         '$rootScope',
         '$scope',
-        '$route',
         '$location',
-        function ($rootScope, $scope, $route, $location) {
+        function ($rootScope, $scope, $location) {
 
 
         }];

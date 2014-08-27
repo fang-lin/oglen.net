@@ -9,11 +9,10 @@ define(function () {
     return [
         '$rootScope',
         '$scope',
-        '$route',
         '$routeParams',
         '$location',
         'Role',
-        function ($rootScope, $scope, $route, $routeParams, $location, Role) {
+        function ($rootScope, $scope, $routeParams, $location, Role) {
             var id = $routeParams.id;
 
             if (id) {

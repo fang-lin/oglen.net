@@ -4,11 +4,8 @@ module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
-        // region clean
         clean: ['dist'],
-        // endregion clean
 
-        // region copy
         copy: {
             main: {
                 files: [
@@ -26,8 +23,9 @@ module.exports = function (grunt) {
                 ]
             }
         },
-        // endregion copy
+
         cssmin: [],
+
         jshint: {
             files: ['*.js', 'server/**/*.js', 'client/writer/*.js', 'client/writer/app/**/*.js'],
             options: {
@@ -63,18 +61,16 @@ module.exports = function (grunt) {
 //                white: true //如果为true，JSHint会依据严格的空白规范检查你的代码。
             }
         },
+
         less: {
             development: {
                 files: {
-                    'client/writer/css/all.css': 'client/writer/css/all.less'
-//                    'client/writer/css/layout.css': 'client/writer/css/layout.less',
-//                    'client/writer/css/form.css': 'client/writer/css/form.less',
-//                    'client/writer/css/button.css': 'client/writer/css/button.less',
-//                    'client/writer/css/menu.css': 'client/writer/css/menu.less',
-//                    'client/writer/css/main.css': 'client/writer/css/main.less'
+                    'client/writer/css/all.css': 'client/writer/css/all.less',
+                    'client/blog/css/all.css': 'client/blog/css/all.less'
                 }
             }
         },
+
         uglify: {
             build: {
                 src: 'src/<%= pkg.name %>.js',
@@ -93,25 +89,28 @@ module.exports = function (grunt) {
                 }
             }
         },
+
         watch: {
             less: {
                 files: ['client/writer/css/*.less'],
                 tasks: ['less']
             }
         },
+
         githooks: {
 
         },
+
         karma: {},
+
         shell: {
 
         },
-        // region bower
+
         bower: {
             install: {
             }
         }
-        // endregion bower
     });
 
     // Load npm tasks
