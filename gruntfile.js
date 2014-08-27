@@ -127,17 +127,11 @@ module.exports = function (grunt) {
         },
 
         githooks: {
-            all: {
-                'pre-commit': {
-                    taskNames: 'jshint'
-                }
-            }
         },
 
         karma: {},
 
         shell: {
-
         },
 
         bower: {
@@ -163,6 +157,5 @@ module.exports = function (grunt) {
 
     // Register grunt tasks
     grunt.registerTask('watching', ['watch:less']);
-    grunt.registerTask('jshint', ['jshint']);
     grunt.registerTask('build', ['bower', 'clean', 'less', 'uglify', 'copy', 'cssmin', 'requirejs:writer', 'requirejs:blog']);
 };
