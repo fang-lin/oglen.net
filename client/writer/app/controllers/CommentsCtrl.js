@@ -24,7 +24,7 @@ define(function () {
                     skip === 0 && $location.path('/comments/0', false);
 
                     Comments.count.get(function (res) {
-                        $scope.pager = pager.init(res.count, skip, limit, size);
+                        $scope.pager = pager(res.count, skip, limit, size);
                     });
 
                     $scope.comments = Comments.query({skip: skip, limit: limit});

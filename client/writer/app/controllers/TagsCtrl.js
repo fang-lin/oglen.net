@@ -24,7 +24,7 @@ define(function () {
                     skip === 0 && $location.path('/tags/0', false);
 
                     Tags.count.get(function (res) {
-                        $scope.pager = pager.init(res.count, skip, limit, size);
+                        $scope.pager = pager(res.count, skip, limit, size);
                     });
 
                     $scope.tags = Tags.query({skip: skip, limit: limit});

@@ -27,8 +27,8 @@ define(function () {
     var ports = {
             debug: 8000,
             development: 8000,
-            production: 80,
-            default: 80
+            production: 8080,
+            default: 8080
         },
         port = function () {
             return  process.env.PORT || ports[env()] || ports.default;

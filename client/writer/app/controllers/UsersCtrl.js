@@ -24,7 +24,7 @@ define(function () {
                     skip === 0 && $location.path('/users/0', false);
 
                     Users.count.get(function (res) {
-                        $scope.pager = pager.init(res.count, skip, limit, size);
+                        $scope.pager = pager(res.count, skip, limit, size);
                     });
 
                     $scope.users = Users.query({skip: skip, limit: limit});

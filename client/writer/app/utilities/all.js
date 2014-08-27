@@ -6,13 +6,15 @@
 define([
     'config',
     'utilities/Pager',
+    'utilities/Authorization',
     'utilities/path',
     'angular'
-], function (config, Pager, path) {
+], function (config, Pager, Authorization, path) {
     'use strict';
 
     var utilities = angular.module(config.name + '.utilities', [])
-        .service('pager', Pager)
+        .factory('pager', Pager)
+        .factory('authorization', Authorization)
         .run(path);
 
     return utilities;

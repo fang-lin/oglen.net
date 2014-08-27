@@ -8,7 +8,7 @@ define(function () {
 
     return [function () {
 
-        this.init = function (count, skip, limit, size) {
+        return function (count, skip, limit, size) {
             var pager = [],
                 total = Math.ceil(count / limit);
 

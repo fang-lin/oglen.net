@@ -24,7 +24,7 @@ define(function () {
                     skip === 0 && $location.path('/settings/0', false);
 
                     Settings.count.get(function (res) {
-                        $scope.pager = pager.init(res.count, skip, limit, size);
+                        $scope.pager = pager(res.count, skip, limit, size);
                     });
 
                     $scope.settings = Settings.query({skip: skip, limit: limit});
