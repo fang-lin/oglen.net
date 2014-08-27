@@ -17,19 +17,18 @@
     <![endif]-->
     <link rel="stylesheet" href="css/main.css"/>
 
-    <title ng-bind="title">oglen.net</title>
+    <title ng-bind="info.title">writer.oglen.net</title>
 </head>
 <body>
 <header id="logo" class="container-fluid">
-    sdsd
+    <span ng-bind="info.title"></span>
 </header>
 
 <div id="menu">
     <og-menu menu="menu"></og-menu>
 </div>
 
-<div ng-view>
-</div>
+<div ng-view>loading</div>
 
 <script type="text/javascript" data-main="init" src="/lib/requirejs/require.js"></script>
 </body>
