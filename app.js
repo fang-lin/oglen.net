@@ -68,7 +68,6 @@ require('requirejs')([
     var mongooseLink = config.mongooseLink();
     mongoose.connect(mongooseLink);
     logger.info('Mongoose connect to ' + mongooseLink);
-
 });
 
 
