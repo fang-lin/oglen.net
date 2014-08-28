@@ -28,7 +28,7 @@ define([
     'use strict';
 
     var logger = log4js.getLogger('router'); // TRACE, DEBUG, INFO, WARN, ERROR, FATAL
-    logger.setLevel('TRACE');
+    logger.setLevel(config.logLevel);
 
     var router = express.Router();
 
@@ -54,6 +54,7 @@ define([
     }
 
     authorization(router);
+
     router.use(expressJwt({
         secret: config.jwt.secret,
         audience: config.jwt.options.audience,

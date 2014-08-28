@@ -23,12 +23,41 @@ define(function () {
         auth: 'swift'
     };
 
+    // TRACE, DEBUG, INFO, WARN, ERROR, FATAL
+    var loggers = {
+            default: 'WARN',
+            development: 'INFO',
+            production: 'ERROR'
+        },
+        logger = function () {
+            return  loggers[env()] || loggers.default;
+        };
+
+    // morgan combined, common, dev, short, tiny
+    var morgans = {
+            default: 'short',
+            development: 'dev',
+            production: 'tiny'
+        },
+        morgan = function () {
+            return  morgans[env()] || morgans.default;
+        };
+
+    // static dist
+    var dists = {
+            default: 'client',
+            development: 'client',
+            production: 'dist'
+        },
+        dist = function () {
+            return  dists[env()] || dists.default;
+        };
+
     // Express listening on port
     var ports = {
-            debug: 8000,
+            default: 8080,
             development: 8000,
-            production: 8080,
-            default: 8080
+            production: 8080
         },
         port = function () {
             return  process.env.PORT || ports[env()] || ports.default;
@@ -36,28 +65,33 @@ define(function () {
 
     // mongoose connect link
     var mongooseLinks = {
-            debug: 'mongodb://localhost/oglen-db',
+            default: 'mongodb://localhost/oglen-db',
             development: 'mongodb://localhost/oglen-db',
-            production: 'mongodb://localhost/oglen-db',
-            default: 'mongodb://localhost/oglen-db'
+            production: 'mongodb://localhost/oglen-db'
         },
         mongooseLink = function () {
             return mongooseLinks[env()] || mongooseLinks.default;
         };
 
+    // json web token
+    var jwt = {
+        secret: new Buffer('YOUR_CLIENT_SECRET', 'base64'),
+        options: {
+            algorithm: 'HS256',
+            audience: 'YOUR_CLIENT_ID',
+            issuer: 'YOUR_ISSUER',
+            expiresInMinutes: 0
+        }
+    };
+
     return {
         env: env,
-        port: port,
-        mongooseLink: mongooseLink,
-        jwt: {
-            secret: new Buffer('YOUR_CLIENT_SECRET', 'base64'),
-            options: {
-                algorithm: 'HS256',
-                audience: 'YOUR_CLIENT_ID',
-                issuer: 'YOUR_ISSUER',
-                expiresInMinutes: 0
-            }
-        },
+        logger: logger(),
+        morgan: morgan(),
+        dist: dist(),
+        port: port(),
+        mongooseLink: mongooseLink(),
+        jwt: jwt,
         delay: 0
     };
 });

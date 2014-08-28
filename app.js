@@ -17,59 +17,28 @@ require('requirejs')([
 ], function (config, router, express, bodyParser, morgan, compression, errorhandler, mongoose, log4js) {
     'use strict';
 
-    // TRACE, DEBUG, INFO, WARN, ERROR, FATAL
     var logger = log4js.getLogger('app'),
-        app = express();
+        app = express(),
+        env = config.env;
 
-    switch (config.env()) {
-        case 'debug':
+    env('development') && app.use(errorhandler());
+    env('production') && app.use(compression());
 
-            logger.setLevel('TRACE');
-
-            app.use(morgan('short'));
-            app.use(errorhandler());
-            app.use(express.static('client'));
-
-            break;
-        case 'development':
-
-            logger.setLevel('INFO');
-
-            app.use(morgan('short'));
-            app.use(errorhandler());
-            app.use(express.static('client'));
-
-
-            break;
-        case 'production':
-
-            logger.setLevel('ERROR');
-
-            app.use(compression());
-            app.use(express.static('dist'));
-
-            break;
-
-        default :
-
-            logger.setLevel('WARN');
-            app.use(express.static('client'));
-
-            break;
-    }
+    app.use(express.static(config.dist));
+    app.use(morgan(config.morgan));
+    logger.setLevel(config.logger);
 
     app.use('/rest', bodyParser.json());
     app.use('/rest', router);
 
-    var port = config.port();
+    var port = config.port;
     app.listen(port);
     logger.info('Http server listening on port ' + port);
 
-    var mongooseLink = config.mongooseLink();
+    var mongooseLink = config.mongooseLink;
     mongoose.connect(mongooseLink);
     logger.info('Mongoose connect to ' + mongooseLink);
 });
-
 
 
 

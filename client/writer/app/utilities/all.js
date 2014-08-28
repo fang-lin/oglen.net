@@ -15,14 +15,16 @@ define([
     'use strict';
 
     var utilities = angular.module(config.name + '.utilities', [])
+        .run(path)
         .factory('pager', Pager)
         .factory('authorization', Authorization)
-        .service('session', Session)
-        .run(path)
         .factory('authInterceptor', authInterceptor)
-        .config(function ($httpProvider) {
-            $httpProvider.interceptors.push('authInterceptor');
-        });
+        .service('session', Session)
+        .config([
+            '$httpProvider',
+            function ($httpProvider) {
+                $httpProvider.interceptors.push('authInterceptor');
+            }]);
 
     return utilities;
 });
