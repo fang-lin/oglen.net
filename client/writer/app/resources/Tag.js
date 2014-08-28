@@ -8,7 +8,7 @@ define(function () {
 
     return ['$resource', function ($resource) {
 
-        var Tag = $resource('../rest/tag/:id', null, {
+        var Tag = $resource('/rest/tag/:id', null, {
             save: {method: 'POST'},
             update: { method: 'PUT' }
         });

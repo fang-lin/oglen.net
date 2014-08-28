@@ -14,6 +14,7 @@ define(function () {
         'User',
         'Roles',
         function ($rootScope, $scope, $routeParams, $location, User, Roles) {
+
             var id = $routeParams.id;
 
             if (id) {
@@ -26,14 +27,14 @@ define(function () {
 
             $scope.roles = Roles.query();
 
-            $scope.submit = function () {
+            $scope.submit = function (user) {
                 event.preventDefault();
 
-                var $user = $scope.user;
+                var $user = user;
 
                 if ($user._id) {
                     // update existing user
-                    User.update($user, function (tag) {
+                    User.update($user, function (user) {
                         // todo: alert success.
                     });
                 } else {

@@ -8,11 +8,11 @@ define(function () {
 
     return ['$resource', function ($resource) {
 
-        var Users = $resource('../rest/users/:skip/:limit', null, {
+        var Users = $resource('/rest/users/:skip/:limit', null, {
             'get': { method: 'GET' }
         });
 
-        Users.count = $resource('../rest/users/count', null, {
+        Users.count = $resource('/rest/users/count', null, {
             get: {method: 'GET'}
         });
 

@@ -15,6 +15,10 @@ define([
                 templateUrl: 'app/views/dashboard.html',
                 controller: 'DashboardCtrl'
             })
+            .when('/login', {
+                templateUrl: 'app/views/login.html',
+                controller: 'LoginCtrl'
+            })
             .when('/dashboard', {
                 templateUrl: 'app/views/dashboard.html',
                 controller: 'DashboardCtrl'

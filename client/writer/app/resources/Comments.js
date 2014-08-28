@@ -9,11 +9,11 @@ define([
     'use strict';
 
     return ['$resource', function ($resource) {
-        var Comments = $resource('../rest/comments/:skip/:limit', null, {
+        var Comments = $resource('/rest/comments/:skip/:limit', null, {
             get: {method: 'GET'}
         });
 
-        Comments.count = $resource('../rest/comments/count', null, {
+        Comments.count = $resource('/rest/comments/count', null, {
             get: {method: 'GET'}
         });
 

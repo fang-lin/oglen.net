@@ -19,6 +19,7 @@ define([
         'Drafts',
         'Draft',
         function ($rootScope, $scope, $interval, $routeParams, $location, Post, Tags, Drafts, Draft) {
+
             var id = $routeParams.id;
 
             if (id) {
@@ -40,11 +41,10 @@ define([
 
             $scope.tags = Tags.query();
 
-            $scope.submit = function () {
+            $scope.submit = function (post) {
                 event.preventDefault();
 
-                var $post = $scope.post;
-
+                var $post = post;
                 $post.tags = _.compact($post.tags);
                 $post.draft = {
                     text: $post.draft.text

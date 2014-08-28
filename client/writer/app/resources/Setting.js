@@ -8,7 +8,7 @@ define(function () {
 
     return ['$resource', function ($resource) {
 
-        var Setting = $resource('../rest/setting/:id', null, {
+        var Setting = $resource('/rest/setting/:id', null, {
             save: {method: 'POST'},
             update: { method: 'PUT' }
         });

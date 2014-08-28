@@ -8,13 +8,14 @@ require('requirejs')([
     'config', // Project configuration.
     'server/routers/all',
     'express', // Web application framework for node.
+    'express-jwt', // Middleware that validates JsonWebTokens and set req.user.
     'body-parser', // Node.js body parsing middleware.
     'morgan', // Logging middleware for node.js http apps.
     'compression', // Node.js compression middleware.
     'errorhandler', // Create new middleware to handle errors and respond with content negotiation.
     'mongoose', // Elegant mongodb object modeling for node.js.
     'log4js' // Port of Log4js to work with node.
-], function (config, router, express, bodyParser, morgan, compression, errorhandler, mongoose, log4js) {
+], function (config, router, express, expressJwt, bodyParser, morgan, compression, errorhandler, mongoose, log4js) {
     'use strict';
 
     // TRACE, DEBUG, INFO, WARN, ERROR, FATAL
@@ -58,7 +59,8 @@ require('requirejs')([
             break;
     }
 
-    app.use(bodyParser.json());
+    app.use('/rest', expressJwt({ secret: config.secret}).unless({path: ['/rest/authorization']}));
+    app.use('/rest', bodyParser.json());
     app.use('/rest', router);
 
     var port = config.port();

@@ -1,5 +1,5 @@
 <h2>Post</h2>
-<form>
+<form name="post-form" ng-submit="submit(post)">
     <ul>
         <li>
             <label for="title">title</label>
@@ -61,6 +61,7 @@
         <li>
             <label for="drafts">drafts</label>
             <br/>
+
             <div id="drafts" name="drafts">
                 <ul>
                     <li class="draft" ng-repeat="draft in drafts" ng-bind="draft.saveAt | date:'short'" ng-click="setDraft(draft._id)"></li>
@@ -68,7 +69,7 @@
             </div>
         </li>
         <li>
-            <input type="submit" value="save" ng-click="submit()"/>
+            <input type="submit" value="save"/>
         </li>
     </ul>
 </form>

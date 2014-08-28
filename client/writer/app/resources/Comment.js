@@ -8,7 +8,7 @@ define(function () {
 
     return ['$resource', function ($resource) {
 
-        var Comment = $resource('../rest/comment/:id');
+        var Comment = $resource('/rest/comment/:id');
 
         return Comment;
     }];

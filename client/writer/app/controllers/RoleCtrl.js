@@ -13,6 +13,7 @@ define(function () {
         '$location',
         'Role',
         function ($rootScope, $scope, $routeParams, $location, Role) {
+
             var id = $routeParams.id;
 
             if (id) {
@@ -23,10 +24,10 @@ define(function () {
                 $scope.role = {};
             }
 
-            $scope.submit = function () {
+            $scope.submit = function (role) {
                 event.preventDefault();
 
-                var $role = $scope.role;
+                var $role = role;
 
                 if ($role._id) {
                     // update existing role

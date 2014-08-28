@@ -1,5 +1,5 @@
 <h2>User</h2>
-<form>
+<form name="user-form" ng-submit="submit(user)">
     <ul>
         <li>
             <label for="username">username</label>
@@ -24,7 +24,7 @@
             </select>
         </li>
         <li>
-            <input type="submit" id="submit" name="submit" value="submit" ng-click="submit()"/>
+            <input type="submit" id="submit" name="submit" value="submit"/>
         </li>
     </ul>
 </form>

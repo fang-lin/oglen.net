@@ -8,7 +8,7 @@ define(function () {
 
     return ['$resource', function ($resource) {
 
-        var Draft = $resource('../rest/draft/:id');
+        var Draft = $resource('/rest/draft/:id');
 
 //        Draft.default = function () {
 //            return {

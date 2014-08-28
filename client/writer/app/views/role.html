@@ -1,5 +1,5 @@
 <h2>Role</h2>
-<form>
+<form name="role-form" ng-submit="submit(role)">
     <ul>
         <li>
             <label for="name">name</label>
@@ -17,7 +17,7 @@
             <input type="text" id="note" name="note" ng-model="role.note"/>
         </li>
         <li>
-            <input type="submit" id="submit" name="submit" value="submit" ng-click="submit()"/>
+            <input type="submit" id="submit" name="submit" value="submit"/>
         </li>
     </ul>
 </form>

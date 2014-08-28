@@ -8,6 +8,7 @@ define([
     '../../config', // Project configuration.
     'log4js',
     'express',
+    'server/routers/authorization',
     'server/routers/post',
     'server/routers/posts',
     'server/routers/draft',
@@ -22,7 +23,7 @@ define([
     'server/routers/roles',
     'server/routers/setting',
     'server/routers/settings'
-], function (config, log4js, express, postRouter, postsRouter, draftRouter, draftsRouter, tagRouter, tagsRouter, commentRouter, commentsRouter, userRouter, usersRouter, roleRouter, rolesRouter, roleSetting, roleSettings) {
+], function (config, log4js, express, authorization, post, posts, draft, drafts, tag, tags, comment, comments, user, users, role, roles, setting, settings) {
     'use strict';
 
     var logger = log4js.getLogger('router'); // TRACE, DEBUG, INFO, WARN, ERROR, FATAL
@@ -51,25 +52,9 @@ define([
             });
     }
 
-    [
-        postRouter,
-        postsRouter,
-        draftRouter,
-        draftsRouter,
-        tagRouter,
-        tagsRouter,
-        commentRouter,
-        commentsRouter,
-        userRouter,
-        usersRouter,
-        roleRouter,
-        rolesRouter,
-        roleSetting,
-        roleSettings
-    ]
-        .forEach(function (route) {
-            route(router);
-        });
+    [authorization, post, posts, draft, drafts, tag, tags, comment, comments, user, users, role, roles, setting, settings].forEach(function (route) {
+        route(router);
+    });
 
     return router;
 });

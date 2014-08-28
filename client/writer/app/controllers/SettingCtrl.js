@@ -13,6 +13,7 @@ define(function () {
         '$location',
         'Setting',
         function ($rootScope, $scope, $routeParams, $location, Setting) {
+
             var id = $routeParams.id;
 
             if (id) {
@@ -23,10 +24,10 @@ define(function () {
                 $scope.setting = {};
             }
 
-            $scope.submit = function () {
+            $scope.submit = function (setting) {
                 event.preventDefault();
 
-                var $setting = $scope.setting;
+                var $setting = setting;
 
                 if ($setting._id) {
                     // update existing setting

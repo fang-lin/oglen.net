@@ -8,11 +8,11 @@ define(function () {
 
     return ['$resource', function ($resource) {
 
-        var Roles = $resource('../rest/roles/:skip/:limit', null, {
+        var Roles = $resource('/rest/roles/:skip/:limit', null, {
 
         });
 
-        Roles.count = $resource('../rest/roles/count', null, {
+        Roles.count = $resource('/rest/roles/count', null, {
             get: {method: 'GET'}
         });
 

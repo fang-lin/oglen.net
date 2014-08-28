@@ -49,7 +49,8 @@ define(function () {
         env: env,
         port: port,
         mongooseLink: mongooseLink,
-        delay: 500
+        secret: '111111111',
+        delay: 0
     };
 });
 

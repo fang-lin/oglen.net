@@ -13,6 +13,7 @@ define(function () {
         '$location',
         'Tag',
         function ($rootScope, $scope, $routeParams, $location, Tag) {
+
             var id = $routeParams.id;
 
             if (id) {
@@ -23,10 +24,10 @@ define(function () {
                 $scope.tag = {};
             }
 
-            $scope.submit = function () {
+            $scope.submit = function (tag) {
                 event.preventDefault();
 
-                var $tag = $scope.tag;
+                var $tag = tag;
 
                 if ($tag._id) {
                     // update existing tag

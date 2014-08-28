@@ -13,6 +13,8 @@ define([
             .route('/settings/count')
             .get(function (req, res, next) {
 
+                console.log(req.user);
+
                 Setting
                     .count()
                     .exec(function (err, docs) {

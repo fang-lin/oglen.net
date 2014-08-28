@@ -35,10 +35,13 @@ define([
         ])
         .run([
             '$rootScope',
+            '$window',
             'menu',
             'info',
             'Settings',
-            function ($rootScope, menu, info, Settings) {
+            function ($rootScope, $window, menu, info, Settings) {
+
+                console.log($window.sessionStorage.token);
 
                 $rootScope.menu = menu;
                 $rootScope.info = info;

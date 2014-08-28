@@ -5,6 +5,7 @@
 
 define([
     'config',
+    'controllers/LoginCtrl',
     'controllers/DashboardCtrl',
     'controllers/PostCtrl',
     'controllers/PostsCtrl',
@@ -19,10 +20,11 @@ define([
     'controllers/SettingCtrl',
     'controllers/SettingsCtrl',
     'angular'
-], function (config, DashboardCtrl, PostCtrl, PostsCtrl, TagCtrl, TagsCtrl, CommentCtrl, CommentsCtrl, UserCtrl, UsersCtrl, RoleCtrl, RolesCtrl, SettingCtrl, SettingsCtrl) {
+], function (config, LoginCtrl, DashboardCtrl, PostCtrl, PostsCtrl, TagCtrl, TagsCtrl, CommentCtrl, CommentsCtrl, UserCtrl, UsersCtrl, RoleCtrl, RolesCtrl, SettingCtrl, SettingsCtrl) {
     'use strict';
 
     var controllers = angular.module(config.name + '.controllers', [])
+        .controller('LoginCtrl', LoginCtrl)
         .controller('DashboardCtrl', DashboardCtrl)
         .controller('PostCtrl', PostCtrl)
         .controller('PostsCtrl', PostsCtrl)
