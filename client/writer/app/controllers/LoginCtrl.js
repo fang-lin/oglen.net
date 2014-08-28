@@ -20,12 +20,9 @@ define(function () {
             };
 
             $scope.login = function (credentials) {
-                authorization.login(credentials)
-                    .then(function () {
-                        $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-                    }, function () {
-                        $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
-                    });
+                authorization.login(credentials, function () {
+                    $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+                });
             };
         }];
 });

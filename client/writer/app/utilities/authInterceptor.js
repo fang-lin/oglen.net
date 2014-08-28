@@ -25,10 +25,6 @@ define(function () {
                 },
                 response: function (res) {
 
-//                    if (res.status === 401) {
-//                        // handle the case where the user is not authenticated
-//
-//                    }
                     return res || $q.when(res);
                 },
                 responseError: function (res) {

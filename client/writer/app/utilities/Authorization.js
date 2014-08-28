@@ -3,8 +3,14 @@
  * Author: isaac.fang@grapecity.com
  */
 
-define(function () {
+define([
+    'crypto'
+], function (crypto) {
     'use strict';
+
+    var md5 = function (code) {
+        return crypto.createHash('md5').update(code).digest('hex');
+    };
 
     return [
         '$http',
@@ -12,18 +18,22 @@ define(function () {
         'session',
         function ($http, $window, session) {
             return {
-                login: function (credentials) {
-                    return $http.post('/rest/authorization', credentials)
-                        .then(function (res) {
-                            console.log(res)
-                            $window.sessionStorage.token = res.data.token;
+                login: function (credentials, callback) {
 
-                            console.log($window.sessionStorage.token);
-//                            session.create(res.id, res.userId, res.role);
+                    credentials.password = md5(credentials.password);
+
+                    $http.post('/rest/authorization', credentials)
+                        .then(function (res) {
+                            $window.sessionStorage.token = res.data.token;
+                            callback();
                         });
                 },
+                logout: function (callback) {
+                    delete $window.sessionStorage.token;
+                    callback();
+                },
                 isAuthenticated: function () {
-                    return !!session.userId;
+                    return $window.sessionStorage.token;
                 },
                 isAuthorized: function (authorizedRoles) {
                     if (!angular.isArray(authorizedRoles)) {

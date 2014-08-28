@@ -12,64 +12,68 @@ define([
 
         $routeProvider
             .when('/', {
-                templateUrl: 'app/views/dashboard.html',
-                controller: 'DashboardCtrl'
+                controller: 'DashboardCtrl',
+                templateUrl: 'app/views/dashboard.html'
             })
             .when('/login', {
-                templateUrl: 'app/views/login.html',
-                controller: 'LoginCtrl'
+                controller: 'LoginCtrl',
+                templateUrl: 'app/views/login.html'
+            })
+            .when('/logout', {
+                controller: 'LogoutCtrl',
+                templateUrl: 'app/views/logout.html'
             })
             .when('/dashboard', {
-                templateUrl: 'app/views/dashboard.html',
-                controller: 'DashboardCtrl'
+                controller: 'DashboardCtrl',
+                templateUrl: 'app/views/dashboard.html'
             })
             .when('/posts/:skip?', {
-                templateUrl: 'app/views/posts.html',
-                controller: 'PostsCtrl'
+                controller: 'PostsCtrl',
+                templateUrl: 'app/views/posts.html'
             })
             .when('/post/:id?', {
-                templateUrl: 'app/views/post.html',
-                controller: 'PostCtrl'
+                controller: 'PostCtrl',
+                templateUrl: 'app/views/post.html'
             })
             .when('/tags/:skip?', {
-                templateUrl: 'app/views/tags.html',
-                controller: 'TagsCtrl'
+                controller: 'TagsCtrl',
+                templateUrl: 'app/views/tags.html'
             })
             .when('/tag/:id?', {
-                templateUrl: 'app/views/tag.html',
-                controller: 'TagCtrl'
+                controller: 'TagCtrl',
+                templateUrl: 'app/views/tag.html'
             })
             .when('/comment/:id?', {
-                templateUrl: 'app/views/comment.html',
-                controller: 'CommentCtrl'
+                controller: 'CommentCtrl',
+                templateUrl: 'app/views/comment.html'
             })
             .when('/comments/:skip?', {
-                templateUrl: 'app/views/comments.html',
-                controller: 'CommentsCtrl'
+                controller: 'CommentsCtrl',
+                templateUrl: 'app/views/comments.html'
             })
             .when('/users/:skip?', {
                 templateUrl: 'app/views/users.html',
                 controller: 'UsersCtrl'
             })
             .when('/user/:id?', {
-                templateUrl: 'app/views/user.html',
-                controller: 'UserCtrl'
+                controller: 'UserCtrl',
+                templateUrl: 'app/views/user.html'
             })
             .when('/roles/:skip?', {
-                templateUrl: 'app/views/roles.html',
-                controller: 'RolesCtrl'
+                controller: 'RolesCtrl',
+                templateUrl: 'app/views/roles.html'
             })
             .when('/role/:id?', {
-                templateUrl: 'app/views/role.html',
-                controller: 'RoleCtrl'
+                controller: 'RoleCtrl',
+                templateUrl: 'app/views/role.html'
             })
             .when('/settings/:skip?', {
-                templateUrl: 'app/views/settings.html',
-                controller: 'SettingsCtrl'
+                controller: 'SettingsCtrl',
+                templateUrl: 'app/views/settings.html'
             })
             .when('/setting/:id?', {
-                templateUrl: 'app/views/setting.html',
-                controller: 'SettingCtrl'
+                controller: 'SettingCtrl',
+                templateUrl: 'app/views/setting.html'
             })
             .otherwise({
                 redirectTo: '/'

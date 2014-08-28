@@ -5,8 +5,10 @@
 
 define([
     'config',
-    'jsonwebtoken'
-], function (config, jwt) {
+    'server/utilities/all',
+    'jsonwebtoken',
+    'server/models/User'
+], function (config, util, jwt, User) {
     'use strict';
 
     var authorizationRouter = function (router) {
@@ -15,24 +17,41 @@ define([
             .post(function (req, res, next) {
 
                 var form = req.body;
-                //TODO validate req.body.username and req.body.password
-                //if is invalid, return 401
-                if (!(form.username === '123' && form.password === '123')) {
-                    res.send(401, 'Wrong user or password');
-                    return;
-                }
 
-                var profile = {
-                    first_name: 'John',
-                    last_name: 'Doe',
-                    email: 'john@doe.com',
-                    id: 123
-                };
+                User
+                    .find({
+                        username: form.username
+                    })
+                    .exec(function (err, docs) {
+                        router.cap(err, res, function () {
+                            if (docs.length === 0) {
+                                res.status(401).json({status: 'nonexistent user'});
+                            } else if (docs.length === 1) {
 
-                // We are sending the profile inside the token
-                var token = jwt.sign(profile, config.jwt.secret, config.jwt.options);
+                                var user = docs[0];
 
-                res.json({token: token});
+                                if (user.password === util.md5(form.password)) {
+                                    // authorization success.
+                                    var token = jwt.sign({
+                                        _id: user._id,
+                                        username: user.username,
+                                        email: user.email,
+                                        role: user.role,
+                                        clientIp: user.clientIp,
+                                        loginAt: user.loginAt,
+                                        createAt: user.createAt
+                                    }, config.jwt.secret, config.jwt.options);
+
+                                    res.json({token: token});
+                                } else {
+                                    res.status(401).json({status: 'wrong password'});
+                                }
+                            } else {
+                                res.status(500).json({status: 'failure'});
+                            }
+
+                        });
+                    });
             });
     };
 

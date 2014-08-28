@@ -3,8 +3,14 @@
  * Author: isaac.fang@grapecity.com
  */
 
-define(function () {
+define([
+    'crypto'
+], function (crypto) {
     'use strict';
+
+    var md5 = function (code) {
+        return crypto.createHash('md5').update(code).digest('hex');
+    };
 
     return [
         '$rootScope',
@@ -14,6 +20,7 @@ define(function () {
         'User',
         'Roles',
         function ($rootScope, $scope, $routeParams, $location, User, Roles) {
+
 
             var id = $routeParams.id;
 
@@ -31,6 +38,7 @@ define(function () {
                 event.preventDefault();
 
                 var $user = user;
+                $user.password = md5(user.password);
 
                 if ($user._id) {
                     // update existing user
