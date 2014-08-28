@@ -8,7 +8,7 @@ define([
 ], function (Comment) {
     'use strict';
 
-    var commentRouter = function (router, util) {
+    var commentRouter = function (router) {
         router
             .route('/comment/:id?')
             .get(function (req, res, next) {

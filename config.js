@@ -49,7 +49,15 @@ define(function () {
         env: env,
         port: port,
         mongooseLink: mongooseLink,
-        secret: '111111111',
+        jwt: {
+            secret: new Buffer('YOUR_CLIENT_SECRET', 'base64'),
+            options: {
+                algorithm: 'HS256',
+                audience: 'YOUR_CLIENT_ID',
+                issuer: 'YOUR_ISSUER',
+                expiresInMinutes: 0
+            }
+        },
         delay: 0
     };
 });

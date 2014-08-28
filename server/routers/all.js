@@ -53,11 +53,16 @@ define([
             });
     }
 
-    [post, posts, draft, drafts, tag, tags, comment, comments, user, users, role, roles, setting, settings].forEach(function (route) {
-        route(router.use(expressJwt({ secret: config.secret})));
-    });
-
     authorization(router);
+    router.use(expressJwt({
+        secret: config.jwt.secret,
+        audience: config.jwt.options.audience,
+        issuer: config.jwt.options.issuer
+    }));
+
+    [post, posts, draft, drafts, tag, tags, comment, comments, user, users, role, roles, setting, settings].forEach(function (route) {
+        route(router);
+    });
 
     return router;
 });

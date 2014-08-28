@@ -9,7 +9,7 @@ define([
 ], function (Post, Draft) {
     'use strict';
 
-    var postsRouter = function (router, util) {
+    var postsRouter = function (router) {
         router
             .route('/posts/count')
             .get(function (req, res, next) {

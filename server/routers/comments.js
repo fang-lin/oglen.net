@@ -8,7 +8,7 @@ define([
 ], function (Comment) {
     'use strict';
 
-    var commentsRouter = function (router, util) {
+    var commentsRouter = function (router) {
         router
             .route('/comments/count')
             .get(function (req, res, next) {

@@ -9,7 +9,7 @@ define([
 ], function (config, jwt) {
     'use strict';
 
-    var authorizationRouter = function (router, util) {
+    var authorizationRouter = function (router) {
         router
             .route('/authorization')
             .post(function (req, res, next) {
@@ -30,9 +30,9 @@ define([
                 };
 
                 // We are sending the profile inside the token
-                var token = jwt.sign(profile, config.secret, { expiresInMinutes: 60 * 5 });
+                var token = jwt.sign(profile, config.jwt.secret, config.jwt.options);
 
-                res.json({ token: token });
+                res.json({token: token});
             });
     };
 

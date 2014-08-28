@@ -8,7 +8,7 @@ define([
 ], function (Setting) {
     'use strict';
 
-    var settingRouter = function (router, util) {
+    var settingRouter = function (router) {
         router
             .route('/setting/:id?')
             .get(function (req, res, next) {

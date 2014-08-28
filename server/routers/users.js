@@ -8,7 +8,7 @@ define([
 ], function (User) {
     'use strict';
 
-    var usersRouter = function (router, util) {
+    var usersRouter = function (router) {
         router
             .route('/users/count')
             .get(function (req, res, next) {

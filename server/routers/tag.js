@@ -8,7 +8,7 @@ define([
 ], function (Tag) {
     'use strict';
 
-    var tagRouter = function (router, util) {
+    var tagRouter = function (router) {
         router
             .route('/tag/:id?')
             .get(function (req, res, next) {

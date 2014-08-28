@@ -8,7 +8,7 @@ define([
 ], function (Tag) {
     'use strict';
 
-    var tagsRouter = function (router, util) {
+    var tagsRouter = function (router) {
         router
             .route('/tags/count')
             .get(function (req, res, next) {

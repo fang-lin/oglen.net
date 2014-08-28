@@ -8,7 +8,7 @@ define([
 ], function (Role) {
     'use strict';
 
-    var roleRouter = function (router, util) {
+    var roleRouter = function (router) {
         router
             .route('/role/:id?')
             .get(function (req, res, next) {

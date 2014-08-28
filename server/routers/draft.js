@@ -9,7 +9,7 @@ define([
 ], function (Post, Draft) {
     'use strict';
 
-    var draftRouter = function (router, util) {
+    var draftRouter = function (router) {
         router
             .route('/draft/:id?')
             .get(function (req, res, next) {
