@@ -8,6 +8,7 @@ define([
     '../../config', // Project configuration.
     'log4js',
     'express',
+    'express-jwt', // Middleware that validates JsonWebTokens and set req.user.
     'server/routers/authorization',
     'server/routers/post',
     'server/routers/posts',
@@ -23,7 +24,7 @@ define([
     'server/routers/roles',
     'server/routers/setting',
     'server/routers/settings'
-], function (config, log4js, express, authorization, post, posts, draft, drafts, tag, tags, comment, comments, user, users, role, roles, setting, settings) {
+], function (config, log4js, express, expressJwt, authorization, post, posts, draft, drafts, tag, tags, comment, comments, user, users, role, roles, setting, settings) {
     'use strict';
 
     var logger = log4js.getLogger('router'); // TRACE, DEBUG, INFO, WARN, ERROR, FATAL
@@ -52,9 +53,11 @@ define([
             });
     }
 
-    [authorization, post, posts, draft, drafts, tag, tags, comment, comments, user, users, role, roles, setting, settings].forEach(function (route) {
-        route(router);
+    [post, posts, draft, drafts, tag, tags, comment, comments, user, users, role, roles, setting, settings].forEach(function (route) {
+        route(router.use(expressJwt({ secret: config.secret})));
     });
+
+    authorization(router);
 
     return router;
 });
