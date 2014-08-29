@@ -37,17 +37,18 @@ define([
             '$rootScope',
             '$location',
             '$window',
+            '$route',
             'menu',
             'info',
             'Settings',
             'authorization',
             'AUTH_EVENTS',
-            function ($rootScope, $location, $window, menu, info, Settings, authorization, AUTH_EVENTS) {
+            function ($rootScope, $location, $window, $route, menu, info, Settings, authorization, AUTH_EVENTS) {
 
                 $rootScope.menu = menu;
                 $rootScope.info = info;
 
-                var load = function () {
+                var loadSettings = function () {
                     Settings.query(function (res) {
                         var settings = {};
                         res.forEach(function (setting) {
@@ -58,14 +59,24 @@ define([
                 };
 
                 $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
-                    load();
+                    loadSettings();
+                    $location.path('/dashboard');
                 });
 
-                if (authorization.isAuthenticated()) {
-                    load();
-                } else {
+                $rootScope.$on(AUTH_EVENTS.logoutSuccess, function () {
                     $location.path('/login');
-                }
+                });
+
+                $rootScope.$on("$routeChangeStart", function (event, next, current) {
+
+                    $rootScope.isLogin = authorization.isLogin();
+
+                    if ($rootScope.isLogin) {
+                        $rootScope.settings || loadSettings();
+                    } else {
+                        $location.path('/login');
+                    }
+                });
             }
         ]);
 });

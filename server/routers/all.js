@@ -55,11 +55,17 @@ define([
 
     authorization(router);
 
-    router.use(expressJwt({
+    var options = {
         secret: config.jwt.secret,
-        audience: config.jwt.options.audience,
         issuer: config.jwt.options.issuer
-    }));
+    };
+
+    router
+        .use(function (req, res, next) {
+            options.audience = req.ip + ' ' + req.header('user-agent');
+            next();
+        })
+        .use(expressJwt(options));
 
     [post, posts, draft, drafts, tag, tags, comment, comments, user, users, role, roles, setting, settings].forEach(function (route) {
         route(router);

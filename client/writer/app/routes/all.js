@@ -8,78 +8,95 @@ define([
 ], function (config) {
     'use strict';
 
-    var routes = angular.module(config.name + '.routes', []).config(['$routeProvider', function ($routeProvider) {
+    var routes = angular.module(config.name + '.routes', [])
+        .config(['$routeProvider', function ($routeProvider) {
 
-        $routeProvider
-            .when('/', {
-                controller: 'DashboardCtrl',
-                templateUrl: 'app/views/dashboard.html'
-            })
-            .when('/login', {
-                controller: 'LoginCtrl',
-                templateUrl: 'app/views/login.html'
-            })
-            .when('/logout', {
-                controller: 'LogoutCtrl',
-                templateUrl: 'app/views/logout.html'
-            })
-            .when('/dashboard', {
-                controller: 'DashboardCtrl',
-                templateUrl: 'app/views/dashboard.html'
-            })
-            .when('/posts/:skip?', {
-                controller: 'PostsCtrl',
-                templateUrl: 'app/views/posts.html'
-            })
-            .when('/post/:id?', {
-                controller: 'PostCtrl',
-                templateUrl: 'app/views/post.html'
-            })
-            .when('/tags/:skip?', {
-                controller: 'TagsCtrl',
-                templateUrl: 'app/views/tags.html'
-            })
-            .when('/tag/:id?', {
-                controller: 'TagCtrl',
-                templateUrl: 'app/views/tag.html'
-            })
-            .when('/comment/:id?', {
-                controller: 'CommentCtrl',
-                templateUrl: 'app/views/comment.html'
-            })
-            .when('/comments/:skip?', {
-                controller: 'CommentsCtrl',
-                templateUrl: 'app/views/comments.html'
-            })
-            .when('/users/:skip?', {
-                templateUrl: 'app/views/users.html',
-                controller: 'UsersCtrl'
-            })
-            .when('/user/:id?', {
-                controller: 'UserCtrl',
-                templateUrl: 'app/views/user.html'
-            })
-            .when('/roles/:skip?', {
-                controller: 'RolesCtrl',
-                templateUrl: 'app/views/roles.html'
-            })
-            .when('/role/:id?', {
-                controller: 'RoleCtrl',
-                templateUrl: 'app/views/role.html'
-            })
-            .when('/settings/:skip?', {
-                controller: 'SettingsCtrl',
-                templateUrl: 'app/views/settings.html'
-            })
-            .when('/setting/:id?', {
-                controller: 'SettingCtrl',
-                templateUrl: 'app/views/setting.html'
-            })
-            .otherwise({
-                redirectTo: '/'
-            });
+            $routeProvider
+                .when('/', {
+                    controller: 'DashboardCtrl',
+                    templateUrl: 'app/views/dashboard.html',
+                    access: { requiredLogin: true }
+                })
+                .when('/login', {
+                    controller: 'LoginCtrl',
+                    templateUrl: 'app/views/login.html',
+                    access: { requiredLogin: false }
+                })
+                .when('/logout', {
+                    controller: 'LogoutCtrl',
+                    templateUrl: 'app/views/logout.html',
+                    access: { requiredLogin: true }
+                })
+                .when('/dashboard', {
+                    controller: 'DashboardCtrl',
+                    templateUrl: 'app/views/dashboard.html',
+                    access: { requiredLogin: true }
+                })
+                .when('/posts/:skip?', {
+                    controller: 'PostsCtrl',
+                    templateUrl: 'app/views/posts.html',
+                    access: { requiredLogin: true }
+                })
+                .when('/post/:id?', {
+                    controller: 'PostCtrl',
+                    templateUrl: 'app/views/post.html',
+                    access: { requiredLogin: true }
+                })
+                .when('/tags/:skip?', {
+                    controller: 'TagsCtrl',
+                    templateUrl: 'app/views/tags.html',
+                    access: { requiredLogin: true }
+                })
+                .when('/tag/:id?', {
+                    controller: 'TagCtrl',
+                    templateUrl: 'app/views/tag.html',
+                    access: { requiredLogin: true }
+                })
+                .when('/comment/:id?', {
+                    controller: 'CommentCtrl',
+                    templateUrl: 'app/views/comment.html',
+                    access: { requiredLogin: true }
+                })
+                .when('/comments/:skip?', {
+                    controller: 'CommentsCtrl',
+                    templateUrl: 'app/views/comments.html',
+                    access: { requiredLogin: true }
+                })
+                .when('/users/:skip?', {
+                    controller: 'UsersCtrl',
+                    templateUrl: 'app/views/users.html',
+                    access: { requiredLogin: true }
+                })
+                .when('/user/:id?', {
+                    controller: 'UserCtrl',
+                    templateUrl: 'app/views/user.html',
+                    access: { requiredLogin: true }
+                })
+                .when('/roles/:skip?', {
+                    controller: 'RolesCtrl',
+                    templateUrl: 'app/views/roles.html',
+                    access: { requiredLogin: true }
+                })
+                .when('/role/:id?', {
+                    controller: 'RoleCtrl',
+                    templateUrl: 'app/views/role.html',
+                    access: { requiredLogin: true }
+                })
+                .when('/settings/:skip?', {
+                    controller: 'SettingsCtrl',
+                    templateUrl: 'app/views/settings.html',
+                    access: { requiredLogin: true }
+                })
+                .when('/setting/:id?', {
+                    controller: 'SettingCtrl',
+                    templateUrl: 'app/views/setting.html',
+                    access: { requiredLogin: true }
+                })
+                .otherwise({
+                    redirectTo: '/'
+                });
 
-    }]);
+        }]);
 
     return routes;
 });

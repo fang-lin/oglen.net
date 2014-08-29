@@ -78,7 +78,6 @@ define(function () {
         secret: new Buffer('YOUR_CLIENT_SECRET', 'base64'),
         options: {
             algorithm: 'HS256',
-            audience: 'YOUR_CLIENT_ID',
             issuer: 'YOUR_ISSUER',
             expiresInMinutes: 0
         }

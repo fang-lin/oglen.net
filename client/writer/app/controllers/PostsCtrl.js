@@ -13,9 +13,10 @@ define(function () {
         '$location',
         'Posts',
         'pager',
-        function ($rootScope, $scope, $routeParams, $location, Posts, pager) {
+        'AUTH_EVENTS',
+        function ($rootScope, $scope, $routeParams, $location, Posts, pager, AUTH_EVENTS) {
 
-            $rootScope.$watch('settings', function (settings) {
+            $rootScope.isLogin && $rootScope.$watch('settings', function (settings) {
                 if (settings) {
                     var skip = $scope.skip = $routeParams.skip || 0,
                         limit = $scope.limit = settings['page_size'] || 10,

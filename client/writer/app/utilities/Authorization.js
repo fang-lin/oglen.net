@@ -18,11 +18,13 @@ define([
         'session',
         function ($http, $window, session) {
             return {
-                login: function (credentials, callback) {
+                login: function (account, callback) {
 
-                    credentials.password = md5(credentials.password);
-
-                    $http.post('/rest/authorization', credentials)
+                    $http
+                        .post('/rest/authorization', {
+                            username: account.username,
+                            password: md5(account.password)
+                        })
                         .then(function (res) {
                             $window.sessionStorage.token = res.data.token;
                             callback();
@@ -32,8 +34,8 @@ define([
                     delete $window.sessionStorage.token;
                     callback();
                 },
-                isAuthenticated: function () {
-                    return $window.sessionStorage.token;
+                isLogin: function () {
+                    return !!$window.sessionStorage.token;
                 },
                 isAuthorized: function (authorizedRoles) {
                     if (!angular.isArray(authorizedRoles)) {

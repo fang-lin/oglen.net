@@ -11,10 +11,11 @@ define(function () {
         '$scope',
         '$location',
         'authorization',
-        function ($rootScope, $scope, $location, authorization) {
+        'AUTH_EVENTS',
+        function ($rootScope, $scope, $location, authorization, AUTH_EVENTS) {
 
             authorization.logout(function () {
-                $location.path('/login');
+                $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
             });
         }];
 });

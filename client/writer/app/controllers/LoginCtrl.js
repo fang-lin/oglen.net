@@ -19,8 +19,8 @@ define(function () {
                 password: ''
             };
 
-            $scope.login = function (credentials) {
-                authorization.login(credentials, function () {
+            $scope.login = function (account) {
+                authorization.login(account, function () {
                     $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
                 });
             };
