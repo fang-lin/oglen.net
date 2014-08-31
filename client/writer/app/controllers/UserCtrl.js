@@ -21,6 +21,9 @@ define([
         'Roles',
         function ($rootScope, $scope, $routeParams, $location, User, Roles) {
 
+            if (!$rootScope.isLogin) {
+                return;
+            }
 
             var id = $routeParams.id;
 

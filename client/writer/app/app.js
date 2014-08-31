@@ -36,30 +36,31 @@ define([
         .run([
             '$rootScope',
             '$location',
-            '$window',
             '$route',
             'menu',
             'info',
             'Settings',
             'authorization',
             'AUTH_EVENTS',
-            function ($rootScope, $location, $window, $route, menu, info, Settings, authorization, AUTH_EVENTS) {
+            function ($rootScope, $location, $route, menu, info, Settings, authorization, AUTH_EVENTS) {
 
                 $rootScope.menu = menu;
                 $rootScope.info = info;
 
-                var loadSettings = function () {
-                    Settings.query(function (res) {
-                        var settings = {};
-                        res.forEach(function (setting) {
-                            settings[setting.key] = setting.value;
+                $rootScope.fetchSettings = function (force) {
+                    if (force || !$rootScope.settings) {
+                        Settings.query(function (res) {
+                            var settings = {};
+                            res.forEach(function (setting) {
+                                settings[setting.key] = setting.value;
+                            });
+                            $rootScope.settings = settings;
                         });
-                        $rootScope.settings = settings;
-                    });
+                    }
                 };
 
                 $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
-                    loadSettings();
+                    $rootScope.fetchSettings();
                     $location.path('/dashboard');
                 });
 
@@ -67,15 +68,45 @@ define([
                     $location.path('/login');
                 });
 
-                $rootScope.$on("$routeChangeStart", function (event, next, current) {
+                $rootScope.$on(AUTH_EVENTS.sessionTimeout, function () {
+                    authorization.logout();
+                    $location.path('/login');
+                });
 
-                    $rootScope.isLogin = authorization.isLogin();
+//                $rootScope.$on('$locationChangeStart', function (event, next, current) {
+//
+//                    console.log(next, current)
+//
+//                    event.preventDefault();
+//
+////                    $rootScope.isLogin = authorization.isLogin();
+////
+////                    if ($rootScope.isLogin) {
+////                        $rootScope.fetchSettings();
+////                        if (next.$$route.controller === 'LoginCtrl') {
+////                            $location.path('/dashboard');
+////                        }
+////                    } else {
+////                        $location.path('/login');
+////                    }
+//                });
 
-                    if ($rootScope.isLogin) {
-                        $rootScope.settings || loadSettings();
-                    } else {
-                        $location.path('/login');
-                    }
+                $rootScope.$on('$routeChangeStart', function (event, next, current) {
+
+                    console.log(next, current)
+
+                    event.preventDefault();
+
+//                    $rootScope.isLogin = authorization.isLogin();
+//
+//                    if ($rootScope.isLogin) {
+//                        $rootScope.fetchSettings();
+//                        if (next.$$route.controller === 'LoginCtrl') {
+//                            $location.path('/dashboard');
+//                        }
+//                    } else {
+//                        $location.path('/login');
+//                    }
                 });
             }
         ]);

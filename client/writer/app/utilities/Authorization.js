@@ -14,11 +14,10 @@ define([
 
     return [
         '$http',
-        '$window',
         'session',
-        function ($http, $window, session) {
+        function ($http, session) {
             return {
-                login: function (account, callback) {
+                login: function (account, fn) {
 
                     $http
                         .post('/rest/authorization', {
@@ -26,25 +25,26 @@ define([
                             password: md5(account.password)
                         })
                         .then(function (res) {
-                            $window.sessionStorage.token = res.data.token;
-                            callback();
+                            if (res.data.token) {
+                                session.create(res.data.token);
+                            }
+                            fn();
                         });
                 },
-                logout: function (callback) {
-                    delete $window.sessionStorage.token;
-                    callback();
+                logout: function () {
+                    session.destroy();
                 },
                 isLogin: function () {
-                    return !!$window.sessionStorage.token;
-                },
-                isAuthorized: function (authorizedRoles) {
-                    if (!angular.isArray(authorizedRoles)) {
-                        authorizedRoles = [authorizedRoles];
-                    }
-
-                    return (this.isAuthenticated()
-                        && authorizedRoles.indexOf(session.userRole) !== -1);
+                    return !!session.token;
                 }
+//                isAuthorized: function (authorizedRoles) {
+//                    if (!angular.isArray(authorizedRoles)) {
+//                        authorizedRoles = [authorizedRoles];
+//                    }
+//
+//                    return (this.isAuthenticated()
+//                        && authorizedRoles.indexOf(session.userRole) !== -1);
+//                }
             }
         }];
 });

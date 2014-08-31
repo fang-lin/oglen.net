@@ -6,18 +6,24 @@
 define(function () {
     'use strict';
 
-    return [function () {
+    return [
+        '$window',
+        function ($window) {
 
-        this.create = function (sessionId, userId, userRole) {
-            this.id = sessionId;
-            this.userId = userId;
-            this.userRole = userRole;
-        };
+            var self = this;
+            this.token = null;
 
-        this.destroy = function () {
-            this.id = null;
-            this.userId = null;
-            this.userRole = null;
-        };
-    }];
+            this.create = function (token) {
+                self.token = $window.sessionStorage.token = token;
+            };
+
+            this.isActive = function () {
+                return !!self.token;
+            };
+
+            this.destroy = function () {
+                delete $window.sessionStorage.token;
+                self.token = null;
+            };
+        }];
 });

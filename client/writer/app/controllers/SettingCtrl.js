@@ -14,6 +14,10 @@ define(function () {
         'Setting',
         function ($rootScope, $scope, $routeParams, $location, Setting) {
 
+            if (!$rootScope.isLogin) {
+                return;
+            }
+
             var id = $routeParams.id;
 
             if (id) {

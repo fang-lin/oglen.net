@@ -20,6 +20,10 @@ define([
         'Draft',
         function ($rootScope, $scope, $interval, $routeParams, $location, Post, Tags, Drafts, Draft) {
 
+            if (!$rootScope.isLogin) {
+                return;
+            }
+
             var id = $routeParams.id;
 
             if (id) {

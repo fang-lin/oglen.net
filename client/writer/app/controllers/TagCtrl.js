@@ -14,6 +14,10 @@ define(function () {
         'Tag',
         function ($rootScope, $scope, $routeParams, $location, Tag) {
 
+            if (!$rootScope.isLogin) {
+                return;
+            }
+
             var id = $routeParams.id;
 
             if (id) {

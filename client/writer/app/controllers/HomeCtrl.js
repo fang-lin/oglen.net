@@ -12,6 +12,9 @@ define(function () {
         '$location',
         function ($rootScope, $scope, $location) {
 
+            if (!$rootScope.isLogin) {
+                return;
+            }
 
         }];
 });

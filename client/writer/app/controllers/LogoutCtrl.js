@@ -14,6 +14,10 @@ define(function () {
         'AUTH_EVENTS',
         function ($rootScope, $scope, $location, authorization, AUTH_EVENTS) {
 
+            if (!$rootScope.isLogin) {
+                return;
+            }
+
             authorization.logout(function () {
                 $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
             });

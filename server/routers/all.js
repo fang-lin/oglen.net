@@ -35,7 +35,7 @@ define([
     router.cap = function (err, res, callback) {
         if (err) {
             logger.error(err);
-            res.status(500).json({status: 'failure'});
+            res.send(500, err);
         } else {
             callback(logger);
         }
@@ -65,7 +65,14 @@ define([
             options.audience = req.ip + ' ' + req.header('user-agent');
             next();
         })
-        .use(expressJwt(options));
+        .use(expressJwt(options))
+        .use(function (err, req, res, next) {
+            if (err && err.status === 401) {
+                res.send(401, {
+                    message: err.message
+                });
+            }
+        });
 
     [post, posts, draft, drafts, tag, tags, comment, comments, user, users, role, roles, setting, settings].forEach(function (route) {
         route(router);
