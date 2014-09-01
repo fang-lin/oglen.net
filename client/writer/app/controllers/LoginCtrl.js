@@ -14,15 +14,18 @@ define(function () {
         'AUTH_EVENTS',
         function ($rootScope, $scope, $location, authorization, AUTH_EVENTS) {
 
-            $scope.credentials = {
-                username: '',
-                password: ''
-            };
+            if (!$rootScope.isLogin) {
 
-            $scope.login = function (account) {
-                authorization.login(account, function () {
-                    $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-                });
-            };
+                $scope.credentials = {
+                    username: '',
+                    password: ''
+                };
+
+                $scope.login = function (account) {
+                    authorization.login(account, function () {
+                        $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+                    });
+                };
+            }
         }];
 });

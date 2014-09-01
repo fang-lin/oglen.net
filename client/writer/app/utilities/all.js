@@ -9,21 +9,21 @@ define([
     'utilities/Authorization',
     'utilities/Session',
     'utilities/path',
-    'utilities/authInterceptor',
+    'utilities/AuthorizationInterceptor',
     'angular'
-], function (config, Pager, Authorization, Session, path, authInterceptor) {
+], function (config, Pager, Authorization, Session, path, AuthorizationInterceptor) {
     'use strict';
 
     var utilities = angular.module(config.name + '.utilities', [])
         .run(path)
         .factory('pager', Pager)
         .factory('authorization', Authorization)
-        .factory('authInterceptor', authInterceptor)
-        .service('session', Session)
+        .factory('authorizationInterceptor', AuthorizationInterceptor)
+        .factory('session', Session)
         .config([
             '$httpProvider',
             function ($httpProvider) {
-                $httpProvider.interceptors.push('authInterceptor');
+                $httpProvider.interceptors.push('authorizationInterceptor');
             }]);
 
     return utilities;

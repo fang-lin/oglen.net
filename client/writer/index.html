@@ -22,14 +22,12 @@
 <body>
 <header id="logo" class="container-fluid">
     <span ng-bind="info.title"></span>
-    <a ng-href="#/login/">Login</a> |
-    <a ng-href="#/logout/">Logout</a>
+    <a ng-if="isLogin" ng-href="#/logout">Logout</a>
 </header>
 
-<div id="menu">
-    <og-menu menu="menu"></og-menu>
+<div ng-if="isLogin" id="menu">
+    <og-menu menu="menu">loading</og-menu>
 </div>
-
 <div ng-view>loading</div>
 
 <script type="text/javascript" data-main="init" src="/lib/requirejs/require.js"></script>

@@ -91,7 +91,7 @@ define(function () {
         port: port(),
         mongooseLink: mongooseLink(),
         jwt: jwt,
-        delay: 0
+        delay: 1000
     };
 });
 

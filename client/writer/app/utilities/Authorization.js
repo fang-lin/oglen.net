@@ -28,14 +28,15 @@ define([
                             if (res.data.token) {
                                 session.create(res.data.token);
                             }
-                            fn();
+                            fn && fn();
                         });
                 },
-                logout: function () {
+                logout: function (fn) {
                     session.destroy();
+                    fn && fn();
                 },
                 isLogin: function () {
-                    return !!session.token;
+                    return !!session.isActive();
                 }
 //                isAuthorized: function (authorizedRoles) {
 //                    if (!angular.isArray(authorizedRoles)) {

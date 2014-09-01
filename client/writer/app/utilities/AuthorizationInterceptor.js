@@ -8,17 +8,15 @@ define(function () {
 
     return [
         '$rootScope',
-        '$location',
-        '$q',
         'session',
         'AUTH_EVENTS',
-        function ($rootScope, $location, $q, session, AUTH_EVENTS) {
+        function ($rootScope, session, AUTH_EVENTS) {
             return {
                 request: function (req) {
-                    req.headers = req.headers || {};
-
-                    if (session.token) {
-                        req.headers.Authorization = 'Bearer ' + session.token;
+                    var token = session.token();
+                    if (token) {
+                        req.headers = req.headers || {};
+                        req.headers.Authorization = 'Bearer ' + token;
                     }
                     return req;
                 },
@@ -26,16 +24,15 @@ define(function () {
                     return req;
                 },
                 response: function (res) {
-                    return res || $q.when(res);
+                    return res;
                 },
                 responseError: function (res) {
                     if (res.status === 401) {
                         if (res.data.message === 'jwt expired') {
                             $rootScope.$broadcast(AUTH_EVENTS.sessionTimeout);
                         }
-                        $location.path('/login');
                     }
-                    return $q.reject(res);
+                    return res;
                 }
             };
         }];

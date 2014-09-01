@@ -60,54 +60,40 @@ define([
                 };
 
                 $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
+                    $rootScope.isLogin = true;
                     $rootScope.fetchSettings();
                     $location.path('/dashboard');
                 });
 
                 $rootScope.$on(AUTH_EVENTS.logoutSuccess, function () {
+                    $rootScope.isLogin = false;
                     $location.path('/login');
                 });
 
                 $rootScope.$on(AUTH_EVENTS.sessionTimeout, function () {
                     authorization.logout();
+                    $rootScope.isLogin = false;
                     $location.path('/login');
                 });
 
-//                $rootScope.$on('$locationChangeStart', function (event, next, current) {
-//
-//                    console.log(next, current)
-//
-//                    event.preventDefault();
-//
-////                    $rootScope.isLogin = authorization.isLogin();
-////
-////                    if ($rootScope.isLogin) {
-////                        $rootScope.fetchSettings();
-////                        if (next.$$route.controller === 'LoginCtrl') {
-////                            $location.path('/dashboard');
-////                        }
-////                    } else {
-////                        $location.path('/login');
-////                    }
-//                });
-
                 $rootScope.$on('$routeChangeStart', function (event, next, current) {
 
-                    console.log(next, current)
-
-                    event.preventDefault();
-
-//                    $rootScope.isLogin = authorization.isLogin();
-//
-//                    if ($rootScope.isLogin) {
-//                        $rootScope.fetchSettings();
-//                        if (next.$$route.controller === 'LoginCtrl') {
-//                            $location.path('/dashboard');
-//                        }
-//                    } else {
-//                        $location.path('/login');
-//                    }
+                    if ($rootScope.isLogin) {
+                        if (next.access && next.access.requireLogout) {
+                            $location.path('/dashboard');
+                        }
+                    } else {
+                        if (next.access && next.access.requireLogin) {
+                            $location.path('/login');
+                        }
+                    }
                 });
+
+                $rootScope.isLogin = authorization.isLogin();
+
+                if ($rootScope.isLogin) {
+                    $rootScope.fetchSettings();
+                }
             }
         ]);
 });

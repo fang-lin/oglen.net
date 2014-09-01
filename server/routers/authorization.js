@@ -38,7 +38,6 @@ define([
 
                                 if (user.password === util.md5(form.password)) {
                                     // authorization success.
-
                                     var profile = JSON.parse(JSON.stringify(user)),
                                         token = jwt.sign(profile, config.jwt.secret, {
                                             algorithm: options.algorithm,

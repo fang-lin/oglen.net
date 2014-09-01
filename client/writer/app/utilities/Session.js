@@ -9,21 +9,19 @@ define(function () {
     return [
         '$window',
         function ($window) {
-
-            var self = this;
-            this.token = null;
-
-            this.create = function (token) {
-                self.token = $window.sessionStorage.token = token;
-            };
-
-            this.isActive = function () {
-                return !!self.token;
-            };
-
-            this.destroy = function () {
-                delete $window.sessionStorage.token;
-                self.token = null;
+            return {
+                create: function (token) {
+                    $window.sessionStorage.token = token;
+                },
+                isActive: function () {
+                    return !!$window.sessionStorage.token;
+                },
+                token: function () {
+                    return $window.sessionStorage.token;
+                },
+                destroy: function () {
+                    delete $window.sessionStorage.token;
+                }
             };
         }];
 });

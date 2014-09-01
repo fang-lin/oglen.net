@@ -13,7 +13,7 @@ define(function () {
         function ($rootScope, $route, $location) {
 
             var original = $location.path;
-            // rewrite $location.path to provide change url without reload.
+
             $location.path = function (path, reload) {
                 if (reload === false) {
                     var lastRoute = $route.current;

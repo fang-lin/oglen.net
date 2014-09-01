@@ -23,7 +23,7 @@ define([
                     .when('/login', {
                         controller: 'LoginCtrl',
                         templateUrl: 'app/views/login.html',
-                        access: {requireLogin: false}
+                        access: {requireLogout: true}
                     })
                     .when('/logout', {
                         controller: 'LogoutCtrl',
