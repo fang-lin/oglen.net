@@ -8,16 +8,11 @@ define(function () {
 
     return [
         '$rootScope',
-        '$scope',
-        '$location',
         'authorization',
-        'AUTH_EVENTS',
-        function ($rootScope, $scope, $location, authorization, AUTH_EVENTS) {
+        function ($rootScope, authorization) {
 
             if ($rootScope.isLogin) {
-                authorization.logout(function () {
-                    $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
-                });
+                authorization.logout();
             }
         }];
 });

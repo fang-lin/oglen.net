@@ -9,10 +9,9 @@ define(function () {
     return [
         '$rootScope',
         '$scope',
-        '$location',
         'authorization',
         'AUTH_EVENTS',
-        function ($rootScope, $scope, $location, authorization, AUTH_EVENTS) {
+        function ($rootScope, $scope, authorization, AUTH_EVENTS) {
 
             if (!$rootScope.isLogin) {
 
@@ -23,9 +22,13 @@ define(function () {
 
                 $scope.login = function (account) {
                     authorization.login(account, function () {
-                        $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+
                     });
                 };
+
+                $scope.$on(AUTH_EVENTS.notAuthenticated, function (event, msg) {
+                    console.log(msg)
+                });
             }
         }];
 });

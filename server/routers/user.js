@@ -4,9 +4,9 @@
  */
 
 define([
-    'server/utilities/all',
+    'server/utilities/encrypt',
     'server/models/User'
-], function (util, User) {
+], function (encrypt, User) {
     'use strict';
 
     var userRouter = function (router) {
@@ -18,21 +18,29 @@ define([
 
                 User
                     .findById(id)
+                    .populate({
+                        path: 'role',
+                        select: '_id name privilege note'
+                    })
                     .exec(function (err, docs) {
                         router.cap(err, res, function () {
-                            res.json(docs);
+                            res.send(docs);
                         });
                     });
             })
             .post(function (req, res, next) {
+                var form = req.body,
+                    salt = encrypt.randomBytes(16),
+                    password = encrypt.mixSalt(form.password, salt);
 
-                var form = req.body;
-                form.password = util.md5(form.password);
+                form.password = encrypt.md5(password);
+                form.salt = salt;
+
                 var user = new User(form);
 
                 user.save(function (err, product, numberAffected) {
                     router.cap(err, res, function () {
-                        res.json(user);
+                        res.send(user);
                     });
                 });
             })
@@ -40,14 +48,16 @@ define([
 
                 var form = req.body;
 
-                User.update({_id: form._id}, {
+                User.update({
+                    _id: form._id
+                }, {
                     username: form.username,
                     email: form.email,
                     password: util.md5(form.password),
                     role: form.role
                 }, function (err, numberAffected, raw) {
                     router.cap(err, res, function () {
-                        res.json(form);
+                        res.send(form);
                     });
                 });
             });

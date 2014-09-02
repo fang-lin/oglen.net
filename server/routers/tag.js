@@ -18,7 +18,8 @@ define([
                     .findById(id)
                     .exec(function (err, docs) {
                         router.cap(err, res, function () {
-                            res.json(docs);
+
+                            res.send(docs);
                         });
                     });
             })
@@ -26,20 +27,23 @@ define([
                 var tag = new Tag(req.body);
 
                 tag.save(function (err, product, numberAffected) {
-
                     router.cap(err, res, function () {
-                        res.json(tag);
+
+                        res.send(tag);
                     });
                 });
             })
             .put(function (req, res, next) {
                 var form = req.body;
 
-                Tag.update({_id: form._id}, {
+                Tag.update({
+                    _id: form._id
+                }, {
                     name: form.name
                 }, function (err, numberAffected, raw) {
                     router.cap(err, res, function () {
-                        res.json(form);
+
+                        res.send(form);
                     });
                 });
             });

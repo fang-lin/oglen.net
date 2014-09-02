@@ -19,7 +19,8 @@ define([
                     .findById(id)
                     .exec(function (err, docs) {
                         router.cap(err, res, function () {
-                            res.json(docs);
+
+                            res.send(docs);
                         });
                     });
             });

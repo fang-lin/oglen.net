@@ -27,7 +27,8 @@ define([
                     })
                     .exec(function (err, docs) {
                         router.cap(err, res, function () {
-                            res.json(docs);
+
+                            res.send(docs);
                         });
                     });
             })
@@ -44,6 +45,7 @@ define([
 
                 post.save(function (err, product, numberAffected) {
                     router.cap(err, res, function () {
+
                         var draft = new Draft({
                             post: post._id,
                             text: form.draft.text
@@ -51,9 +53,14 @@ define([
 
                         draft.save(function (err, product, numberAffected) {
                             router.cap(err, res, function () {
-                                Post.update({_id: post._id}, {draft: draft._id}, function (err, numberAffected, raw) {
+                                Post.update({
+                                    _id: post._id
+                                }, {
+                                    draft: draft._id
+                                }, function (err, numberAffected, raw) {
                                     router.cap(err, res, function () {
-                                        res.json({
+
+                                        res.send({
                                             _id: post._id,
                                             draft: {
                                                 _id: draft._id,
@@ -79,7 +86,9 @@ define([
                 draft.save(function (err, product, numberAffected) {
                     router.cap(err, res, function () {
 
-                        Post.update({_id: form._id}, {
+                        Post.update({
+                            _id: form._id
+                        }, {
                             title: form.title,
                             abstract: form.abstract,
                             tags: form.tags,
@@ -88,7 +97,8 @@ define([
                             hidden: form.hidden
                         }, function (err, numberAffected, raw) {
                             router.cap(err, res, function () {
-                                res.json({
+
+                                res.send({
                                     draft: {
                                         _id: draft._id,
                                         saveAt: draft.saveAt

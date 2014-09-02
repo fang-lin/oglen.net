@@ -18,7 +18,8 @@ define([
                     .findById(id)
                     .exec(function (err, docs) {
                         router.cap(err, res, function () {
-                            res.json(docs);
+
+                            res.send(docs);
                         });
                     });
             })
@@ -27,20 +28,24 @@ define([
 
                 comment.save(function (err, product, numberAffected) {
                     router.cap(err, res, function () {
-                        res.json(comment);
+
+                        res.send(comment);
                     });
                 });
             })
             .put(function (req, res, next) {
                 var form = req.body;
 
-                Comment.update({_id: form._id}, {
+                Comment.update({
+                    _id: form._id
+                }, {
                     name: form.name,
                     privilege: form.privilege,
                     note: form.note
                 }, function (err, numberAffected, raw) {
                     router.cap(err, res, function () {
-                        res.json(form);
+
+                        res.send(form);
                     });
                 });
             });

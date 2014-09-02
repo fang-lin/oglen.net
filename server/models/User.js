@@ -30,6 +30,7 @@ define([
                 type: String,
                 required: true
             },
+            salt: String,
             role: {
                 type: ObjectId,
                 ref: 'Role'

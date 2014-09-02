@@ -5,10 +5,10 @@
 
 define([
     'config',
-    'server/utilities/all',
+    'server/utilities/encrypt',
     'jsonwebtoken',
     'server/models/User'
-], function (config, util, jwt, User) {
+], function (config, encrypt, jwt, User) {
     'use strict';
 
     var options = config.jwt.options;
@@ -26,19 +26,33 @@ define([
                     .find({
                         username: form.username
                     })
+                    .populate({
+                        path: 'role',
+                        select: '_id name privilege note'
+                    })
                     .exec(function (err, docs) {
+
                         router.cap(err, res, function () {
+
                             if (docs.length === 0) {
 
-                                res.status(401).json({status: 'nonexistent user'});
+                                res.status(401).send(config.ERR_MSG.nonexistentUser);
 
                             } else if (docs.length === 1) {
 
                                 var user = docs[0];
 
-                                if (user.password === util.md5(form.password)) {
+                                if (user.password === encrypt.md5(encrypt.mixSalt(form.password, user.salt))) {
                                     // authorization success.
-                                    var profile = JSON.parse(JSON.stringify(user)),
+                                    var profile = {
+                                            _id: user._id,
+                                            clientIp: user.clientIp,
+                                            createAt: user.createAt,
+                                            email: user.email,
+                                            loginAt: user.loginAt,
+                                            role: user.role,
+                                            username: user.username
+                                        },
                                         token = jwt.sign(profile, config.jwt.secret, {
                                             algorithm: options.algorithm,
                                             issuer: options.issuer,
@@ -46,12 +60,33 @@ define([
                                             expiresInMinutes: options.expiresInMinutes
                                         });
 
-                                    res.json({token: token});
+                                    User.update({
+                                        _id: user._id
+                                    }, {
+                                        clientIp: req.ip,
+                                        loginAt: Date.now()
+                                    }, function (err, numberAffected, raw) {
+                                        router.cap(err, res, function () {
+
+                                            res.send({
+                                                token: token,
+                                                user: {
+                                                    _id: user._id,
+                                                    username: user.username,
+                                                    email: user.email,
+                                                    clientIp: user.clientIp,
+                                                    createAt: user.createAt,
+                                                    loginAt: user.loginAt,
+                                                    role: user.role
+                                                }
+                                            });
+                                        });
+                                    });
                                 } else {
-                                    res.status(401).json({status: 'wrong password'});
+                                    res.status(401).send(config.ERR_MSG.wrongPassword);
                                 }
                             } else {
-                                res.status(500).json({status: 'failure'});
+                                res.status(500).send(config.ERR_MSG.unknownErr);
                             }
                         });
                     });

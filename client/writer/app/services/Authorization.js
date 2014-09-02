@@ -14,10 +14,12 @@ define([
 
     return [
         '$http',
+        '$rootScope',
         'session',
-        function ($http, session) {
+        'AUTH_EVENTS',
+        function ($http, $rootScope, session, AUTH_EVENTS) {
             return {
-                login: function (account, fn) {
+                login: function (account) {
 
                     $http
                         .post('/rest/authorization', {
@@ -25,17 +27,21 @@ define([
                             password: md5(account.password)
                         })
                         .then(function (res) {
-                            if (res.data.token) {
+                            if (res.status === 200 && res.data.token) {
                                 session.create(res.data.token);
+                                $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+                            } else {
+                                alert(res.data.code);
                             }
-                            fn && fn();
-                        });
+                        })
                 },
-                logout: function (fn) {
+                logout: function () {
+
                     session.destroy();
-                    fn && fn();
+                    $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
                 },
                 isLogin: function () {
+
                     return !!session.isActive();
                 }
 //                isAuthorized: function (authorizedRoles) {

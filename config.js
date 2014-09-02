@@ -79,7 +79,23 @@ define(function () {
         options: {
             algorithm: 'HS256',
             issuer: 'YOUR_ISSUER',
-            expiresInMinutes: 0
+            expiresInMinutes: .1
+        }
+    };
+
+    // api messages
+    var ERR_MSG = {
+        nonexistentUser: {
+            code: 'not_authenticated',
+            msg: 'Nonexistent User'
+        },
+        wrongPassword: {
+            code: 'not_authenticated',
+            msg: 'Wrong Password'
+        },
+        unknownErr: {
+            code: ' unknown',
+            msg: 'Unknown Error'
         }
     };
 
@@ -91,7 +107,9 @@ define(function () {
         port: port(),
         mongooseLink: mongooseLink(),
         jwt: jwt,
-        delay: 1000
+        delay: 1000,
+        ERR_MSG: ERR_MSG
     };
-});
+})
+;
 

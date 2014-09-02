@@ -9,12 +9,12 @@ define([
     'angular-route',
     'angular-animate',
     'angular-translate',
-    'utilities/all',
     'routes/all',
     'controllers/all',
     'directives/all',
     'filters/all',
     'resources/all',
+    'services/all',
     'constants/all'
 ], function (config) {
     'use strict';
@@ -26,11 +26,11 @@ define([
             'ngRoute',
             'ngAnimate',
                 name + '.routes',
-                name + '.utilities',
                 name + '.controllers',
                 name + '.directives',
                 name + '.filters',
                 name + '.resources',
+                name + '.services',
                 name + '.constants'
         ])
         .run([
@@ -75,6 +75,14 @@ define([
                     $rootScope.isLogin = false;
                     $location.path('/login');
                 });
+
+//                $rootScope.$on(AUTH_EVENTS.notAuthorized, function () {
+//                    console.log('notAuthorized');
+//                });
+//
+//                $rootScope.$on(AUTH_EVENTS.notAuthenticated, function () {
+//                    console.log('notAuthenticated');
+//                });
 
                 $rootScope.$on('$routeChangeStart', function (event, next, current) {
 

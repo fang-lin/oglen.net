@@ -18,7 +18,10 @@ define([
                 Draft
                     .count({post: postId}, function (err, count) {
                         router.cap(err, res, function () {
-                            res.json({count: count});
+
+                            res.send({
+                                count: count
+                            });
                         });
                     });
             });
@@ -41,7 +44,8 @@ define([
                 query
                     .exec(function (err, docs) {
                         router.cap(err, res, function () {
-                            res.json(docs);
+
+                            res.send(docs);
                         });
                     });
             });

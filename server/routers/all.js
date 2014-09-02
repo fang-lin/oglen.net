@@ -35,7 +35,10 @@ define([
     router.cap = function (err, res, callback) {
         if (err) {
             logger.error(err);
-            res.send(500, err);
+            res.status(500).send({
+                code: err.code,
+                msg: err.message
+            });
         } else {
             callback(logger);
         }
@@ -67,9 +70,10 @@ define([
         })
         .use(expressJwt(options))
         .use(function (err, req, res, next) {
-            if (err && err.status === 401) {
-                res.send(401, {
-                    message: err.message
+            if (err) {
+                res.status(err.status).send({
+                    code: err.code,
+                    msg: err.message
                 });
             }
         });

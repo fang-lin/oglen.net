@@ -17,7 +17,9 @@ define([
                     .count()
                     .exec(function (err, docs) {
                         router.cap(err, res, function () {
-                            res.json({count: docs});
+                            res.send({
+                                count: docs
+                            });
                         });
                     });
             });
@@ -35,7 +37,8 @@ define([
                     .sort({_id: -1})
                     .exec(function (err, docs) {
                         router.cap(err, res, function () {
-                            res.json(docs);
+
+                            res.send(docs);
                         });
                     });
             });

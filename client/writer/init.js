@@ -18,7 +18,7 @@ requirejs.config({
         // Apps
         'config': 'app/config',
         'app': 'app/app',
-        'utilities': 'app/utilities',
+        'services': 'app/services',
         'controllers': 'app/controllers',
         'routes': 'app/routes',
         'directives': 'app/directives',
