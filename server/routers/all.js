@@ -63,20 +63,20 @@ define([
         issuer: config.jwt.options.issuer
     };
 
-    router
-        .use(function (req, res, next) {
-            options.audience = req.ip + ' ' + req.header('user-agent');
-            next();
-        })
-        .use(expressJwt(options))
-        .use(function (err, req, res, next) {
-            if (err) {
-                res.status(err.status).send({
-                    code: err.code,
-                    msg: err.message
-                });
-            }
-        });
+//    router
+//        .use(function (req, res, next) {
+//            options.audience = req.ip + ' ' + req.header('user-agent');
+//            next();
+//        })
+//        .use(expressJwt(options))
+//        .use(function (err, req, res, next) {
+//            if (err) {
+//                res.status(err.status).send({
+//                    code: err.code,
+//                    msg: err.message
+//                });
+//            }
+//        });
 
     [post, posts, draft, drafts, tag, tags, comment, comments, user, users, role, roles, setting, settings].forEach(function (route) {
         route(router);

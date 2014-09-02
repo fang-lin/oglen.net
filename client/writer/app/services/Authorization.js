@@ -3,14 +3,8 @@
  * Author: isaac.fang@grapecity.com
  */
 
-define([
-    'crypto'
-], function (crypto) {
+define(function () {
     'use strict';
-
-    var md5 = function (code) {
-        return crypto.createHash('md5').update(code).digest('hex');
-    };
 
     return [
         '$http',
@@ -22,10 +16,7 @@ define([
                 login: function (account) {
 
                     $http
-                        .post('/rest/authorization', {
-                            username: account.username,
-                            password: md5(account.password)
-                        })
+                        .post('/rest/authorization', account)
                         .then(function (res) {
                             if (res.status === 200 && res.data.token) {
                                 session.create(res.data.token);

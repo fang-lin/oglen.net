@@ -15,6 +15,7 @@ define([
     var constants = angular.module(config.name + '.constants', [])
         .constant('menu', menu)
         .constant('info', info)
+        .constant('SALT', 'd8437cf0a5416a9742fc8742dd22b6fb')
         .constant('AUTH_EVENTS', AUTH_EVENTS);
 
     return constants;

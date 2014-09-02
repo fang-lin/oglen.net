@@ -4,22 +4,20 @@
  */
 
 define([
-    'crypto'
-], function (crypto) {
+    'underscore'
+], function (_) {
     'use strict';
-
-    var md5 = function (code) {
-        return crypto.createHash('md5').update(code).digest('hex');
-    };
 
     return [
         '$rootScope',
         '$scope',
         '$routeParams',
         '$location',
+        'encrypt',
         'User',
         'Roles',
-        function ($rootScope, $scope, $routeParams, $location, User, Roles) {
+        'SALT',
+        function ($rootScope, $scope, $routeParams, $location, encrypt, User, Roles, SALT) {
 
             if ($rootScope.isLogin) {
 
@@ -38,17 +36,19 @@ define([
                 $scope.submit = function (user) {
                     event.preventDefault();
 
-                    var $user = user;
-                    $user.password = md5(user.password);
+                    var $user = user,
+                        _user = _.clone($user);
+
+                    _user.password = encrypt.md5(encrypt.mixSalt(_user.password, SALT));
 
                     if ($user._id) {
                         // update existing user
-                        User.update($user, function (user) {
+                        User.update(_user, function (user) {
                             // todo: alert success.
                         });
                     } else {
                         // create existing user
-                        User.save($user, function (user) {
+                        User.save(_user, function (user) {
                             $user._id = user._id;
                             $user.createAt = user.createAt;
 

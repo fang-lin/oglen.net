@@ -3,15 +3,19 @@
  * Author: isaac.fang@grapecity.com
  */
 
-define(function () {
+define([
+    'underscore'
+], function (_) {
     'use strict';
 
     return [
         '$rootScope',
         '$scope',
+        'encrypt',
         'authorization',
         'AUTH_EVENTS',
-        function ($rootScope, $scope, authorization, AUTH_EVENTS) {
+        'SALT',
+        function ($rootScope, $scope, encrypt, authorization, AUTH_EVENTS, SALT) {
 
             if (!$rootScope.isLogin) {
 
@@ -21,9 +25,11 @@ define(function () {
                 };
 
                 $scope.login = function (account) {
-                    authorization.login(account, function () {
 
-                    });
+                    var _account = _.clone(account);
+                    _account.password = encrypt.md5(encrypt.mixSalt(_account.password, SALT));
+
+                    authorization.login(_account);
                 };
 
                 $scope.$on(AUTH_EVENTS.notAuthenticated, function (event, msg) {
