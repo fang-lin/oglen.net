@@ -114,7 +114,7 @@ module.exports = function (grunt) {
             },
             options: {
                 findNestedDependencies: true,
-                preserveLicenseComments: false,
+                preserveLicenseComments: true,
                 optimize: 'uglify2'
             }
         },

@@ -11,26 +11,44 @@ define(function () {
         '$scope',
         '$routeParams',
         '$location',
+        'Setting',
         'Settings',
         'pager',
         'AUTH_EVENTS',
-        function ($rootScope, $scope, $routeParams, $location, Settings, pager, AUTH_EVENTS) {
+        function ($rootScope, $scope, $routeParams, $location, Setting, Settings, pager, AUTH_EVENTS) {
 
             if ($rootScope.isLogin) {
-
                 $rootScope.$watch('settings', function (settings) {
                     if (settings) {
-                        var skip = $scope.skip = $routeParams.skip || 0,
-                            limit = $scope.limit = settings['page_size'] || 10,
-                            size = settings['pager_size'] || 5;
 
-                        skip === 0 && $location.path('/settings/0', false);
+                        $scope.refresh = function () {
 
-                        Settings.count.get(function (res) {
-                            $scope.pager = pager(res.count, skip, limit, size);
-                        });
+                            var pager = $scope.pager;
 
-                        $scope.settings = Settings.query({skip: skip, limit: limit});
+                            Settings.count.get(function (res) {
+                                pager.create(res.count, function (skip, limit) {
+                                    $location.path('/settings/' + skip + '/' + limit);
+                                });
+                            });
+
+                            $scope.settings = Settings.query({
+                                skip: pager.skip,
+                                limit: pager.limit
+                            });
+                        };
+
+                        $scope.delete = function (settingId) {
+
+                            Setting.delete({
+                                id: settingId
+                            }, function (res) {
+
+                                $scope.refresh();
+                            });
+                        };
+
+                        $scope.pager = pager.init($routeParams.skip, $routeParams.limit || settings['pager_limit'], settings['pager_size']);
+                        $scope.refresh();
                     }
                 });
             }

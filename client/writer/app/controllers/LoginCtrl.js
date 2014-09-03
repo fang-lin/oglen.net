@@ -33,7 +33,7 @@ define([
                 };
 
                 $scope.$on(AUTH_EVENTS.notAuthenticated, function (event, msg) {
-                    console.log(msg)
+                    $scope.msg = msg;
                 });
             }
         }];

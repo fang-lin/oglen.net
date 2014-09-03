@@ -1,6 +1,6 @@
 <h2>Roles</h2>
 <ul class="pagination">
-    <li ng-repeat="page in pager" ng-class="{active: page.skip == skip}"><a ng-href="#/roles/{{page.skip}}" ng-bind="page.page"></a></li>
+    <li ng-repeat="page in pager.beads" ng-class="{active: page.skip == pager.skip}"><a ng-href="#/roles/{{page.skip}}/{{pager.limit}}" ng-bind="page.page"></a></li>
 </ul>
 <table>
     <tr>
@@ -13,6 +13,6 @@
         <td>{{role.name}}</td>
         <td>{{role.privilege}}</td>
         <td>{{role.note}}</td>
-        <td><a ng-href="#/role/{{role._id}}">edit</a></td>
+        <td><a ng-href="#/role/{{role._id}}">edit</a> | <a ng-click="delete(role._id)">delete</a></td>
     </tr>
 </table>

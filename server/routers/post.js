@@ -108,6 +108,20 @@ define([
                         });
                     });
                 });
+            })
+            .delete(function (req, res, next) {
+
+                var id = req.param('id');
+
+                Post.remove({
+                    _id: id
+                }, function (err, numberAffected, raw) {
+                    router.cap(err, res, function () {
+                        res.send({
+                            _id: id
+                        });
+                    });
+                });
             });
     };
 

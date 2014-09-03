@@ -59,6 +59,8 @@ require([
     angular.bootstrap(document, [config.name]);
 });
 
+console && console.log('hahaha\nasdas');
+
 
 
 

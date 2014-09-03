@@ -3,7 +3,9 @@
  * Author: isaac.fang@grapecity.com
  */
 
-define(function () {
+define([
+    'underscore'
+], function (_) {
     'use strict';
 
     return [
@@ -23,7 +25,9 @@ define(function () {
                     $scope.tag = Tag.get({id: id});
                 } else {
                     // add
-                    $scope.tag = {};
+                    $scope.tag = {
+                        name: _.random(100000, 999999)
+                    };
                 }
 
                 $scope.submit = function (tag) {
@@ -31,18 +35,21 @@ define(function () {
 
                     var $tag = tag;
 
-                    if ($tag._id) {
+                    if (0 && $tag._id) {
                         // update existing tag
                         Tag.update($tag, function (tag) {
                             // todo: alert success.
                         });
                     } else {
                         // create new tag
+                        $tag = {
+                            name: _.random(100000, 999999)
+                        };
+
                         Tag.save($tag, function (tag) {
                             $tag._id = tag._id;
 
-                            var path = $location.path;
-                            path(path() + $tag._id, false);
+                            $location.path('/tag');
                         });
                     }
                 };

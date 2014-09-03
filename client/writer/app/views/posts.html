@@ -1,6 +1,6 @@
 <h2>Posts</h2>
 <ul class="pagination">
-    <li ng-repeat="page in pager" ng-class="{active: page.skip == skip}"><a ng-href="#/posts/{{page.skip}}" ng-bind="page.page"></a></li>
+    <li ng-repeat="page in pager.beads" ng-class="{active: page.skip == pager.skip}"><a ng-href="#/posts/{{page.skip}}/{{pager.limit}}" ng-bind="page.page"></a></li>
 </ul>
 <table>
     <tr>
@@ -29,6 +29,6 @@
         <td>{{post.draft.text}}</td>
         <td>{{post.hidden}}</td>
         <td>{{post.publish}}</td>
-        <td><a ng-href="#/post/{{post._id}}">edit</a></td>
+        <td><a ng-href="#/post/{{post._id}}">edit</a> | <a ng-click="delete(post._id)">delete</a></td>
     </tr>
 </table>

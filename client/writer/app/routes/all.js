@@ -35,19 +35,14 @@ define([
                         templateUrl: 'app/views/dashboard.html',
                         access: {requireLogin: true}
                     })
-                    .when('/posts/:skip?', {
-                        controller: 'PostsCtrl',
-                        templateUrl: 'app/views/posts.html',
-                        access: {requireLogin: true}
-                    })
                     .when('/post/:id?', {
                         controller: 'PostCtrl',
                         templateUrl: 'app/views/post.html',
                         access: {requireLogin: true}
                     })
-                    .when('/tags/:skip?', {
-                        controller: 'TagsCtrl',
-                        templateUrl: 'app/views/tags.html',
+                    .when('/posts/:skip?/:limit?', {
+                        controller: 'PostsCtrl',
+                        templateUrl: 'app/views/posts.html',
                         access: {requireLogin: true}
                     })
                     .when('/tag/:id?', {
@@ -55,19 +50,19 @@ define([
                         templateUrl: 'app/views/tag.html',
                         access: {requireLogin: true}
                     })
+                    .when('/tags/:skip?/:limit?', {
+                        controller: 'TagsCtrl',
+                        templateUrl: 'app/views/tags.html',
+                        access: {requireLogin: true}
+                    })
                     .when('/comment/:id?', {
                         controller: 'CommentCtrl',
                         templateUrl: 'app/views/comment.html',
                         access: {requireLogin: true}
                     })
-                    .when('/comments/:skip?', {
+                    .when('/comments/:skip?/:limit?', {
                         controller: 'CommentsCtrl',
                         templateUrl: 'app/views/comments.html',
-                        access: {requireLogin: true}
-                    })
-                    .when('/users/:skip?', {
-                        controller: 'UsersCtrl',
-                        templateUrl: 'app/views/users.html',
                         access: {requireLogin: true}
                     })
                     .when('/user/:id?', {
@@ -75,9 +70,9 @@ define([
                         templateUrl: 'app/views/user.html',
                         access: {requireLogin: true}
                     })
-                    .when('/roles/:skip?', {
-                        controller: 'RolesCtrl',
-                        templateUrl: 'app/views/roles.html',
+                    .when('/users/:skip?/:limit?', {
+                        controller: 'UsersCtrl',
+                        templateUrl: 'app/views/users.html',
                         access: {requireLogin: true}
                     })
                     .when('/role/:id?', {
@@ -85,14 +80,19 @@ define([
                         templateUrl: 'app/views/role.html',
                         access: {requireLogin: true}
                     })
-                    .when('/settings/:skip?', {
-                        controller: 'SettingsCtrl',
-                        templateUrl: 'app/views/settings.html',
+                    .when('/roles/:skip?/:limit?', {
+                        controller: 'RolesCtrl',
+                        templateUrl: 'app/views/roles.html',
                         access: {requireLogin: true}
                     })
                     .when('/setting/:id?', {
                         controller: 'SettingCtrl',
                         templateUrl: 'app/views/setting.html',
+                        access: {requireLogin: true}
+                    })
+                    .when('/settings/:skip?/:limit?', {
+                        controller: 'SettingsCtrl',
+                        templateUrl: 'app/views/settings.html',
                         access: {requireLogin: true}
                     })
                     .otherwise({

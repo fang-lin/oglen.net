@@ -1,6 +1,6 @@
 <h2>Tags</h2>
 <ul class="pagination">
-    <li ng-repeat="page in pager" ng-class="{active: page.skip == skip}"><a ng-href="#/tags/{{page.skip}}" ng-bind="page.page"></a></li>
+    <li ng-repeat="page in pager.beads" ng-class="{active: page.skip == pager.skip}"><a ng-href="#/tags/{{page.skip}}/{{pager.limit}}" ng-bind="page.page"></a></li>
 </ul>
 <table>
     <tr>
@@ -11,6 +11,6 @@
     <tr ng-repeat="tag in tags">
         <td>{{tag.name}}</td>
         <td>{{tag.count}}</td>
-        <td><a ng-href="#/tag/{{tag._id}}">edit</a></td>
+        <td><a ng-href="#/tag/{{tag._id}}">edit</a> | <a ng-click="delete(tag._id)">delete</a></td>
     </tr>
 </table>
