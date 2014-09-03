@@ -11,10 +11,11 @@ define(function () {
         '$scope',
         '$routeParams',
         '$location',
+        'User',
         'Users',
         'pager',
         'AUTH_EVENTS',
-        function ($rootScope, $scope, $routeParams, $location, Users, pager, AUTH_EVENTS) {
+        function ($rootScope, $scope, $routeParams, $location, User, Users, pager, AUTH_EVENTS) {
 
             if ($rootScope.isLogin) {
 
@@ -31,6 +32,14 @@ define(function () {
                         });
 
                         $scope.users = Users.query({skip: skip, limit: limit});
+
+                        $scope.delete = function (userId) {
+                            User.delete({
+                                id: userId
+                            }, function (res) {
+                                $scope.users = Users.query({skip: skip, limit: limit});
+                            });
+                        }
                     }
                 });
             }

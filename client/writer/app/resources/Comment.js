@@ -6,9 +6,9 @@
 define(function () {
     'use strict';
 
-    return ['$resource', function ($resource) {
+    return ['resource', function (resource) {
 
-        var Comment = $resource('/rest/comment/:id');
+        var Comment = resource('/rest/comment/:id');
 
         return Comment;
     }];

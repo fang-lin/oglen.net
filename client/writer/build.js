@@ -8,6 +8,7 @@ requirejs.config({
         // Libs
         'jquery': 'lib/jquery/dist/jquery.min',
         'underscore': 'lib/underscore/underscore',
+        'crypto': 'lib/crypto/crypto.min',
         'bootstrap': 'lib/bootstrap/dist/js/bootstrap.min',
         'angular': 'lib/angular/angular.min',
         'angular-resource': 'lib/angular-resource/angular-resource.min',
@@ -17,7 +18,7 @@ requirejs.config({
         // Apps
         'config': 'writer/app/config',
         'app': 'writer/app/app',
-        'utilities': 'writer/app/utilities',
+        'services': 'writer/app/services',
         'controllers': 'writer/app/controllers',
         'routes': 'writer/app/routes',
         'directives': 'writer/app/directives',

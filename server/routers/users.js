@@ -32,6 +32,7 @@ define([
 
                 User
                     .find()
+                    .select('-password -salt')
                     .skip(skip)
                     .limit(limit)
                     .sort({_id: -1})

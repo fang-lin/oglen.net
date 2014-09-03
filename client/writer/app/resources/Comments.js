@@ -8,14 +8,10 @@ define([
 ], function () {
     'use strict';
 
-    return ['$resource', function ($resource) {
-        var Comments = $resource('/rest/comments/:skip/:limit', null, {
-            get: {method: 'GET'}
-        });
+    return ['resource', function (resource) {
 
-        Comments.count = $resource('/rest/comments/count', null, {
-            get: {method: 'GET'}
-        });
+        var Comments = resource('/rest/comments/:skip/:limit');
+        Comments.count = resource('/rest/comments/count');
 
         return Comments;
     }];

@@ -6,13 +6,12 @@
 define(function () {
     'use strict';
 
-    return ['$resource', function ($resource) {
+    return [
+        'resource',
+        function (resource) {
 
-        var User = $resource('/rest/user', null, {
-            save: {method: 'POST'},
-            update: { method: 'PUT' }
-        });
+            var User = resource('/rest/user/:id');
 
-        return User;
-    }];
+            return User;
+        }];
 });

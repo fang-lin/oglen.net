@@ -8,14 +8,10 @@ define([
 ], function () {
     'use strict';
 
-    return ['$resource', function ($resource) {
-        var Posts = $resource('/rest/posts/:skip/:limit', null, {
-            get: {method: 'GET'}
-        });
+    return ['resource', function (resource) {
 
-        Posts.count = $resource('/rest/posts/count', null, {
-            get: {method: 'GET'}
-        });
+        var Posts = resource('/rest/posts/:skip/:limit');
+        Posts.count = resource('/rest/posts/count');
 
         return Posts;
     }];

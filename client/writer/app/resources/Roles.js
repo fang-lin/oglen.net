@@ -6,15 +6,10 @@
 define(function () {
     'use strict';
 
-    return ['$resource', function ($resource) {
+    return ['resource', function (resource) {
 
-        var Roles = $resource('/rest/roles/:skip/:limit', null, {
-
-        });
-
-        Roles.count = $resource('/rest/roles/count', null, {
-            get: {method: 'GET'}
-        });
+        var Roles = resource('/rest/roles/:skip/:limit');
+        Roles.count = resource('/rest/roles/count');
 
         return Roles;
     }];

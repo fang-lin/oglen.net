@@ -107,7 +107,7 @@ define(function () {
         port: port(),
         mongooseLink: mongooseLink(),
         jwt: jwt,
-        delay: 1000,
+        delay: 0,
         ERR_MSG: ERR_MSG
     };
 })
