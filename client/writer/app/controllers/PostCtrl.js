@@ -71,7 +71,7 @@ define([
 
                             $scope.drafts = Drafts.query({postId: $post._id});
 
-                            $location.path('/post/' + $post._id, false);
+                            $location.path('/post/' + $post._id, true);
                         });
                     }
                 };

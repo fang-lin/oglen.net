@@ -26,9 +26,8 @@ define([
         router
             .route('/tags/:skip?/:limit?')
             .get(function (req, res, next) {
-                var skip = req.param('skip') || 0,
-                    limit = req.param('limit') || 100;
-
+                var skip = req.param('skip') || 0;
+                var limit = req.param('limit') || 100;
                 Tag
                     .find()
                     .skip(skip)
@@ -44,7 +43,6 @@ define([
                     });
             });
     };
-
     return tagsRouter;
 });
 

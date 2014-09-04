@@ -12,7 +12,7 @@ define(function () {
         function ($resource, encrypt) {
             return function (url) {
                 return  $resource(url, {
-//                    tickle: encrypt.randomBytes(8)
+                    tickle: encrypt.randomBytes(4)
                 }, {
                     'get': {method: 'GET'},
                     'save': {method: 'POST'},

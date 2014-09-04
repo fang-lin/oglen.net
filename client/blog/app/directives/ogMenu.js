@@ -16,8 +16,8 @@ define(function () {
                     menu: '='
                 },
                 compile: function (tEle) {
-                    var contents = tEle.contents().remove(),
-                        compiled;
+                    var contents = tEle.contents().remove();
+                    var compiled;
                     return function (scope, iEle) {
                         if (!compiled) {
                             compiled = $compile(contents);

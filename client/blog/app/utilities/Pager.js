@@ -9,15 +9,15 @@ define(function () {
     return [function () {
 
         this.init = function (count, skip, limit, size) {
-            var pager = [],
-                total = Math.ceil(count / limit);
+            var pager = [];
+            var total = Math.ceil(count / limit);
 
             if (total < 2) {
                 return pager;
             }
 
-            var len = total - 0,
-                page = 0;
+            var len = total - 0;
+            var page = 0;
 
             if (total > size) {
                 len = size - 0;

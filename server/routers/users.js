@@ -12,7 +12,6 @@ define([
         router
             .route('/users/count')
             .get(function (req, res, next) {
-
                 User
                     .count()
                     .exec(function (err, docs) {
@@ -27,9 +26,8 @@ define([
         router
             .route('/users/:skip?/:limit?')
             .get(function (req, res, next) {
-                var skip = req.param('skip') || 0,
-                    limit = req.param('limit') || 100;
-
+                var skip = req.param('skip') || 0;
+                var limit = req.param('limit') || 100;
                 User
                     .find()
                     .select('-password -salt')
@@ -47,6 +45,5 @@ define([
                     });
             });
     };
-
     return usersRouter;
 });

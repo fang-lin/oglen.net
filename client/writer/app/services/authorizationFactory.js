@@ -14,26 +14,48 @@ define(function () {
         function ($http, $rootScope, session, AUTH_EVENTS) {
             return {
                 login: function (account) {
-
                     $http
                         .post('/rest/authorization', account)
                         .then(function (res) {
-                            if (res.status === 200 && res.data.token) {
-                                session.create(res.data.token);
-                                $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+                            if (res.status === 200) {
+                                if (res.data.token) {
+                                    session.create(res.data);
+                                    $rootScope.$broadcast(AUTH_EVENTS.loginSuccess, session.user());
+                                }
                             } else {
                                 alert(res.data.code);
                             }
-                        })
+                        });
+                },
+                toArgot: function () {
+                    var argot = session.argot();
+
+                    if (argot) {
+                        $http
+                            .post('/rest/authorization', {
+                                argot: argot
+                            })
+                            .then(function (res) {
+                                if (res.status === 200) {
+                                    if (res.data.token) {
+                                        session.create(res.data);
+                                        $rootScope.$broadcast(AUTH_EVENTS.loginSuccess, session.user());
+                                    }
+                                } else {
+                                    alert(res.data.code);
+                                }
+                            });
+                    }
+                },
+                user: function () {
+                    return session.user();
                 },
                 logout: function () {
-
                     session.destroy();
                     $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
                 },
                 isLogin: function () {
-
-                    return !!session.isActive();
+                    return !!session.token();
                 }
 //                isAuthorized: function (authorizedRoles) {
 //                    if (!angular.isArray(authorizedRoles)) {

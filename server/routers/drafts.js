@@ -29,9 +29,9 @@ define([
         router
             .route('/drafts/:postId')
             .get(function (req, res, next) {
-                var postId = req.param('postId'),
-                    short = req.param('short'),
-                    query;
+                var postId = req.param('postId');
+                var short = req.param('short');
+                var query;
 
                 if (short) {
                     query = Draft
@@ -50,6 +50,5 @@ define([
                     });
             });
     };
-
     return draftsRouter;
 });

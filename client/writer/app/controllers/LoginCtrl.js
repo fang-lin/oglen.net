@@ -19,9 +19,12 @@ define([
 
             if (!$rootScope.isLogin) {
 
+                authorization.toArgot();
+
                 $scope.credentials = {
                     username: '',
-                    password: ''
+                    password: '',
+                    memorization: false
                 };
 
                 $scope.login = function (account) {
@@ -35,6 +38,8 @@ define([
                 $scope.$on(AUTH_EVENTS.notAuthenticated, function (event, msg) {
                     $scope.msg = msg;
                 });
+
+
             }
         }];
 });

@@ -8,26 +8,20 @@ define([
 ], function (crypto) {
     'use strict';
 
-    var md5 = function (code) {
-        return crypto.createHash('md5').update(code).digest('hex');
+    var md5 = function (code, type) {
+        return crypto.createHash('md5').update(code).digest(type || 'hex');
     };
-
+    var hash = function (algorithm, code, type) {
+        return crypto.createHash(algorithm || 'md5').update(code).digest(type || 'hex');
+    };
     var randomBytes = function (size, callback) {
         return crypto.randomBytes(size, callback).toString('hex');
     };
-
     var mixSalt = function (code, salt) {
-        if (salt) {
-            var len = salt.length,
-                cut = Math.ceil(len / 2);
-
-            return salt.slice(0, cut) + code + salt.slice(cut, len);
-        } else {
-            return code;
-        }
+        return code + salt;
     };
-
     return {
+        hash: hash,
         md5: md5,
         randomBytes: randomBytes,
         mixSalt: mixSalt

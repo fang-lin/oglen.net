@@ -8,22 +8,17 @@ define([
 ], function (mongoose) {
     'use strict';
 
-    var Schema = mongoose.Schema,
-        ObjectId = Schema.Types.ObjectId,
-        Now = Date.now,
-
-        RoleSchema = new Schema({
-            name: {
-                type: String,
-                unique: true,
-                index: true,
-                required: true
-            },
-            privilege: Array,
-            note: String
-        });
-
+    var Schema = mongoose.Schema;
+    var RoleSchema = new Schema({
+        name: {
+            type: String,
+            unique: true,
+            index: true,
+            required: true
+        },
+        privilege: Array,
+        note: String
+    });
     var Role = mongoose.model('Role', RoleSchema);
-
     return Role;
 });

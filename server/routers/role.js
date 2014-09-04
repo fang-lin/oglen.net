@@ -64,7 +64,6 @@ define([
                 });
             });
     };
-
     return roleRouter;
 });
 

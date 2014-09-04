@@ -42,7 +42,7 @@ define(function () {
                             $role._id = role._id;
 
                             var path = $location.path;
-                            path(path() + $role._id, false);
+                            path(path() + $role._id, true);
                         });
                     }
                 };

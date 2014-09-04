@@ -17,14 +17,7 @@ define([
     };
 
     var mixSalt = function (code, salt) {
-        if (salt) {
-            var len = salt.length,
-                cut = Math.ceil(len / 2);
-
-            return salt.slice(0, cut) + code + salt.slice(cut, len);
-        } else {
-            return code;
-        }
+        return code + salt;
     };
 
     return [function () {

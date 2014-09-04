@@ -18,7 +18,6 @@ define([
     'use strict';
 
     var services = angular.module(config.name + '.services', ['ngResource'])
-        .run(path)
         .factory('resource', resourceFactory)
         .factory('pager', pagerFactory)
         .factory('encrypt', encryptFactory)
@@ -29,7 +28,9 @@ define([
             '$httpProvider',
             function ($httpProvider) {
                 $httpProvider.interceptors.push('authorizationInterceptor');
-            }]);
+
+            }])
+        .run(path);
 
     return services;
 });

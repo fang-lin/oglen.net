@@ -9,19 +9,39 @@ define(function () {
     return [
         '$window',
         function ($window) {
-            return {
-                create: function (token) {
-                    $window.sessionStorage.token = token;
-                },
-                isActive: function () {
-                    return !!$window.sessionStorage.token;
-                },
-                token: function () {
-                    return $window.sessionStorage.token;
-                },
-                destroy: function () {
-                    delete $window.sessionStorage.token;
-                }
+
+            var sessionStorage = $window.sessionStorage;
+            var localStorage = $window.localStorage;
+
+            var Session = function () {
+
+                this.create = function (data) {
+                    sessionStorage.token = data.token;
+                    if (data.argot) {
+                        localStorage.argot = data.argot;
+                    }
+                    sessionStorage.user = JSON.stringify(data.user);
+                };
+
+                this.token = function () {
+                    return sessionStorage.token;
+                };
+
+                this.argot = function () {
+                    return localStorage.argot;
+                };
+
+                this.user = function () {
+                    return JSON.parse(sessionStorage.user || '{}');
+                };
+
+                this.destroy = function () {
+                    delete sessionStorage.token;
+                    delete sessionStorage.user;
+                    delete localStorage.argot;
+                };
             };
+
+            return new Session();
         }];
 });

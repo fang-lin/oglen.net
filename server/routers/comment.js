@@ -25,7 +25,6 @@ define([
             })
             .post(function (req, res, next) {
                 var comment = new Comment(req.body);
-
                 comment.save(function (err, product, numberAffected) {
                     router.cap(err, res, function () {
 
@@ -64,6 +63,5 @@ define([
                 });
             });
     };
-
     return commentRouter;
 });

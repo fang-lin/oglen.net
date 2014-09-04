@@ -11,6 +11,7 @@ define(function () {
         loginFailed: 'auth-login-failed',
         logoutSuccess: 'auth-logout-success',
         sessionTimeout: 'auth-session-timeout',
+        invalidSession: 'auth-invalid-session',
         notAuthenticated: 'auth-not-authenticated',
         notAuthorized: 'auth-not-authorized'
     };

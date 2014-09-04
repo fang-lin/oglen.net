@@ -36,8 +36,8 @@ define([
                 $scope.submit = function (user) {
                     event.preventDefault();
 
-                    var $user = user,
-                        _user = _.clone($user);
+                    var $user = user;
+                    var _user = _.clone($user);
 
                     _user.password = encrypt.md5(encrypt.mixSalt(_user.password, SALT));
 
@@ -53,7 +53,7 @@ define([
                             $user.createAt = user.createAt;
 
                             var path = $location.path;
-                            path(path() + $user._id, false);
+                            path(path() + $user._id, true);
                         });
                     }
                 };

@@ -64,6 +64,5 @@ define([
                 });
             });
     };
-
     return settingRouter;
 });

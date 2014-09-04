@@ -46,7 +46,7 @@ define(function () {
                             $rootScope.settings[setting.key] = setting.value;
 
                             var path = $location.path;
-                            path(path() + $setting._id, false);
+                            path(path() + $setting._id, true);
                         });
                     }
                 };

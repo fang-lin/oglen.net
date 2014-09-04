@@ -14,7 +14,6 @@ define(function () {
                 process.env.NODE_ENV
             );
     };
-
     // Cache
     var cache = {
         enable: false,
@@ -22,44 +21,40 @@ define(function () {
         port: '6379',
         auth: 'swift'
     };
-
     // TRACE, DEBUG, INFO, WARN, ERROR, FATAL
     var loggers = {
             default: 'WARN',
             development: 'INFO',
             production: 'ERROR'
-        },
-        logger = function () {
+        };
+    var logger = function () {
             return  loggers[env()] || loggers.default;
         };
-
     // morgan combined, common, dev, short, tiny
     var morgans = {
             default: 'short',
             development: 'dev',
             production: 'tiny'
-        },
-        morgan = function () {
+        };
+    var morgan = function () {
             return  morgans[env()] || morgans.default;
         };
-
     // static dist
     var dists = {
             default: 'client',
             development: 'client',
             production: 'dist'
-        },
-        dist = function () {
+        };
+    var dist = function () {
             return  dists[env()] || dists.default;
         };
-
     // Express listening on port
     var ports = {
             default: 8080,
             development: 8000,
             production: 8080
-        },
-        port = function () {
+        };
+    var port = function () {
             return  process.env.PORT || ports[env()] || ports.default;
         };
 
@@ -68,19 +63,31 @@ define(function () {
             default: 'mongodb://localhost/oglen-db',
             development: 'mongodb://localhost/oglen-db',
             production: 'mongodb://localhost/oglen-db'
-        },
-        mongooseLink = function () {
+        };
+    var mongooseLink = function () {
             return mongooseLinks[env()] || mongooseLinks.default;
         };
 
     // json web token
     var jwt = {
         secret: new Buffer('YOUR_CLIENT_SECRET', 'base64'),
-        options: {
-            algorithm: 'HS256',
-            issuer: 'YOUR_ISSUER',
-            expiresInMinutes: .1
-        }
+        issuer: 'YOUR_ISSUER',
+        expiresInMinutes: 0,
+        audience: function (req) {
+            var header = req.headers;
+            return header['accept-language'] + ' ' + header['user-agent'];
+        },
+        argotExpiresInMinutes: 0,
+        algorithm: 'HS256'
+    };
+
+    // argot
+    var argot = {
+        audience: function (argot, req) {
+            return argot + jwt.secret + jwt.issuer + jwt.audience(req);
+        },
+        expiresInMinutes: 0,
+        algorithm: 'sha512'
     };
 
     // api messages
@@ -92,6 +99,10 @@ define(function () {
         wrongPassword: {
             code: 'not_authenticated',
             msg: 'Wrong Password'
+        },
+        nonexistentArgot: {
+            code: 'not_authenticated',
+            msg: 'Nonexistent Argot'
         },
         unknownErr: {
             code: ' unknown',
@@ -107,6 +118,7 @@ define(function () {
         port: port(),
         mongooseLink: mongooseLink(),
         jwt: jwt,
+        argot: argot,
         delay: 0,
         ERR_MSG: ERR_MSG
     };

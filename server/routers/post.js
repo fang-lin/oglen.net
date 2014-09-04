@@ -33,8 +33,8 @@ define([
                     });
             })
             .post(function (req, res, next) {
-                var form = req.body,
-                    post = new Post({
+                var form = req.body;
+                var post = new Post({
                         title: form.title,
                         abstract: form.abstract,
                         author: form.author,
@@ -76,8 +76,8 @@ define([
                 });
             })
             .put(function (req, res, next) {
-                var form = req.body,
-                    draft = new Draft({
+                var form = req.body;
+                var draft = new Draft({
                         post: form._id,
                         text: form.draft.text,
                         flag: 'draft'
@@ -124,8 +124,6 @@ define([
                 });
             });
     };
-
     return postRouter;
-
 });
 

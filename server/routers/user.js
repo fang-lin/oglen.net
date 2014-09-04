@@ -13,9 +13,7 @@ define([
         router
             .route('/user/:id?')
             .get(function (req, res, next) {
-
                 var id = req.param('id');
-
                 User
                     .findById(id)
                     .select('-password -salt')
@@ -30,15 +28,14 @@ define([
                     });
             })
             .post(function (req, res, next) {
-                var form = req.body,
-                    salt = encrypt.randomBytes(16),
-                    password = encrypt.mixSalt(form.password, salt);
+                var form = req.body;
+                var salt = encrypt.randomBytes(16);
+                var password = encrypt.mixSalt(form.password, salt);
 
                 form.password = encrypt.md5(password);
                 form.salt = salt;
 
                 var user = new User(form);
-
                 user.save(function (err, product, numberAffected) {
                     router.cap(err, res, function () {
                         res.send(user);
@@ -46,10 +43,9 @@ define([
                 });
             })
             .put(function (req, res, next) {
-
-                var form = req.body,
-                    salt = encrypt.randomBytes(16),
-                    password = encrypt.mixSalt(form.password, salt);
+                var form = req.body;
+                var salt = encrypt.randomBytes(16);
+                var password = encrypt.mixSalt(form.password, salt);
 
                 form.password = encrypt.md5(password);
                 form.salt = salt;
@@ -63,9 +59,7 @@ define([
                 });
             })
             .delete(function (req, res, next) {
-
                 var id = req.param('id');
-
                 User.remove({
                     _id: id
                 }, function (err, numberAffected, raw) {
@@ -76,8 +70,6 @@ define([
                     });
                 });
             });
-
     };
-
     return userRouter;
 });

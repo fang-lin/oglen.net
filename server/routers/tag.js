@@ -13,7 +13,6 @@ define([
             .route('/tag/:id?')
             .get(function (req, res, next) {
                 var id = req.param('id');
-
                 Tag
                     .findById(id)
                     .exec(function (err, docs) {
@@ -25,7 +24,6 @@ define([
             })
             .post(function (req, res, next) {
                 var tag = new Tag(req.body);
-
                 tag.save(function (err, product, numberAffected) {
                     router.cap(err, res, function () {
 
@@ -35,7 +33,6 @@ define([
             })
             .put(function (req, res, next) {
                 var form = req.body;
-
                 Tag.update({
                     _id: form._id
                 }, {
@@ -48,9 +45,7 @@ define([
                 });
             })
             .delete(function (req, res, next) {
-
                 var id = req.param('id');
-
                 Tag.remove({
                     _id: id
                 }, function (err, numberAffected, raw) {
@@ -62,7 +57,6 @@ define([
                 });
             });
     };
-
     return tagRouter;
 });
 

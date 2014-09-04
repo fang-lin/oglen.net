@@ -14,8 +14,8 @@ define(function () {
 
             var original = $location.path;
 
-            $location.path = function (path, reload) {
-                if (reload === false) {
+            $location.path = function (path, still) {
+                if (still) {
                     var lastRoute = $route.current;
                     var un = $rootScope.$on('$locationChangeSuccess', function () {
                         $route.current = lastRoute;
