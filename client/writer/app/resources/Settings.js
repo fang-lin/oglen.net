@@ -7,10 +7,8 @@ define(function () {
     'use strict';
 
     return ['resource', function (resource) {
-
-        var Settings = resource('/rest/settings/:skip/:limit');
-        Settings.count = resource('/rest/settings/count');
-
+        var Settings = resource('/settings/:skip/:limit');
+        Settings.count = resource('/settings/count');
         return Settings;
     }];
 });

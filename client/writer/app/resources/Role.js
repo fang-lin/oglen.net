@@ -7,9 +7,6 @@ define(function () {
     'use strict';
 
     return ['resource', function (resource) {
-
-        var Role = resource('/rest/role/:id');
-
-        return Role;
+        return resource('/role/:id');
     }];
 });

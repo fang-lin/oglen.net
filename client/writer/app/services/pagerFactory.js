@@ -64,19 +64,19 @@ define([
         }
         if (page > 0) {
             beads.push({
-                page: 1,
+                num: 1,
                 skip: 0
             });
         }
         for (var i = page, l = page + len; i < l; ++i) {
             beads.push({
-                page: i + 1,
+                num: i + 1,
                 skip: i * this.limit
             });
         }
         if (i < total) {
             beads.push({
-                page: total,
+                num: total,
                 skip: (total - 1) * this.limit
             });
         }

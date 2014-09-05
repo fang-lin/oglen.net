@@ -7,10 +7,8 @@ define(function () {
     'use strict';
 
     return ['resource', function (resource) {
-
-        var Tags = resource('/rest/tags/:skip/:limit');
-        Tags.count = resource('/rest/tags/count');
-
+        var Tags = resource('/tags/:skip/:limit');
+        Tags.count = resource('/tags/count');
         return Tags;
     }];
 });

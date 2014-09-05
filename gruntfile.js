@@ -11,7 +11,10 @@ module.exports = function (grunt) {
                 files: [
                     // index
                     {src: 'client/index.html', dest: 'dist/index.html'},
+                    {src: 'client/404.html', dest: 'dist/404.html'},
                     {src: 'client/robots.txt', dest: 'dist/robots.txt'},
+                    {src: 'client/lib/html5shiv/dist/html5shiv.min.js', dest: 'dist/lib/html5shiv/dist/html5shiv.min.js'},
+                    {src: 'client/lib/respond/dest/respond.min.js', dest: 'dist/lib/respond/dest/respond.min.js'},
                     // writer
                     {src: 'client/writer/index.html', dest: 'dist/writer/index.html'},
                     {src: 'client/writer/config.js', dest: 'dist/writer/config.js'},
@@ -91,7 +94,7 @@ module.exports = function (grunt) {
                 }
             },
             options: {
-                preserveComments: 'some'
+                preserveComments: false // false 'all' 'some'
             }
         },
 

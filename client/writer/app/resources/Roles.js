@@ -7,10 +7,8 @@ define(function () {
     'use strict';
 
     return ['resource', function (resource) {
-
-        var Roles = resource('/rest/roles/:skip/:limit');
-        Roles.count = resource('/rest/roles/count');
-
+        var Roles = resource('/roles/:skip/:limit');
+        Roles.count = resource('/roles/count');
         return Roles;
     }];
 });

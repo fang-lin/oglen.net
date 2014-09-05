@@ -1,7 +1,5 @@
 <h2>settings</h2>
-<ul class="pagination">
-    <li ng-repeat="page in pager.beads" ng-class="{active: page.skip == pager.skip}"><a ng-href="#/settings/{{page.skip}}/{{pager.limit}}" ng-bind="page.page"></a></li>
-</ul>
+<pager skip="skip" limit="limit" count="count">loading</pager>
 <table>
     <tr>
         <th>key</th>

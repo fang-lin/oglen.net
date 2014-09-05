@@ -20,7 +20,6 @@ define([
     'use strict';
 
     var name = config.name;
-
     var app = angular
         .module(name, [
             'ngRoute',
@@ -37,15 +36,14 @@ define([
             '$rootScope',
             '$location',
             '$route',
+            '$routeParams',
             '$log',
             'menu',
             'info',
             'Settings',
             'authorization',
             'AUTH_EVENTS',
-            function ($rootScope, $location, $route, $log, menu, info, Settings, authorization, AUTH_EVENTS) {
-
-                console.log($route)
+            function ($rootScope, $location, $route, $routeParams, $log, menu, info, Settings, authorization, AUTH_EVENTS) {
 
                 $rootScope.menu = menu;
                 $rootScope.info = info;

@@ -3,9 +3,7 @@
  * Author: isaac.fang@grapecity.com
  */
 
-define([
-    'config'
-], function (config) {
+define(function () {
     'use strict';
 
     return [
@@ -13,7 +11,7 @@ define([
         'encrypt',
         function ($resource, encrypt) {
             return function (url) {
-                return  $resource(config.apiBase + url, {
+                return  $resource(url, {
                     tickle: function () {
                         return encrypt.randomBytes(4);
                     }

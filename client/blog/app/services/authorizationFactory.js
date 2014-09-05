@@ -3,9 +3,7 @@
  * Author: isaac.fang@grapecity.com
  */
 
-define([
-    'config'
-], function (config) {
+define(function () {
     'use strict';
 
     return [
@@ -17,7 +15,7 @@ define([
             return {
                 login: function (account) {
                     $http
-                        .post(config.apiBase + '/authorization', account)
+                        .post('/rest/authorization', account)
                         .then(function (res) {
                             if (res.status === 200) {
                                 if (res.data.token) {
@@ -34,7 +32,7 @@ define([
 
                     if (argot) {
                         $http
-                            .post(config.apiBase + '/authorization', {
+                            .post('/rest/authorization', {
                                 argot: argot
                             })
                             .then(function (res) {

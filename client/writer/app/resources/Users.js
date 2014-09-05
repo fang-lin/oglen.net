@@ -7,10 +7,8 @@ define(function () {
     'use strict';
 
     return ['resource', function (resource) {
-
-        var Users = resource('/rest/users/:skip/:limit');
-        Users.count = resource('/rest/users/count');
-
+        var Users = resource('/users/:skip/:limit');
+        Users.count = resource('/users/count');
         return Users;
     }];
 });

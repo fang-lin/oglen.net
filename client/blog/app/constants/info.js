@@ -7,7 +7,7 @@ define(function () {
     'use strict';
 
     return {
-        'title': 'writer.oglen.net',
+        'title': 'blog.oglen.net',
         'description': 'A Blog for oglen.net',
         'keywords': 'a, b, c',
         'generator': 'oglen.net',

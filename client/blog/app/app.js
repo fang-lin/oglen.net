@@ -5,28 +5,27 @@
 
 define([
     'config',
-    'angular',
-    'angular-route',
-    'angular-animate',
-    'angular-translate',
-    'utilities/all',
+    'services/all',
     'routes/all',
     'controllers/all',
     'directives/all',
     'filters/all',
     'resources/all',
-    'constants/all'
+    'constants/all',
+    'angular',
+    'angular-route',
+    'angular-animate',
+    'angular-translate'
 ], function (config) {
     'use strict';
 
     var name = config.name;
-
-    var app = angular
+    angular
         .module(name, [
             'ngRoute',
             'ngAnimate',
                 name + '.routes',
-                name + '.utilities',
+                name + '.services',
                 name + '.controllers',
                 name + '.directives',
                 name + '.filters',

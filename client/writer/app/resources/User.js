@@ -6,12 +6,7 @@
 define(function () {
     'use strict';
 
-    return [
-        'resource',
-        function (resource) {
-
-            var User = resource('/rest/user/:id');
-
-            return User;
-        }];
+    return ['resource', function (resource) {
+        return resource('/user/:id');
+    }];
 });

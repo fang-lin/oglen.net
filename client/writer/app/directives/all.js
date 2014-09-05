@@ -6,15 +6,15 @@
 define([
     'config',
     'directives/menuDir',
-    'directives/dialogDir',
+    'directives/pagerDir',
     'directives/dropdownDir',
     'angular'
-], function (config, menuDir, dialogDir, dropdownDir) {
+], function (config, menuDir, pagerDir, dropdownDir) {
     'use strict';
 
     var directives = angular.module(config.name + '.directives', [])
         .directive('menu', menuDir)
-        .directive('dialog', dialogDir)
+        .directive('pager', pagerDir)
         .directive('dropdown', dropdownDir);
 
     return directives;

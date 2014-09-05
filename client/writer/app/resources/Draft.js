@@ -7,9 +7,6 @@ define(function () {
     'use strict';
 
     return ['resource', function (resource) {
-
-        var Draft = resource('/rest/draft/:id');
-
-        return Draft;
+        return resource('/draft/:id');
     }];
 });

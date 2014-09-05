@@ -19,12 +19,11 @@ define([
     'resources/Users',
     'resources/Setting',
     'resources/Settings',
-    'angular',
-    'angular-resource'
+    'angular'
 ], function (config, Post, Posts, Draft, Drafts, Tag, Tags, Comment, Comments, Role, Roles, User, Users, Setting, Settings) {
     'use strict';
 
-    var resources = angular.module(config.name + '.resources', ['ngResource'])
+    var resources = angular.module(config.name + '.resources', [])
         .factory('Post', Post)
         .factory('Posts', Posts)
         .factory('Draft', Draft)

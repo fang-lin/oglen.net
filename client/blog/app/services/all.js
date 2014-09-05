@@ -26,7 +26,7 @@ define([
         .factory('session', sessionFactory)
         .config([
             '$httpProvider',
-            function ($httpProvider, $resourceProvider) {
+            function ($httpProvider) {
                 $httpProvider.interceptors.push('authorizationInterceptor');
             }])
         .run(path);

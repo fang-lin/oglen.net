@@ -9,10 +9,8 @@ define([
     'use strict';
 
     return ['resource', function (resource) {
-
-        var Posts = resource('/rest/posts/:skip/:limit');
-        Posts.count = resource('/rest/posts/count');
-
+        var Posts = resource('/posts/:skip/:limit');
+        Posts.count = resource('/posts/count');
         return Posts;
     }];
 });

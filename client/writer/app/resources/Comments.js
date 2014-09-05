@@ -3,16 +3,12 @@
  * Author: isaac.fang@grapecity.com
  */
 
-define([
-    'angular-resource'
-], function () {
+define(function () {
     'use strict';
 
     return ['resource', function (resource) {
-
-        var Comments = resource('/rest/comments/:skip/:limit');
-        Comments.count = resource('/rest/comments/count');
-
+        var Comments = resource('/comments/:skip/:limit');
+        Comments.count = resource('/comments/count');
         return Comments;
     }];
 });
