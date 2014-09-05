@@ -3,7 +3,9 @@
  * Author: isaac.fang@grapecity.com
  */
 
-define(function () {
+define([
+    'underscore'
+], function (_) {
     'use strict';
 
     // Is NODE_ENV
@@ -23,50 +25,50 @@ define(function () {
     };
     // TRACE, DEBUG, INFO, WARN, ERROR, FATAL
     var loggers = {
-            default: 'WARN',
-            development: 'INFO',
-            production: 'ERROR'
-        };
+        default: 'WARN',
+        development: 'INFO',
+        production: 'ERROR'
+    };
     var logger = function () {
-            return  loggers[env()] || loggers.default;
-        };
+        return  loggers[env()] || loggers.default;
+    };
     // morgan combined, common, dev, short, tiny
     var morgans = {
-            default: 'short',
-            development: 'dev',
-            production: 'tiny'
-        };
+        default: 'short',
+        development: 'dev',
+        production: 'tiny'
+    };
     var morgan = function () {
-            return  morgans[env()] || morgans.default;
-        };
+        return  morgans[env()] || morgans.default;
+    };
     // static dist
     var dists = {
-            default: 'client',
-            development: 'client',
-            production: 'dist'
-        };
+        default: 'client',
+        development: 'client',
+        production: 'dist'
+    };
     var dist = function () {
-            return  dists[env()] || dists.default;
-        };
+        return  dists[env()] || dists.default;
+    };
     // Express listening on port
     var ports = {
-            default: 8080,
-            development: 8000,
-            production: 8080
-        };
+        default: 8080,
+        development: 8000,
+        production: 8080
+    };
     var port = function () {
-            return  process.env.PORT || ports[env()] || ports.default;
-        };
+        return  process.env.PORT || ports[env()] || ports.default;
+    };
 
     // mongoose connect link
     var mongooseLinks = {
-            default: 'mongodb://localhost/oglen-db',
-            development: 'mongodb://localhost/oglen-db',
-            production: 'mongodb://localhost/oglen-db'
-        };
+        default: 'mongodb://localhost/oglen-db',
+        development: 'mongodb://localhost/oglen-db',
+        production: 'mongodb://localhost/oglen-db'
+    };
     var mongooseLink = function () {
-            return mongooseLinks[env()] || mongooseLinks.default;
-        };
+        return mongooseLinks[env()] || mongooseLinks.default;
+    };
 
     // json web token
     var jwt = {
@@ -119,7 +121,10 @@ define(function () {
         mongooseLink: mongooseLink(),
         jwt: jwt,
         argot: argot,
-        delay: 0,
+        delay: false,
+//        delay: function () {
+//            return _.random(300, 800);
+//        },
         ERR_MSG: ERR_MSG
     };
 })

@@ -52,7 +52,7 @@ define([
             .get(function (req, res, next) {
                 setTimeout(function () {
                     next();
-                }, delay);
+                }, delay());
             });
     }
 

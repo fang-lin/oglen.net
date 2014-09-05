@@ -12,8 +12,9 @@ define([
     var routes = angular.module(config.name + '.routes', [])
         .config([
             '$routeProvider',
-            function ($routeProvider) {
-
+            '$locationProvider',
+            function ($routeProvider, $locationProvider) {
+                $locationProvider.html5Mode(true);
                 $routeProvider
                     .when('/', {
                         controller: 'DashboardCtrl',
@@ -98,7 +99,6 @@ define([
                     .otherwise({
                         redirectTo: '/'
                     });
-
             }]);
 
     return routes;

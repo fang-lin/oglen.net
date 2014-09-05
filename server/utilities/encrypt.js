@@ -14,8 +14,8 @@ define([
     var hash = function (algorithm, code, type) {
         return crypto.createHash(algorithm || 'md5').update(code).digest(type || 'hex');
     };
-    var randomBytes = function (size, callback) {
-        return crypto.randomBytes(size, callback).toString('hex');
+    var randomBytes = function (size, callback, type) {
+        return crypto.randomBytes(size, callback).toString(type || 'hex');
     };
     var mixSalt = function (code, salt) {
         return code + salt;

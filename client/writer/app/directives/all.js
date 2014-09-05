@@ -13,9 +13,9 @@ define([
     'use strict';
 
     var directives = angular.module(config.name + '.directives', [])
-        .directive('menuDir', menuDir)
-        .directive('dialogDir', dialogDir)
-        .directive('dropdownDir', dropdownDir);
+        .directive('menu', menuDir)
+        .directive('dialog', dialogDir)
+        .directive('dropdown', dropdownDir);
 
     return directives;
 });

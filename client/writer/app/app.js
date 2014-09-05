@@ -45,6 +45,8 @@ define([
             'AUTH_EVENTS',
             function ($rootScope, $location, $route, $log, menu, info, Settings, authorization, AUTH_EVENTS) {
 
+                console.log($route)
+
                 $rootScope.menu = menu;
                 $rootScope.info = info;
 

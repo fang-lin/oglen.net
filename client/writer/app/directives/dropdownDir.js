@@ -13,7 +13,7 @@ define(function () {
             };
             return {
                 restrict: 'E',
-                templateUrl: 'app/templates/ogDropdown.html',
+                templateUrl: 'app/templates/dropdown.html',
                 replace: true,
                 scope: {},
                 link: link

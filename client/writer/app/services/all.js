@@ -28,7 +28,6 @@ define([
             '$httpProvider',
             function ($httpProvider) {
                 $httpProvider.interceptors.push('authorizationInterceptor');
-
             }])
         .run(path);
 

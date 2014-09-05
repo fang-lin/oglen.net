@@ -13,7 +13,7 @@ define(function () {
             };
             return {
                 restrict: 'A',
-                templateUrl: 'app/templates/ogDialog.html',
+                templateUrl: 'app/templates/dialog.html',
                 replace: true,
                 scope: {
                     list: '=list'

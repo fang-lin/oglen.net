@@ -16,6 +16,17 @@ define([
 
     var authorizationRouter = function (router) {
 
+        router
+            .route('/authorization')
+            .post(function (req, res, next) {
+                var form = req.body;
+                if (form.argot) {
+                    toArgot(req, res, next);
+                } else {
+                    login(req, res, next);
+                }
+            });
+
         function getUserProfile(user) {
             return {
                 _id: user._id,
@@ -127,17 +138,6 @@ define([
                     }
                 });
         }
-
-        router
-            .route('/authorization')
-            .post(function (req, res, next) {
-                var form = req.body;
-                if (form.argot) {
-                    toArgot(req, res, next);
-                } else {
-                    login(req, res, next);
-                }
-            });
     };
     return authorizationRouter;
 });
