@@ -5,17 +5,17 @@
 
 define([
     'config',
-    'directives/ogMenu',
-    'directives/ogDialog',
-    'directives/ogDropdown',
+    'directives/menuDir',
+    'directives/dialogDir',
+    'directives/dropdownDir',
     'angular'
-], function (config, ogMenu, ogDialog, ogDropdown) {
+], function (config, menuDir, dialogDir, dropdownDir) {
     'use strict';
 
     var directives = angular.module(config.name + '.directives', [])
-        .directive('ogMenu', ogMenu)
-        .directive('ogDialog', ogDialog)
-        .directive('ogDropdown', ogDropdown);
+        .directive('menuDir', menuDir)
+        .directive('dialogDir', dialogDir)
+        .directive('dropdownDir', dropdownDir);
 
     return directives;
 });
