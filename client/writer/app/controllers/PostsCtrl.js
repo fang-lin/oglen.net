@@ -35,9 +35,8 @@ define(function () {
                                 $scope.refresh();
                             });
                         };
-                        $scope.pager = $routeParams.skip;
+                        $scope.skip = $routeParams.skip;
                         $scope.limit = $routeParams.limit;
-                        $scope.count = 0;
                         $scope.refresh();
                     }
                 });

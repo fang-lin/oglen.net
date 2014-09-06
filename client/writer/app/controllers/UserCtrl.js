@@ -51,9 +51,7 @@ define([
                         User.save(_user, function (user) {
                             $user._id = user._id;
                             $user.createAt = user.createAt;
-
-                            var path = $location.path;
-                            path(path() + $user._id, true);
+                            $location.path('/user/' + $user._id, true);
                         });
                     }
                 };

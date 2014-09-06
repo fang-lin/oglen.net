@@ -20,20 +20,13 @@ define(function () {
             if ($rootScope.isLogin) {
                 $rootScope.$watch('settings', function (settings) {
                     if (settings) {
-
                         $scope.refresh = function () {
-
-                            var pager = $scope.pager;
-
                             Users.count.get(function (res) {
-                                pager.create(res.count, function (skip, limit) {
-                                    $location.path('/users/' + skip + '/' + limit);
-                                });
+                                $scope.count = res.count;
                             });
-
                             $scope.users = Users.query({
-                                skip: pager.skip,
-                                limit: pager.limit
+                                skip: $scope.skip,
+                                limit: $scope.limit
                             });
                         };
 
@@ -47,7 +40,8 @@ define(function () {
                             });
                         };
 
-                        $scope.pager = pager.init($routeParams.skip, $routeParams.limit || settings['pager_limit'], settings['pager_size']);
+                        $scope.skip = $routeParams.skip;
+                        $scope.limit = $routeParams.limit;
                         $scope.refresh();
                     }
                 });

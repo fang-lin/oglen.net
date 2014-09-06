@@ -6,61 +6,71 @@
 define(function () {
     'use strict';
 
+    /**
+     * @private
+     * @param {Number} skip is query offset;
+     * @param {Number} limit is query limit;
+     * @param {Number} count is chain max size;
+     * @param {Number} size is chain max size;
+     * @param {Function} fn is refresh callback if query over from count range;
+     * @returns {Array} pager chain;
+     */
     function createChain(skip, limit, count, size, fn) {
-
         var chain = [];
         var total = Math.ceil(count / limit);
+        var interSize = size - 2;
 
-        if (total <= 1) {
-            if (count <= skip) {
-                skip = 0;
-                if (_.isFunction(fn)) {
-                    fn(skip, limit);
-                }
-            }
-            return chain;
-        }
-        if (count <= skip) {
-            skip = (total - 1) * limit;
-            if (_.isFunction(fn)) {
-                fn(skip, limit);
-            }
+        if (skip >= count) {
+            fn && fn((total - 1) * limit, limit);
             return chain;
         }
 
-        var len = total - 0;
-        var page = 0;
+        chain.push({
+            num: 1,
+            skip: 0
+        });
 
-        if (total > size) {
-            len = size - 0;
-            page = skip / limit - Math.floor(size / 2);
 
-            if (page < 0) {
-                page = 0;
-            }
+        var second = skip / limit - Math.floor(interSize / 2);
 
-            if (page > total - size) {
-                page = total - size;
-            }
+        if(second > 0){
+
         }
-        if (page > 0) {
-            chain.push({
-                num: 1,
-                skip: 0
-            });
-        }
-        for (var i = page, l = page + len; i < l; ++i) {
-            chain.push({
-                num: i + 1,
-                skip: i * limit
-            });
-        }
-        if (i < total) {
-            chain.push({
-                num: total,
-                skip: (total - 1) * limit
-            });
-        }
+
+
+//        var len = total - 0;
+//        var page = 0;
+//
+//        if (total > size) {
+//            len = size - 0;
+//            page = skip / limit - Math.floor(size / 2);
+//
+//            if (page < 0) {
+//                page = 0;
+//            }
+//
+//            if (page > total - size) {
+//                page = total - size;
+//            }
+//        }
+//        if (page > 0) {
+//            chain.push({
+//                num: 1,
+//                skip: 0
+//            });
+//        }
+//        for (var i = page, l = page + len; i < l; ++i) {
+//            chain.push({
+//                num: i + 1,
+//                skip: i * limit
+//            });
+//        }
+//        if (i < total) {
+//            chain.push({
+//                num: total,
+//                skip: (total - 1) * limit
+//            });
+//        }
         return chain;
     }
 
@@ -77,36 +87,25 @@ define(function () {
                 scope: {
                     skip: '=',
                     limit: '=',
-                    count: '='
+                    count: '=',
+                    base: '@'
                 },
                 link: function (scope, ele, attrs) {
-                    var skip, limit, count;
                     var settings = $rootScope.settings;
+                    var size = settings['pager_size'] || 5;
 
-                    var match = $route.current.originalPath.match(/\/.+?\//i);
-                    scope.path = match ? match[0] : '';
-
-                    scope.$watch('count', function () {
-                        count = scope.count || 0;
-                        console.log('count', count);
-
-                        console.log(skip, limit, count)
-
-                        scope.chain = createChain(skip, limit, count, 5, function () {
-
-                        });
-
-                        console.log(scope.chain)
+                    scope.$watch('count', function (count) {
+                        if (count >= 0) {
+                            scope.chain = createChain(scope.skip - 0, scope.limit - 0, count - 0, size - 0, function (skip, limit) {
+                                $location.path('/' + scope.base + '/' + skip + '/' + limit);
+                            });
+                        }
                     });
-
-                    scope.$watch('skip', function () {
-                        skip = scope.skip || 0;
-                        console.log('skip', skip);
+                    scope.$watch('skip', function (skip) {
+                        skip || (scope.skip = 0);
                     });
-                    scope.$watch('limit', function () {
-                        limit = scope.limit || settings['pager_limit'];
-
-                        console.log('limit', limit);
+                    scope.$watch('limit', function (limit) {
+                        limit || (scope.limit = settings['pager_limit'] || 10);
                     });
                 }
             };
