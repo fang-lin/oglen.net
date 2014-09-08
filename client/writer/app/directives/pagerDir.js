@@ -30,13 +30,14 @@ define(function () {
             skip: 0
         });
 
-
         var second = skip / limit - Math.floor(interSize / 2);
 
-        if(second > 0){
-
-        }
-
+//        if (second > 0) {
+//
+//        }
+//        if () {
+//
+//        }
 
 //        var len = total - 0;
 //        var page = 0;
