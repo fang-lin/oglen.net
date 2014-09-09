@@ -13,9 +13,8 @@ define(function () {
         '$location',
         'Post',
         'Posts',
-        'pager',
         'AUTH_EVENTS',
-        function ($rootScope, $scope, $routeParams, $location, Post, Posts, pager, AUTH_EVENTS) {
+        function ($rootScope, $scope, $routeParams, $location, Post, Posts, AUTH_EVENTS) {
             if ($rootScope.isLogin) {
                 $rootScope.$watch('settings', function (settings) {
                     if (settings) {
@@ -28,6 +27,7 @@ define(function () {
                                 limit: $scope.limit
                             });
                         };
+
                         $scope.delete = function (postId) {
                             Post.delete({
                                 id: postId
@@ -35,8 +35,9 @@ define(function () {
                                 $scope.refresh();
                             });
                         };
-                        $scope.skip = $routeParams.skip;
-                        $scope.limit = $routeParams.limit;
+
+                        $scope.skip = $routeParams.skip || 0;
+                        $scope.limit = $routeParams.limit || settings['pager_limit'] || 10;
                         $scope.refresh();
                     }
                 });

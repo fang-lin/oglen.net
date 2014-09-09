@@ -8,16 +8,15 @@ define([
 ], function (Role) {
     'use strict';
 
-    var roleRouter = function (router) {
-        router
-            .route('/role/:id?')
+    return function (route) {
+        route
             .get(function (req, res, next) {
                 var id = req.param('id');
 
                 Role
                     .findById(id)
                     .exec(function (err, docs) {
-                        router.cap(err, res, function () {
+                        route.cap(err, res, function () {
 
                             res.send(docs);
                         });
@@ -27,7 +26,7 @@ define([
                 var role = new Role(req.body);
 
                 role.save(function (err, product, numberAffected) {
-                    router.cap(err, res, function () {
+                    route.cap(err, res, function () {
 
                         res.send(role);
                     });
@@ -43,7 +42,7 @@ define([
                     privilege: form.privilege,
                     note: form.note
                 }, function (err, numberAffected, raw) {
-                    router.cap(err, res, function () {
+                    route.cap(err, res, function () {
 
                         res.send(form);
                     });
@@ -56,7 +55,7 @@ define([
                 Role.remove({
                     _id: id
                 }, function (err, numberAffected, raw) {
-                    router.cap(err, res, function () {
+                    route.cap(err, res, function () {
                         res.send({
                             _id: id
                         });
@@ -64,6 +63,5 @@ define([
                 });
             });
     };
-    return roleRouter;
 });
 

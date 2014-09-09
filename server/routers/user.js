@@ -9,9 +9,8 @@ define([
 ], function (encrypt, User) {
     'use strict';
 
-    var userRouter = function (router) {
-        router
-            .route('/user/:id?')
+    return function (route) {
+        route
             .get(function (req, res, next) {
                 var id = req.param('id');
                 User
@@ -22,7 +21,7 @@ define([
                         select: '_id name privilege note'
                     })
                     .exec(function (err, docs) {
-                        router.cap(err, res, function () {
+                        route.cap(err, res, function () {
                             res.send(docs);
                         });
                     });
@@ -37,7 +36,7 @@ define([
 
                 var user = new User(form);
                 user.save(function (err, product, numberAffected) {
-                    router.cap(err, res, function () {
+                    route.cap(err, res, function () {
                         res.send(user);
                     });
                 });
@@ -53,7 +52,7 @@ define([
                 User.update({
                     _id: form._id
                 }, form, function (err, numberAffected, raw) {
-                    router.cap(err, res, function () {
+                    route.cap(err, res, function () {
                         res.send(form);
                     });
                 });
@@ -63,7 +62,7 @@ define([
                 User.remove({
                     _id: id
                 }, function (err, numberAffected, raw) {
-                    router.cap(err, res, function () {
+                    route.cap(err, res, function () {
                         res.send({
                             _id: id
                         });
@@ -71,5 +70,4 @@ define([
                 });
             });
     };
-    return userRouter;
 });

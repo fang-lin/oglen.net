@@ -9,25 +9,8 @@ define([
 ], function (Post, Draft) {
     'use strict';
 
-    var postsRouter = function (router) {
-        router
-            .route('/posts/count')
-            .get(function (req, res, next) {
-
-                Post
-                    .count()
-                    .exec(function (err, docs) {
-                        router.cap(err, res, function () {
-
-                            res.send({
-                                count: docs
-                            });
-                        });
-                    });
-            });
-
-        router
-            .route('/posts/:skip?/:limit?')
+    return function (route) {
+        route
             .get(function (req, res, next) {
                 var skip = req.param('skip') || 0;
                 var limit = req.param('limit') || 100;
@@ -45,13 +28,12 @@ define([
                         select: '_id name count'
                     })
                     .exec(function (err, docs) {
-                        router.cap(err, res, function () {
+                        route.cap(err, res, function () {
 
                             res.send(docs);
                         });
                     });
             });
     };
-    return postsRouter;
 });
 

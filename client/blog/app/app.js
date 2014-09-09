@@ -34,21 +34,46 @@ define([
         ])
         .run([
             '$rootScope',
+            '$log',
             'menu',
             'info',
             'Settings',
-            function ($rootScope, menu, info, Settings) {
+            'register',
+            'VISITOR_EVENTS',
+            function ($rootScope, $log, menu, info, Settings, register, VISITOR_EVENTS) {
 
                 $rootScope.menu = menu;
                 $rootScope.info = info;
 
-                Settings.query(function (res) {
-                    var settings = {};
-                    res.forEach(function (setting) {
-                        settings[setting.key] = setting.value;
-                    });
-                    $rootScope.settings = settings;
+                $rootScope.fetchSettings = function (force) {
+                    if (force || !$rootScope.settings) {
+                        Settings.query(function (res) {
+                            var settings = {};
+                            res.forEach(function (setting) {
+                                settings[setting.key] = setting.value;
+                            });
+                            $rootScope.settings = settings;
+                        });
+                    }
+                };
+
+                $rootScope.$on(VISITOR_EVENTS.signInSuccess, function (event) {
+                    $log.log(VISITOR_EVENTS.signInSuccess);
+
+                    $rootScope.isSignIn = true;
+                    $rootScope.visitor = register.visitor();
+                    $rootScope.fetchSettings();
                 });
+
+                $rootScope.isSignIn = register.isSignIn();
+                $rootScope.visitor = register.visitor();
+
+                if ($rootScope.isSignIn) {
+                    $rootScope.fetchSettings();
+                } else {
+                    $log.log('register.signIn()');
+                    register.signIn();
+                }
             }
         ]);
 });

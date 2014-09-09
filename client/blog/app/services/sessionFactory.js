@@ -11,34 +11,26 @@ define(function () {
         function ($window) {
 
             var sessionStorage = $window.sessionStorage;
-            var localStorage = $window.localStorage;
+//            var localStorage = $window.localStorage;
 
             var Session = function () {
 
                 this.create = function (data) {
                     sessionStorage.token = data.token;
-                    if (data.argot) {
-                        localStorage.argot = data.argot;
-                    }
-                    sessionStorage.user = JSON.stringify(data.user);
+                    sessionStorage.visitor = JSON.stringify(data.visitor);
                 };
 
                 this.token = function () {
                     return sessionStorage.token;
                 };
 
-                this.argot = function () {
-                    return localStorage.argot;
-                };
-
-                this.user = function () {
-                    return JSON.parse(sessionStorage.user || '{}');
+                this.visitor = function () {
+                    return JSON.parse(sessionStorage.visitor || '{}');
                 };
 
                 this.destroy = function () {
                     delete sessionStorage.token;
-                    delete sessionStorage.user;
-                    delete localStorage.argot;
+                    delete sessionStorage.visitor;
                 };
             };
 

@@ -8,15 +8,14 @@ define([
 ], function (Tag) {
     'use strict';
 
-    var tagRouter = function (router) {
-        router
-            .route('/tag/:id?')
+    return function (route) {
+        route
             .get(function (req, res, next) {
                 var id = req.param('id');
                 Tag
                     .findById(id)
                     .exec(function (err, docs) {
-                        router.cap(err, res, function () {
+                        route.cap(err, res, function () {
 
                             res.send(docs);
                         });
@@ -25,7 +24,7 @@ define([
             .post(function (req, res, next) {
                 var tag = new Tag(req.body);
                 tag.save(function (err, product, numberAffected) {
-                    router.cap(err, res, function () {
+                    route.cap(err, res, function () {
 
                         res.send(tag);
                     });
@@ -38,7 +37,7 @@ define([
                 }, {
                     name: form.name
                 }, function (err, numberAffected, raw) {
-                    router.cap(err, res, function () {
+                    route.cap(err, res, function () {
 
                         res.send(form);
                     });
@@ -49,7 +48,7 @@ define([
                 Tag.remove({
                     _id: id
                 }, function (err, numberAffected, raw) {
-                    router.cap(err, res, function () {
+                    route.cap(err, res, function () {
                         res.send({
                             _id: id
                         });
@@ -57,6 +56,5 @@ define([
                 });
             });
     };
-    return tagRouter;
 });
 

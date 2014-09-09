@@ -13,9 +13,8 @@ define(function () {
         '$location',
         'Setting',
         'Settings',
-        'pager',
         'AUTH_EVENTS',
-        function ($rootScope, $scope, $routeParams, $location, Setting, Settings, pager, AUTH_EVENTS) {
+        function ($rootScope, $scope, $routeParams, $location, Setting, Settings, AUTH_EVENTS) {
             if ($rootScope.isLogin) {
                 $rootScope.$watch('settings', function (settings) {
                     if (settings) {
@@ -38,8 +37,8 @@ define(function () {
                             });
                         };
 
-                        $scope.skip = $routeParams.skip;
-                        $scope.limit = $routeParams.limit;
+                        $scope.skip = $routeParams.skip || 0;
+                        $scope.limit = $routeParams.limit || settings['pager_limit'] || 10;
                         $scope.refresh();
                     }
                 });

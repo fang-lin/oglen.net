@@ -6,30 +6,26 @@
 define([
     'config',
     'services/resourceFactory',
-    'services/pagerFactory',
     'services/encryptFactory',
-    'services/authorizationFactory',
+    'services/registerFactory',
+    'services/registerInterceptorFactory',
     'services/sessionFactory',
-    'services/path',
-    'services/authorizationInterceptorFactory',
     'angular',
     'angular-resource'
-], function (config, resourceFactory, pagerFactory, encryptFactory, authorizationFactory, sessionFactory, path, authorizationInterceptorFactory) {
+], function (config, resourceFactory, encryptFactory, registerFactory, registerInterceptorFactory, sessionFactory) {
     'use strict';
 
     var services = angular.module(config.name + '.services', ['ngResource'])
         .factory('resource', resourceFactory)
-        .factory('pager', pagerFactory)
         .factory('encrypt', encryptFactory)
-        .factory('authorization', authorizationFactory)
-        .factory('authorizationInterceptor', authorizationInterceptorFactory)
+        .factory('register', registerFactory)
+        .factory('registerInterceptor', registerInterceptorFactory)
         .factory('session', sessionFactory)
         .config([
             '$httpProvider',
             function ($httpProvider) {
-                $httpProvider.interceptors.push('authorizationInterceptor');
-            }])
-        .run(path);
+                $httpProvider.interceptors.push('registerInterceptor');
+            }]);
 
     return services;
 });

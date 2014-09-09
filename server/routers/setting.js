@@ -8,16 +8,15 @@ define([
 ], function (Setting) {
     'use strict';
 
-    var settingRouter = function (router) {
-        router
-            .route('/setting/:id?')
+    return function (route) {
+        route
             .get(function (req, res, next) {
                 var id = req.param('id');
 
                 Setting
                     .findById(id)
                     .exec(function (err, docs) {
-                        router.cap(err, res, function () {
+                        route.cap(err, res, function () {
 
                             res.send(docs);
                         });
@@ -27,7 +26,7 @@ define([
                 var setting = new Setting(req.body);
 
                 setting.save(function (err, product, numberAffected) {
-                    router.cap(err, res, function () {
+                    route.cap(err, res, function () {
 
                         res.send(setting);
                     });
@@ -43,7 +42,7 @@ define([
                     value: form.value,
                     note: form.note
                 }, function (err, numberAffected, raw) {
-                    router.cap(err, res, function () {
+                    route.cap(err, res, function () {
 
                         res.send(form);
                     });
@@ -56,7 +55,7 @@ define([
                 Setting.remove({
                     _id: id
                 }, function (err, numberAffected, raw) {
-                    router.cap(err, res, function () {
+                    route.cap(err, res, function () {
                         res.send({
                             _id: id
                         });
@@ -64,5 +63,4 @@ define([
                 });
             });
     };
-    return settingRouter;
 });

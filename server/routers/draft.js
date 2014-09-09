@@ -9,16 +9,15 @@ define([
 ], function (Post, Draft) {
     'use strict';
 
-    var draftRouter = function (router) {
-        router
-            .route('/draft/:id?')
+    return function (route) {
+        route
             .get(function (req, res, next) {
                 var id = req.param('id');
 
                 Draft
                     .findById(id)
                     .exec(function (err, docs) {
-                        router.cap(err, res, function () {
+                        route.cap(err, res, function () {
 
                             res.send(docs);
                         });
@@ -31,7 +30,7 @@ define([
                 Draft.remove({
                     _id: id
                 }, function (err, numberAffected, raw) {
-                    router.cap(err, res, function () {
+                    route.cap(err, res, function () {
                         res.send({
                             _id: id
                         });
@@ -39,5 +38,4 @@ define([
                 });
             });
     };
-    return draftRouter;
 });

@@ -8,22 +8,15 @@ define([
 ], function (Tag) {
     'use strict';
 
-    return function tags(route) {
+    return function tagsCount(route) {
         route
             .get(function (req, res, next) {
-                var skip = req.param('skip') || 0;
-                var limit = req.param('limit') || 100;
                 Tag
-                    .find()
-                    .skip(skip)
-                    .limit(limit)
-                    .sort({
-                        _id: -1
-                    })
+                    .count()
                     .exec(function (err, docs) {
                         route.cap(err, res, function () {
 
-                            res.send(docs);
+                            res.send({count: docs});
                         });
                     });
             });

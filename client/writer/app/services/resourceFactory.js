@@ -14,9 +14,9 @@ define([
         function ($resource, encrypt) {
             return function (url) {
                 return  $resource(config.apiBase + url, {
-                    tickle: function () {
-                        return encrypt.randomBytes(4);
-                    }
+//                    t: function () {
+//                        return encrypt.randomBytes(4);
+//                    }
                 }, {
                     'get': {method: 'GET'},
                     'save': {method: 'POST'},

@@ -6,20 +6,18 @@
 define([
     'config',
     'services/resourceFactory',
-    'services/pagerFactory',
     'services/encryptFactory',
     'services/authorizationFactory',
+    'services/authorizationInterceptorFactory',
     'services/sessionFactory',
     'services/path',
-    'services/authorizationInterceptorFactory',
     'angular',
     'angular-resource'
-], function (config, resourceFactory, pagerFactory, encryptFactory, authorizationFactory, sessionFactory, path, authorizationInterceptorFactory) {
+], function (config, resourceFactory, encryptFactory, authorizationFactory, authorizationInterceptorFactory, sessionFactory, path) {
     'use strict';
 
     var services = angular.module(config.name + '.services', ['ngResource'])
         .factory('resource', resourceFactory)
-        .factory('pager', pagerFactory)
         .factory('encrypt', encryptFactory)
         .factory('authorization', authorizationFactory)
         .factory('authorizationInterceptor', authorizationInterceptorFactory)

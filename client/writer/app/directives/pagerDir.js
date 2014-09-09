@@ -18,60 +18,49 @@ define(function () {
     function createChain(skip, limit, count, size, fn) {
         var chain = [];
         var total = Math.ceil(count / limit);
-        var interSize = size - 2;
+        var inter = size - 2;
+        var current = skip / limit;
 
-        if (skip >= count) {
+        if (skip !== 0 && skip >= count) {
             fn && fn((total - 1) * limit, limit);
             return chain;
         }
 
-        chain.push({
-            num: 1,
-            skip: 0
-        });
+        if (total < 2) {
+            return chain;
+        }
 
-        var second = skip / limit - Math.floor(interSize / 2);
+        if (total > size) {
+            var start = current - Math.floor(inter / 2);
 
-//        if (second > 0) {
-//
-//        }
-//        if () {
-//
-//        }
+            if (start < 1) {
+                start = 1;
+            } else if (current + Math.ceil(inter / 2) > total - 1) {
+                start = total - inter - 1;
+            }
 
-//        var len = total - 0;
-//        var page = 0;
-//
-//        if (total > size) {
-//            len = size - 0;
-//            page = skip / limit - Math.floor(size / 2);
-//
-//            if (page < 0) {
-//                page = 0;
-//            }
-//
-//            if (page > total - size) {
-//                page = total - size;
-//            }
-//        }
-//        if (page > 0) {
-//            chain.push({
-//                num: 1,
-//                skip: 0
-//            });
-//        }
-//        for (var i = page, l = page + len; i < l; ++i) {
-//            chain.push({
-//                num: i + 1,
-//                skip: i * limit
-//            });
-//        }
-//        if (i < total) {
-//            chain.push({
-//                num: total,
-//                skip: (total - 1) * limit
-//            });
-//        }
+            chain.push({
+                num: 1,
+                skip: 0
+            });
+            for (var i = start; i < inter + start; ++i) {
+                chain.push({
+                    num: i + 1,
+                    skip: i * limit
+                });
+            }
+            chain.push({
+                num: total,
+                skip: ( total - 1 ) * limit
+            });
+        } else {
+            for (var i = 0; i < total; ++i) {
+                chain.push({
+                    num: i + 1,
+                    skip: i * limit
+                });
+            }
+        }
         return chain;
     }
 
@@ -92,22 +81,21 @@ define(function () {
                     base: '@'
                 },
                 link: function (scope, ele, attrs) {
-                    var settings = $rootScope.settings;
-                    var size = settings['pager_size'] || 5;
+                    if ($rootScope.isLogin) {
+                        $rootScope.$watch('settings', function (settings) {
+                            if (settings) {
+                                var size = settings['pager_size'] || 5;
 
-                    scope.$watch('count', function (count) {
-                        if (count >= 0) {
-                            scope.chain = createChain(scope.skip - 0, scope.limit - 0, count - 0, size - 0, function (skip, limit) {
-                                $location.path('/' + scope.base + '/' + skip + '/' + limit);
-                            });
-                        }
-                    });
-                    scope.$watch('skip', function (skip) {
-                        skip || (scope.skip = 0);
-                    });
-                    scope.$watch('limit', function (limit) {
-                        limit || (scope.limit = settings['pager_limit'] || 10);
-                    });
+                                scope.$watch('count', function (count) {
+                                    if (count >= 0) {
+                                        scope.chain = createChain(scope.skip - 0, scope.limit - 0, count - 0, size - 0, function (skip, limit) {
+                                            $location.path('/' + scope.base + '/' + skip + '/' + limit);
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    }
                 }
             };
         }];

@@ -8,16 +8,15 @@ define([
 ], function (Comment) {
     'use strict';
 
-    var commentRouter = function (router) {
-        router
-            .route('/comment/:id?')
+    return function (route) {
+        route
             .get(function (req, res, next) {
                 var id = req.param('id');
 
                 Comment
                     .findById(id)
                     .exec(function (err, docs) {
-                        router.cap(err, res, function () {
+                        route.cap(err, res, function () {
 
                             res.send(docs);
                         });
@@ -26,7 +25,7 @@ define([
             .post(function (req, res, next) {
                 var comment = new Comment(req.body);
                 comment.save(function (err, product, numberAffected) {
-                    router.cap(err, res, function () {
+                    route.cap(err, res, function () {
 
                         res.send(comment);
                     });
@@ -42,7 +41,7 @@ define([
                     privilege: form.privilege,
                     note: form.note
                 }, function (err, numberAffected, raw) {
-                    router.cap(err, res, function () {
+                    route.cap(err, res, function () {
 
                         res.send(form);
                     });
@@ -55,7 +54,7 @@ define([
                 Comment.remove({
                     _id: id
                 }, function (err, numberAffected, raw) {
-                    router.cap(err, res, function () {
+                    route.cap(err, res, function () {
                         res.send({
                             _id: id
                         });
@@ -63,5 +62,4 @@ define([
                 });
             });
     };
-    return commentRouter;
 });

@@ -6,10 +6,7 @@
 define(function () {
     'use strict';
 
-    return ['$resource', function ($resource) {
-
-        var Comment = $resource('../rest/comment/:id');
-
-        return Comment;
+    return ['resource', function (resource) {
+        return resource('/comment/:id');
     }];
 });

@@ -8,23 +8,8 @@ define([
 ], function (Setting) {
     'use strict';
 
-    var settingsRouter = function (router) {
-        router
-            .route('/settings/count')
-            .get(function (req, res, next) {
-
-                Setting
-                    .count()
-                    .exec(function (err, docs) {
-                        router.cap(err, res, function () {
-
-                            res.send({count: docs});
-                        });
-                    });
-            });
-
-        router
-            .route('/settings/:skip?/:limit?')
+    return function (route) {
+        route
             .get(function (req, res, next) {
                 var skip = req.param('skip') || 0;
                 var limit = req.param('limit') || 100;
@@ -36,12 +21,10 @@ define([
                         _id: -1
                     })
                     .exec(function (err, docs) {
-                        router.cap(err, res, function () {
-
+                        route.cap(err, res, function () {
                             res.send(docs);
                         });
                     });
             });
     };
-    return settingsRouter;
 });

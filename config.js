@@ -106,6 +106,14 @@ define([
             code: 'not_authenticated',
             msg: 'Nonexistent Argot'
         },
+        wrongVerification: {
+            code: 'wrong_verification',
+            msg: 'Wrong Verification'
+        },
+        permissionDenied: {
+            code: 'permission_denied',
+            msg: 'Permission Denied'
+        },
         unknownErr: {
             code: ' unknown',
             msg: 'Unknown Error'
@@ -121,10 +129,10 @@ define([
         mongooseLink: mongooseLink(),
         jwt: jwt,
         argot: argot,
-        delay: false,
-//        delay: function () {
-//            return _.random(300, 800);
-//        },
+//        delay: false,
+        delay: function () {
+            return _.random(300, 800);
+        },
         ERR_MSG: ERR_MSG
     };
 })

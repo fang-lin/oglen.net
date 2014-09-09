@@ -8,6 +8,7 @@ define(function () {
 
     return {
         'name': 'blog.oglen.net',
+        'apiBase': '/api',
         'debug': true
     };
 });
