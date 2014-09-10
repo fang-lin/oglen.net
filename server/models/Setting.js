@@ -12,11 +12,11 @@ define([
     var SettingSchema = new Schema({
         key: {
             type: String,
-            unique: true,
             index: true,
             required: true
         },
         value: String,
+        scope: String,
         note: {
             type: String,
             default: ''

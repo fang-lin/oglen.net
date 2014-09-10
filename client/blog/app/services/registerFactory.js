@@ -27,7 +27,7 @@ define([
                             if (res.status === 200) {
                                 if (res.data.token) {
                                     session.create(res.data);
-                                    $rootScope.$broadcast(VISITOR_EVENTS.loginSuccess, session.visitor());
+                                    $rootScope.$broadcast(VISITOR_EVENTS.signInSuccess);
                                 }
                             } else {
                                 alert(res.data.code);

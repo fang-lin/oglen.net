@@ -6,6 +6,7 @@
 
 define([
     'config', // Project configuration.
+    'log4js',
     'express',
     'express-jwt', // Middleware that validates JsonWebTokens and set req.user.
     'server/utilities/routerProvider',
@@ -35,16 +36,31 @@ define([
     'server/routers/setting',
     'server/routers/settings',
     'server/routers/settingsCount'
-], function (config, express, expressJwt, routerProvider, authorization, register, post, posts, postsCount, draft, drafts, draftsCount, tag, tags, tagsCount, comment, comments, commentsCount, user, users, usersCount, visitor, visitors, visitorsCount, role, roles, rolesCount, setting, settings, settingsCount) {
+], function (config, log4js, express, expressJwt, routerProvider, authorization, register, post, posts, postsCount, draft, drafts, draftsCount, tag, tags, tagsCount, comment, comments, commentsCount, user, users, usersCount, visitor, visitors, visitorsCount, role, roles, rolesCount, setting, settings, settingsCount) {
     'use strict';
 
-    var expressRouter = express.Router();
+    var logger = log4js.getLogger('router'); // TRACE, DEBUG, INFO, WARN, ERROR, FATAL
+    logger.setLevel(config.logLevel);
+
     var options = {
         secret: config.jwt.secret,
         issuer: config.jwt.issuer
     };
 
+    var expressRouter = express.Router();
+
     routerProvider(expressRouter)
+        .inject('cap', function (err, res, callback) {
+            if (err) {
+                logger.error(err);
+                res.status(500).send({
+                    code: err.code,
+                    msg: err.message
+                });
+            } else {
+                callback(logger);
+            }
+        })
         .all(function (router, route) {
             var delay = config.delay;
             if (delay) {
@@ -76,10 +92,13 @@ define([
                         if (req.user.role) {
                             next();
                         } else {
-                            if (route.visitorAllow.indexOf(req.method.toLowerCase()) === -1) {
-                                res.status(401).send(config.ERR_MSG.permissionDenied);
-                            } else {
+                            var visitorAllow = route.visitorAllow;
+                            var method = req.method.toLowerCase();
+
+                            if (visitorAllow && visitorAllow.indexOf(method) !== -1) {
                                 next();
+                            } else {
+                                res.status(401).send(config.ERR_MSG.permissionDenied);
                             }
                         }
                     });
@@ -111,17 +130,17 @@ define([
         .when('/draft/:id?', {
             action: draft,
             requireJwt: true,
-            visitorAllow: []
+            visitorAllow: false
         })
         .when('/drafts/:postId/count', {
             action: draftsCount,
             requireJwt: true,
-            visitorAllow: []
+            visitorAllow: false
         })
         .when('/drafts/:postId', {
             action: drafts,
             requireJwt: true,
-            visitorAllow: []
+            visitorAllow: false
         })
         .when('/tag/:id?', {
             action: tag,
@@ -156,47 +175,47 @@ define([
         .when('/user/:id?', {
             action: user,
             requireJwt: true,
-            visitorAllow: []
+            visitorAllow: false
         })
         .when('/users/count', {
             action: usersCount,
             requireJwt: true,
-            visitorAllow: []
+            visitorAllow: false
         })
         .when('/users/:skip?/:limit?', {
             action: users,
             requireJwt: true,
-            visitorAllow: []
+            visitorAllow: false
         })
         .when('/role/:id?', {
             action: role,
             requireJwt: true,
-            visitorAllow: []
+            visitorAllow: false
         })
         .when('/roles/Count', {
             action: rolesCount,
             requireJwt: true,
-            visitorAllow: []
+            visitorAllow: false
         })
         .when('/roles/:skip?/:limit?', {
             action: roles,
             requireJwt: true,
-            visitorAllow: []
+            visitorAllow: false
         })
         .when('/setting/:id?', {
             action: setting,
             requireJwt: true,
-            visitorAllow: []
+            visitorAllow: false
         })
         .when('/settings/count', {
             action: settingsCount,
             requireJwt: true,
-            visitorAllow: []
+            visitorAllow: false
         })
         .when('/settings/:skip?/:limit?', {
             action: settings,
             requireJwt: true,
-            visitorAllow: []
+            visitorAllow: ['get']
         });
 
     return expressRouter;

@@ -24,9 +24,12 @@ define([
                         path: 'tags',
                         select: '_id name count'
                     })
+                    .populate({
+                        path: 'author',
+                        select: '_id username email'
+                    })
                     .exec(function (err, docs) {
                         route.cap(err, res, function () {
-
                             res.send(docs);
                         });
                     });

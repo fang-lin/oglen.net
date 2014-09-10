@@ -6,10 +6,9 @@
 define(function () {
     'use strict';
 
-    return [
-        {
-            name: 'Home',
-            url: '#/'
-        }
-    ];
+    return {
+        'name': 'admin.oglen.net',
+        'apiBase': '/api',
+        'debug': true
+    };
 });

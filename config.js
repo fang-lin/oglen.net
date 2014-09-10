@@ -131,7 +131,7 @@ define([
         argot: argot,
 //        delay: false,
         delay: function () {
-            return _.random(300, 800);
+            return _.random(20, 100);
         },
         ERR_MSG: ERR_MSG
     };

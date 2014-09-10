@@ -9,7 +9,7 @@
     <meta name="keywords" content="{{info.keywords}}"/>
     <meta name="generator" content="{{info.generator}}"/>
     <meta name="version" content="{{info.version}}"/>
-    <base href="/blog/"/>
+    <base href="/admin/"/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -18,16 +18,23 @@
     <![endif]-->
     <link rel="stylesheet" href="css/main.css"/>
 
-    <title ng-bind="info.title">blog.oglen.net</title>
+    <title ng-bind="info.title">admin.oglen.net</title>
 </head>
 <body>
 <header id="logo" class="container-fluid">
-    <span ng-bind="info.title"></span>
+    <span ng-bind="info.title">title</span>
+    <a href="/blog" target="_blank">Blog</a>
+    <span ng-if="isLogin">
+        <span ng-bind="user._id">id</span> |
+        <span ng-bind="user.username">username</span> |
+        <a ng-href="#/logout">Logout</a>
+    </span>
 </header>
-<div id="menu">
+
+<div ng-if="isLogin" id="menu">
     <menu menu="menu">loading</menu>
 </div>
-<div ng-view>loading......</div>
+<div ng-view>loading</div>
 
 <script type="text/javascript" data-main="init" src="/lib/requirejs/require.js"></script>
 </body>

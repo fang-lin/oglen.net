@@ -42,8 +42,13 @@ define([
             'VISITOR_EVENTS',
             function ($rootScope, $log, menu, info, Settings, register, VISITOR_EVENTS) {
 
+                $rootScope.isSignIn = register.isSignIn();
+                $rootScope.visitor = register.visitor();
+
                 $rootScope.menu = menu;
                 $rootScope.info = info;
+
+                console.log($rootScope.menu)
 
                 $rootScope.fetchSettings = function (force) {
                     if (force || !$rootScope.settings) {
@@ -65,13 +70,14 @@ define([
                     $rootScope.fetchSettings();
                 });
 
-                $rootScope.isSignIn = register.isSignIn();
-                $rootScope.visitor = register.visitor();
+                $rootScope.$on('$routeChangeStart', function (event, next, current) {
+                    $log.log('routeChangeStart:', next.controller);
+
+                });
 
                 if ($rootScope.isSignIn) {
                     $rootScope.fetchSettings();
                 } else {
-                    $log.log('register.signIn()');
                     register.signIn();
                 }
             }

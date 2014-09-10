@@ -5,16 +5,16 @@
 
 define([
     'config',
-    'controllers/IndexCtrl',
+    'controllers/PostsCtrl',
     'controllers/CatalogCtrl',
     'controllers/PostCtrl',
     'controllers/AboutCtrl',
     'angular'
-], function (config, IndexCtrl, CatalogCtrl, PostCtrl, AboutCtrl) {
+], function (config, PostsCtrl, CatalogCtrl, PostCtrl, AboutCtrl) {
     'use strict';
 
     var controllers = angular.module(config.name + '.controllers', [])
-        .controller('IndexCtrl', IndexCtrl)
+        .controller('PostsCtrl', PostsCtrl)
         .controller('CatalogCtrl', CatalogCtrl)
         .controller('PostCtrl', PostCtrl)
         .controller('AboutCtrl', AboutCtrl);

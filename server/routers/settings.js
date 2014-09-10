@@ -12,9 +12,16 @@ define([
         route
             .get(function (req, res, next) {
                 var skip = req.param('skip') || 0;
-                var limit = req.param('limit') || 100;
+                var limit = req.param('limit') || 1000;
+                var scope = req.param('scope') || 'home';
+                var criteria = {scope: scope};
+
+                if (req.user.role) {
+                    // admin require
+                    criteria = {};
+                }
                 Setting
-                    .find()
+                    .find(criteria)
                     .skip(skip)
                     .limit(limit)
                     .sort({

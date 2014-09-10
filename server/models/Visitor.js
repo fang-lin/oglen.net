@@ -19,7 +19,7 @@ define([
             },
             email: {
                 type: String,
-                default: 'anonymous@domain.com',
+                default: '',
                 index: true
             },
             registerAt: {
