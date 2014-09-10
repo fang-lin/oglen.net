@@ -9,6 +9,7 @@
     <meta name="keywords" content="{{info.keywords}}"/>
     <meta name="generator" content="{{info.generator}}"/>
     <meta name="version" content="{{info.version}}"/>
+    <base href="/blog/"/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -17,19 +18,16 @@
     <![endif]-->
     <link rel="stylesheet" href="css/main.css"/>
 
-    <title ng-bind="title">oglen.net</title>
+    <title ng-bind="info.title">blog.oglen.net</title>
 </head>
 <body>
 <header id="logo" class="container-fluid">
-    sdsd
+    <span ng-bind="info.title"></span>
 </header>
-
 <div id="menu">
-    <og-menu menu="menu"></og-menu>
+    <menu menu="menu">loading</menu>
 </div>
-
-<div ng-view>
-</div>
+<div ng-view>loading......</div>
 
 <script type="text/javascript" data-main="init" src="/lib/requirejs/require.js"></script>
 </body>

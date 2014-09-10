@@ -4,49 +4,70 @@
  */
 
 define([
+    'server/utilities/encrypt',
     'server/models/User'
-], function (User) {
+], function (encrypt, User) {
     'use strict';
 
-    var userRouter = function (router, util) {
-        router
-            .route('/user/:id?')
+    return function (route) {
+        route
             .get(function (req, res, next) {
                 var id = req.param('id');
-
                 User
                     .findById(id)
+                    .select('-password -salt')
+                    .populate({
+                        path: 'role',
+                        select: '_id name privilege note'
+                    })
                     .exec(function (err, docs) {
-                        router.cap(err, res, function () {
-                            res.json(docs);
+                        route.cap(err, res, function () {
+                            res.send(docs);
                         });
                     });
             })
             .post(function (req, res, next) {
-                var user = new User(req.body);
+                var form = req.body;
+                var salt = encrypt.randomBytes(16);
+                var password = encrypt.mixSalt(form.password, salt);
 
+                form.password = encrypt.md5(password);
+                form.salt = salt;
+
+                var user = new User(form);
                 user.save(function (err, product, numberAffected) {
-                    router.cap(err, res, function () {
-                        res.json(user);
+                    route.cap(err, res, function () {
+                        res.send(user);
                     });
                 });
             })
             .put(function (req, res, next) {
                 var form = req.body;
+                var salt = encrypt.randomBytes(16);
+                var password = encrypt.mixSalt(form.password, salt);
 
-                User.update({_id: form._id}, {
-                    username: form.username,
-                    email: form.email,
-                    password: form.password,
-                    role: form.role
+                form.password = encrypt.md5(password);
+                form.salt = salt;
+
+                User.update({
+                    _id: form._id
+                }, form, function (err, numberAffected, raw) {
+                    route.cap(err, res, function () {
+                        res.send(form);
+                    });
+                });
+            })
+            .delete(function (req, res, next) {
+                var id = req.param('id');
+                User.remove({
+                    _id: id
                 }, function (err, numberAffected, raw) {
-                    router.cap(err, res, function () {
-                        res.json(form);
+                    route.cap(err, res, function () {
+                        res.send({
+                            _id: id
+                        });
                     });
                 });
             });
     };
-
-    return userRouter;
-
 });

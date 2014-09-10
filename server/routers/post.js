@@ -9,9 +9,8 @@ define([
 ], function (Post, Draft) {
     'use strict';
 
-    var postRouter = function (router, util) {
-        router
-            .route('/post/:id?')
+    return function (route) {
+        route
             .get(function (req, res, next) {
                 var id = req.param('id');
 
@@ -25,35 +24,45 @@ define([
                         path: 'tags',
                         select: '_id name count'
                     })
+                    .populate({
+                        path: 'author',
+                        select: '_id username email'
+                    })
                     .exec(function (err, docs) {
-                        router.cap(err, res, function () {
-                            res.json(docs);
+                        route.cap(err, res, function () {
+                            res.send(docs);
                         });
                     });
             })
             .post(function (req, res, next) {
-                var form = req.body,
-                    post = new Post({
-                        title: form.title,
-                        abstract: form.abstract,
-                        author: form.author,
-                        tags: form.tags,
-                        publish: form.publish,
-                        hidden: form.hidden
-                    });
+                var form = req.body;
+                var post = new Post({
+                    title: form.title,
+                    abstract: form.abstract,
+                    author: form.author,
+                    tags: form.tags,
+                    publish: form.publish,
+                    hidden: form.hidden
+                });
 
                 post.save(function (err, product, numberAffected) {
-                    router.cap(err, res, function () {
+                    route.cap(err, res, function () {
+
                         var draft = new Draft({
                             post: post._id,
                             text: form.draft.text
                         });
 
                         draft.save(function (err, product, numberAffected) {
-                            router.cap(err, res, function () {
-                                Post.update({_id: post._id}, {draft: draft._id}, function (err, numberAffected, raw) {
-                                    router.cap(err, res, function () {
-                                        res.json({
+                            route.cap(err, res, function () {
+                                Post.update({
+                                    _id: post._id
+                                }, {
+                                    draft: draft._id
+                                }, function (err, numberAffected, raw) {
+                                    route.cap(err, res, function () {
+
+                                        res.send({
                                             _id: post._id,
                                             draft: {
                                                 _id: draft._id,
@@ -69,17 +78,19 @@ define([
                 });
             })
             .put(function (req, res, next) {
-                var form = req.body,
-                    draft = new Draft({
-                        post: form._id,
-                        text: form.draft.text,
-                        flag: 'draft'
-                    });
+                var form = req.body;
+                var draft = new Draft({
+                    post: form._id,
+                    text: form.draft.text,
+                    flag: 'draft'
+                });
 
                 draft.save(function (err, product, numberAffected) {
-                    router.cap(err, res, function () {
+                    route.cap(err, res, function () {
 
-                        Post.update({_id: form._id}, {
+                        Post.update({
+                            _id: form._id
+                        }, {
                             title: form.title,
                             abstract: form.abstract,
                             tags: form.tags,
@@ -87,8 +98,9 @@ define([
                             publish: form.publish,
                             hidden: form.hidden
                         }, function (err, numberAffected, raw) {
-                            router.cap(err, res, function () {
-                                res.json({
+                            route.cap(err, res, function () {
+
+                                res.send({
                                     draft: {
                                         _id: draft._id,
                                         saveAt: draft.saveAt
@@ -98,10 +110,21 @@ define([
                         });
                     });
                 });
+            })
+            .delete(function (req, res, next) {
+
+                var id = req.param('id');
+
+                Post.remove({
+                    _id: id
+                }, function (err, numberAffected, raw) {
+                    route.cap(err, res, function () {
+                        res.send({
+                            _id: id
+                        });
+                    });
+                });
             });
     };
-
-    return postRouter;
-
 });
 

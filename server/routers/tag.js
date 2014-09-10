@@ -8,43 +8,53 @@ define([
 ], function (Tag) {
     'use strict';
 
-    var tagRouter = function (router, util) {
-        router
-            .route('/tag/:id?')
+    return function (route) {
+        route
             .get(function (req, res, next) {
                 var id = req.param('id');
-
                 Tag
                     .findById(id)
                     .exec(function (err, docs) {
-                        router.cap(err, res, function () {
-                            res.json(docs);
+                        route.cap(err, res, function () {
+
+                            res.send(docs);
                         });
                     });
             })
             .post(function (req, res, next) {
                 var tag = new Tag(req.body);
-
                 tag.save(function (err, product, numberAffected) {
+                    route.cap(err, res, function () {
 
-                    router.cap(err, res, function () {
-                        res.json(tag);
+                        res.send(tag);
                     });
                 });
             })
             .put(function (req, res, next) {
                 var form = req.body;
-
-                Tag.update({_id: form._id}, {
+                Tag.update({
+                    _id: form._id
+                }, {
                     name: form.name
                 }, function (err, numberAffected, raw) {
-                    router.cap(err, res, function () {
-                        res.json(form);
+                    route.cap(err, res, function () {
+
+                        res.send(form);
+                    });
+                });
+            })
+            .delete(function (req, res, next) {
+                var id = req.param('id');
+                Tag.remove({
+                    _id: id
+                }, function (err, numberAffected, raw) {
+                    route.cap(err, res, function () {
+                        res.send({
+                            _id: id
+                        });
                     });
                 });
             });
     };
-
-    return tagRouter;
 });
 

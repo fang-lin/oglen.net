@@ -30,6 +30,11 @@ define([
                 type: String,
                 required: true
             },
+            salt: String,
+            cipher: {
+                type: String,
+                index: true
+            },
             role: {
                 type: ObjectId,
                 ref: 'Role'

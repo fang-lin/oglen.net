@@ -8,6 +8,7 @@ requirejs.config({
         // Libs
         'jquery': '/lib/jquery/dist/jquery',
         'underscore': '/lib/underscore/underscore',
+        'crypto': '/lib/crypto/crypto',
         'bootstrap': '/lib/bootstrap/dist/js/bootstrap',
         'angular': '/lib/angular/angular',
         'angular-resource': '/lib/angular-resource/angular-resource',
@@ -17,7 +18,7 @@ requirejs.config({
         // Apps
         'config': 'app/config',
         'app': 'app/app',
-        'utilities': 'app/utilities',
+        'services': 'app/services',
         'controllers': 'app/controllers',
         'routes': 'app/routes',
         'directives': 'app/directives',

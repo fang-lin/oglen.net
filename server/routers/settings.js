@@ -8,38 +8,30 @@ define([
 ], function (Setting) {
     'use strict';
 
-    var settingsRouter = function (router, util) {
-        router
-            .route('/settings/count')
+    return function (route) {
+        route
             .get(function (req, res, next) {
+                var skip = req.param('skip') || 0;
+                var limit = req.param('limit') || 1000;
+                var scope = req.param('scope') || 'home';
+                var criteria = {scope: scope};
 
+                if (req.user.role) {
+                    // admin require
+                    criteria = {};
+                }
                 Setting
-                    .count()
-                    .exec(function (err, docs) {
-                        router.cap(err, res, function () {
-                            res.json({count: docs});
-                        });
-                    });
-            });
-
-        router
-            .route('/settings/:skip?/:limit?')
-            .get(function (req, res, next) {
-                var skip = req.param('skip') || 0,
-                    limit = req.param('limit') || 100;
-
-                Setting
-                    .find()
+                    .find(criteria)
                     .skip(skip)
                     .limit(limit)
-                    .sort({_id: -1})
+                    .sort({
+                        _id: -1
+                    })
                     .exec(function (err, docs) {
-                        router.cap(err, res, function () {
-                            res.json(docs);
+                        route.cap(err, res, function () {
+                            res.send(docs);
                         });
                     });
             });
     };
-
-    return settingsRouter;
 });

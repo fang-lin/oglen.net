@@ -3,7 +3,9 @@
  * Author: isaac.fang@grapecity.com
  */
 
-define(function () {
+define([
+    'underscore'
+], function (_) {
     'use strict';
 
     // Is NODE_ENV
@@ -14,7 +16,6 @@ define(function () {
                 process.env.NODE_ENV
             );
     };
-
     // Cache
     var cache = {
         enable: false,
@@ -22,34 +23,118 @@ define(function () {
         port: '6379',
         auth: 'swift'
     };
-
+    // TRACE, DEBUG, INFO, WARN, ERROR, FATAL
+    var loggers = {
+        default: 'WARN',
+        development: 'INFO',
+        production: 'ERROR'
+    };
+    var logger = function () {
+        return  loggers[env()] || loggers.default;
+    };
+    // morgan combined, common, dev, short, tiny
+    var morgans = {
+        default: 'short',
+        development: 'dev',
+        production: 'tiny'
+    };
+    var morgan = function () {
+        return  morgans[env()] || morgans.default;
+    };
+    // static dist
+    var dists = {
+        default: 'client',
+        development: 'client',
+        production: 'dist'
+    };
+    var dist = function () {
+        return  dists[env()] || dists.default;
+    };
     // Express listening on port
     var ports = {
-            debug: 8000,
-            development: 8000,
-            production: 80,
-            default: 80
-        },
-        port = function () {
-            return  process.env.PORT || ports[env()] || ports.default;
-        };
+        default: 8080,
+        development: 8000,
+        production: 8080
+    };
+    var port = function () {
+        return  process.env.PORT || ports[env()] || ports.default;
+    };
 
     // mongoose connect link
     var mongooseLinks = {
-            debug: 'mongodb://localhost/oglen-db',
-            development: 'mongodb://localhost/oglen-db',
-            production: 'mongodb://localhost/oglen-db',
-            default: 'mongodb://localhost/oglen-db'
+        default: 'mongodb://localhost/oglen-db',
+        development: 'mongodb://localhost/oglen-db',
+        production: 'mongodb://localhost/oglen-db'
+    };
+    var mongooseLink = function () {
+        return mongooseLinks[env()] || mongooseLinks.default;
+    };
+
+    // json web token
+    var jwt = {
+        secret: new Buffer('YOUR_CLIENT_SECRET', 'base64'),
+        issuer: 'YOUR_ISSUER',
+        expiresInMinutes: 0,
+        audience: function (req) {
+            var header = req.headers;
+            return header['accept-language'] + ' ' + header['user-agent'];
         },
-        mongooseLink = function () {
-            return mongooseLinks[env()] || mongooseLinks.default;
-        };
+        argotExpiresInMinutes: 0,
+        algorithm: 'HS256'
+    };
+
+    // argot
+    var argot = {
+        audience: function (argot, req) {
+            return argot + jwt.secret + jwt.issuer + jwt.audience(req);
+        },
+        expiresInMinutes: 0,
+        algorithm: 'sha512'
+    };
+
+    // api messages
+    var ERR_MSG = {
+        nonexistentUser: {
+            code: 'not_authenticated',
+            msg: 'Nonexistent User'
+        },
+        wrongPassword: {
+            code: 'not_authenticated',
+            msg: 'Wrong Password'
+        },
+        nonexistentArgot: {
+            code: 'not_authenticated',
+            msg: 'Nonexistent Argot'
+        },
+        wrongVerification: {
+            code: 'wrong_verification',
+            msg: 'Wrong Verification'
+        },
+        permissionDenied: {
+            code: 'permission_denied',
+            msg: 'Permission Denied'
+        },
+        unknownErr: {
+            code: ' unknown',
+            msg: 'Unknown Error'
+        }
+    };
 
     return {
         env: env,
-        port: port,
-        mongooseLink: mongooseLink,
-        delay: 500
+        logger: logger(),
+        morgan: morgan(),
+        dist: dist(),
+        port: port(),
+        mongooseLink: mongooseLink(),
+        jwt: jwt,
+        argot: argot,
+//        delay: false,
+        delay: function () {
+            return _.random(20, 100);
+        },
+        ERR_MSG: ERR_MSG
     };
-});
+})
+;
 

@@ -9,26 +9,11 @@ define([
 ], function (Post, Draft) {
     'use strict';
 
-    var postsRouter = function (router, util) {
-        router
-            .route('/posts/count')
+    return function (route) {
+        route
             .get(function (req, res, next) {
-
-                Post
-                    .count()
-                    .exec(function (err, docs) {
-                        router.cap(err, res, function () {
-                            res.json({count: docs});
-                        });
-                    });
-            });
-
-        router
-            .route('/posts/:skip?/:limit?')
-            .get(function (req, res, next) {
-                var skip = req.param('skip') || 0,
-                    limit = req.param('limit') || 100;
-
+                var skip = req.param('skip') || 0;
+                var limit = req.param('limit') || 100;
                 Post
                     .find()
                     .skip(skip)
@@ -42,14 +27,17 @@ define([
                         path: 'tags',
                         select: '_id name count'
                     })
+                    .populate({
+                        path: 'author',
+                        select: '_id username email'
+                    })
                     .exec(function (err, docs) {
-                        router.cap(err, res, function () {
-                            res.json(docs);
+                        route.cap(err, res, function () {
+
+                            res.send(docs);
                         });
                     });
             });
     };
-
-    return postsRouter;
 });
 

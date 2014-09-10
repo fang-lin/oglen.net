@@ -8,39 +8,25 @@ define([
 ], function (Role) {
     'use strict';
 
-    var rolesRouter = function (router, util) {
-        router
-            .route('/roles/count')
+    return function (route) {
+        route
             .get(function (req, res, next) {
-
-                Role
-                    .count()
-                    .exec(function (err, docs) {
-                        router.cap(err, res, function () {
-                            res.json({count: docs});
-                        });
-                    });
-            });
-
-        router
-            .route('/roles/:skip?/:limit?')
-            .get(function (req, res, next) {
-                var skip = req.param('skip') || 0,
-                    limit = req.param('limit') || 100;
-
+                var skip = req.param('skip') || 0;
+                var limit = req.param('limit') || 100;
                 Role
                     .find()
                     .skip(skip)
                     .limit(limit)
-                    .sort({_id: -1})
+                    .sort({
+                        _id: -1
+                    })
                     .exec(function (err, docs) {
-                        router.cap(err, res, function () {
-                            res.json(docs);
+                        route.cap(err, res, function () {
+
+                            res.send(docs);
                         });
                     });
             });
     };
-
-    return rolesRouter;
 });
 

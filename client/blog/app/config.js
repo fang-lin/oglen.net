@@ -7,7 +7,8 @@ define(function () {
     'use strict';
 
     return {
-        'name': 'writer.oglen.net',
+        'name': 'blog.oglen.net',
+        'apiBase': '/api',
         'debug': true
     };
 });

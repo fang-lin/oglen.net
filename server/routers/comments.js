@@ -8,38 +8,22 @@ define([
 ], function (Comment) {
     'use strict';
 
-    var commentsRouter = function (router, util) {
-        router
-            .route('/comments/count')
+    return function (route) {
+        route
             .get(function (req, res, next) {
-
-                Comment
-                    .count()
-                    .exec(function (err, docs) {
-                        router.cap(err, res, function () {
-                            res.json({count: docs});
-                        });
-                    });
-            });
-
-        router
-            .route('/comments/:skip?/:limit?')
-            .get(function (req, res, next) {
-                var skip = req.param('skip') || 0,
-                    limit = req.param('limit') || 100;
-
+                var skip = req.param('skip') || 0;
+                var limit = req.param('limit') || 100;
                 Comment
                     .find()
                     .skip(skip)
                     .limit(limit)
                     .sort({_id: -1})
                     .exec(function (err, docs) {
-                        router.cap(err, res, function () {
-                            res.json(docs);
+                        route.cap(err, res, function () {
+
+                            res.send(docs);
                         });
                     });
             });
     };
-
-    return commentsRouter;
 });

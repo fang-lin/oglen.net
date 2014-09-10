@@ -8,23 +8,20 @@ define([
 ], function (mongoose) {
     'use strict';
 
-    var Schema = mongoose.Schema,
-
-        SettingSchema = new Schema({
-            key: {
-                type: String,
-                unique: true,
-                index: true,
-                required: true
-            },
-            value: String,
-            note: {
-                type: String,
-                default: ''
-            }
-        });
-
+    var Schema = mongoose.Schema;
+    var SettingSchema = new Schema({
+        key: {
+            type: String,
+            index: true,
+            required: true
+        },
+        value: String,
+        scope: String,
+        note: {
+            type: String,
+            default: ''
+        }
+    });
     var Setting = mongoose.model('Setting', SettingSchema);
-
     return Setting;
 });
