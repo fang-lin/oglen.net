@@ -27,7 +27,8 @@ define([
                     .sort({
                         _id: -1
                     })
-                    .exec(function (err, docs) {
+                    .exec()
+                    .then(function (docs) {
                         res.send(docs);
                     });
             });

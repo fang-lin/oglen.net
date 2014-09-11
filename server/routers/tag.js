@@ -14,7 +14,8 @@ define([
                 var id = req.param('id');
                 Tag
                     .findById(id)
-                    .exec(function (err, docs) {
+                    .exec()
+                    .then(function (docs) {
                         res.send(docs);
                     });
             })

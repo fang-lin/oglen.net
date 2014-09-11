@@ -15,7 +15,8 @@ define([
 
                 Role
                     .findById(id)
-                    .exec(function (err, docs) {
+                    .exec()
+                    .then(function (docs) {
                         res.send(docs);
                     });
             })
@@ -40,7 +41,6 @@ define([
                 });
             })
             .delete(function (req, res, next) {
-
                 var id = req.param('id');
 
                 Role.remove({

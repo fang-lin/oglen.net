@@ -13,7 +13,8 @@ define([
             .get(function (req, res, next) {
                 Role
                     .count()
-                    .exec(function (err, docs) {
+                    .exec()
+                    .then(function (docs) {
                         res.send({
                             count: docs
                         });
