@@ -17,7 +17,7 @@ requirejs.config({
         // Apps
         'config': 'blog/app/config',
         'app': 'blog/app/app',
-        'utilities': 'blog/app/utilities',
+        'services': 'blog/app/services',
         'controllers': 'blog/app/controllers',
         'routes': 'blog/app/routes',
         'directives': 'blog/app/directives',

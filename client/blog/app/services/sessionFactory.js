@@ -16,12 +16,12 @@ define(function () {
             var Session = function () {
 
                 this.create = function (data) {
-                    sessionStorage.token = data.token;
+                    sessionStorage.ticket = data.ticket;
                     sessionStorage.visitor = JSON.stringify(data.visitor);
                 };
 
-                this.token = function () {
-                    return sessionStorage.token;
+                this.ticket = function () {
+                    return sessionStorage.ticket;
                 };
 
                 this.visitor = function () {
@@ -29,7 +29,7 @@ define(function () {
                 };
 
                 this.destroy = function () {
-                    delete sessionStorage.token;
+                    delete sessionStorage.ticket;
                     delete sessionStorage.visitor;
                 };
             };

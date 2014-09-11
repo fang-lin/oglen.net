@@ -15,20 +15,15 @@ define([
 
                 Comment
                     .findById(id)
-                    .exec(function (err, docs) {
-                        route.cap(err, res, function () {
-
-                            res.send(docs);
-                        });
+                    .exec()
+                    .then(function (docs) {
+                        res.send(docs);
                     });
             })
             .post(function (req, res, next) {
                 var comment = new Comment(req.body);
                 comment.save(function (err, product, numberAffected) {
-                    route.cap(err, res, function () {
-
-                        res.send(comment);
-                    });
+                    res.send(comment);
                 });
             })
             .put(function (req, res, next) {
@@ -41,10 +36,7 @@ define([
                     privilege: form.privilege,
                     note: form.note
                 }, function (err, numberAffected, raw) {
-                    route.cap(err, res, function () {
-
-                        res.send(form);
-                    });
+                    res.send(form);
                 });
             })
             .delete(function (req, res, next) {
@@ -54,10 +46,8 @@ define([
                 Comment.remove({
                     _id: id
                 }, function (err, numberAffected, raw) {
-                    route.cap(err, res, function () {
-                        res.send({
-                            _id: id
-                        });
+                    res.send({
+                        _id: id
                     });
                 });
             });

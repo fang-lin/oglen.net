@@ -11,19 +11,28 @@ define([
     return function (route) {
         route
             .get(function (req, res, next) {
+                var postId = req.param('postId');
                 var skip = req.param('skip') || 0;
                 var limit = req.param('limit') || 100;
+                var criteria = {};
+
+                if (postId !== '-') {
+                    criteria = {post: postId};
+                }
+
                 Comment
-                    .find()
+                    .find(criteria)
                     .skip(skip)
                     .limit(limit)
+                    .populate({
+                        path: 'post',
+                        select: '_id title'
+                    })
                     .sort({_id: -1})
-                    .exec(function (err, docs) {
-                        route.cap(err, res, function () {
-
-                            res.send(docs);
-                        });
-                    });
+                    .exec()
+                    .then(function (docs) {
+                        res.send(docs);
+                    })
             });
     };
 });

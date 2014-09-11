@@ -28,10 +28,9 @@ define([
                         path: 'author',
                         select: '_id username email'
                     })
-                    .exec(function (err, docs) {
-                        route.cap(err, res, function () {
-                            res.send(docs);
-                        });
+                    .exec()
+                    .then(function (docs) {
+                        res.send(docs);
                     });
             })
             .post(function (req, res, next) {
@@ -46,32 +45,25 @@ define([
                 });
 
                 post.save(function (err, product, numberAffected) {
-                    route.cap(err, res, function () {
+                    var draft = new Draft({
+                        post: post._id,
+                        text: form.draft.text
+                    });
 
-                        var draft = new Draft({
-                            post: post._id,
-                            text: form.draft.text
-                        });
+                    draft.save(function (err, product, numberAffected) {
+                        Post.update({
+                            _id: post._id
+                        }, {
+                            draft: draft._id
+                        }, function (err, numberAffected, raw) {
 
-                        draft.save(function (err, product, numberAffected) {
-                            route.cap(err, res, function () {
-                                Post.update({
-                                    _id: post._id
-                                }, {
-                                    draft: draft._id
-                                }, function (err, numberAffected, raw) {
-                                    route.cap(err, res, function () {
-
-                                        res.send({
-                                            _id: post._id,
-                                            draft: {
-                                                _id: draft._id,
-                                                saveAt: draft.saveAt
-                                            },
-                                            createAt: post.createAt
-                                        });
-                                    });
-                                });
+                            res.send({
+                                _id: post._id,
+                                draft: {
+                                    _id: draft._id,
+                                    saveAt: draft.saveAt
+                                },
+                                createAt: post.createAt
                             });
                         });
                     });
@@ -86,42 +78,33 @@ define([
                 });
 
                 draft.save(function (err, product, numberAffected) {
-                    route.cap(err, res, function () {
-
-                        Post.update({
-                            _id: form._id
-                        }, {
-                            title: form.title,
-                            abstract: form.abstract,
-                            tags: form.tags,
-                            draft: draft._id,
-                            publish: form.publish,
-                            hidden: form.hidden
-                        }, function (err, numberAffected, raw) {
-                            route.cap(err, res, function () {
-
-                                res.send({
-                                    draft: {
-                                        _id: draft._id,
-                                        saveAt: draft.saveAt
-                                    }
-                                });
-                            });
+                    Post.update({
+                        _id: form._id
+                    }, {
+                        title: form.title,
+                        abstract: form.abstract,
+                        tags: form.tags,
+                        draft: draft._id,
+                        publish: form.publish,
+                        hidden: form.hidden
+                    }, function (err, numberAffected, raw) {
+                        res.send({
+                            draft: {
+                                _id: draft._id,
+                                saveAt: draft.saveAt
+                            }
                         });
                     });
                 });
             })
             .delete(function (req, res, next) {
-
                 var id = req.param('id');
 
                 Post.remove({
                     _id: id
                 }, function (err, numberAffected, raw) {
-                    route.cap(err, res, function () {
-                        res.send({
-                            _id: id
-                        });
+                    res.send({
+                        _id: id
                     });
                 });
             });

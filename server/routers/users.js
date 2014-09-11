@@ -24,9 +24,7 @@ define([
                         select: '_id name'
                     })
                     .exec(function (err, docs) {
-                        route.cap(err, res, function () {
-                            res.send(docs);
-                        });
+                        res.send(docs);
                     });
             });
     };

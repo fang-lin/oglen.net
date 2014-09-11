@@ -13,11 +13,11 @@ define(function () {
         function ($rootScope, $q, session) {
             return {
                 request: function (config) {
-                    var token = session.token();
+                    var ticket = session.ticket();
 
-                    if (token) {
+                    if (ticket) {
                         config.headers = config.headers || {};
-                        config.headers.Authorization = 'Bearer ' + token;
+                        config.headers.Authorization = 'Bearer ' + ticket;
                     } else {
                         delete config.headers.Authorization;
                     }

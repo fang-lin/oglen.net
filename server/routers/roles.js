@@ -21,10 +21,7 @@ define([
                         _id: -1
                     })
                     .exec(function (err, docs) {
-                        route.cap(err, res, function () {
-
-                            res.send(docs);
-                        });
+                        res.send(docs);
                     });
             });
     };

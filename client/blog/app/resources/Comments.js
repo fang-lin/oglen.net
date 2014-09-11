@@ -7,8 +7,8 @@ define(function () {
     'use strict';
 
     return ['resource', function (resource) {
-        var Comments = resource('/comments/:skip/:limit');
-        Comments.count = resource('/comments/count');
+        var Comments = resource('/comments/:postId/:skip/:limit');
+        Comments.count = resource('/comments/:postId/count');
         return Comments;
     }];
 });

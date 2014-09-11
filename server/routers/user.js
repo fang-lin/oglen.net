@@ -21,9 +21,7 @@ define([
                         select: '_id name privilege note'
                     })
                     .exec(function (err, docs) {
-                        route.cap(err, res, function () {
-                            res.send(docs);
-                        });
+                        res.send(docs);
                     });
             })
             .post(function (req, res, next) {
@@ -36,9 +34,7 @@ define([
 
                 var user = new User(form);
                 user.save(function (err, product, numberAffected) {
-                    route.cap(err, res, function () {
-                        res.send(user);
-                    });
+                    res.send(user);
                 });
             })
             .put(function (req, res, next) {
@@ -52,9 +48,7 @@ define([
                 User.update({
                     _id: form._id
                 }, form, function (err, numberAffected, raw) {
-                    route.cap(err, res, function () {
-                        res.send(form);
-                    });
+                    res.send(form);
                 });
             })
             .delete(function (req, res, next) {
@@ -62,10 +56,8 @@ define([
                 User.remove({
                     _id: id
                 }, function (err, numberAffected, raw) {
-                    route.cap(err, res, function () {
-                        res.send({
-                            _id: id
-                        });
+                    res.send({
+                        _id: id
                     });
                 });
             });

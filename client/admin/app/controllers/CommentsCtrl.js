@@ -18,10 +18,13 @@ define(function () {
             $rootScope.$watch('settings', function (settings) {
                 if ($rootScope.isLogin && settings) {
                     $scope.refresh = function () {
-                        Comments.count.get(function (res) {
+                        Comments.count.get({
+                            postId: '-'
+                        }, function (res) {
                             $scope.count = res.count;
                         });
                         $scope.comments = Comments.query({
+                            postId: '-',
                             skip: $scope.skip,
                             limit: $scope.limit
                         });

@@ -11,15 +11,20 @@ define([
     return function (route) {
         route
             .get(function (req, res, next) {
+                var postId = req.param('postId');
+                var criteria = {};
+
+                if (postId !== '-') {
+                    criteria = {post: postId};
+                }
+
                 Comment
+                    .find(criteria)
                     .count()
-                    .exec(function (err, docs) {
-                        route.cap(err, res, function () {
-                            res.send({
-                                count: docs
-                            });
-                        });
-                    });
+                    .exec()
+                    .then(function (count) {
+                        res.send({count: count});
+                    })
             });
     };
 });

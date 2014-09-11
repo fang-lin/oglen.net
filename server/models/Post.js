@@ -10,6 +10,7 @@ define([
 
     var Schema = mongoose.Schema;
     var ObjectId = Schema.Types.ObjectId;
+    var VirtualType = Schema.Types.ObjectId;
     var Now = Date.now;
     var PostSchema = new Schema({
         title: {
@@ -59,6 +60,7 @@ define([
             default: false
         }
     });
+
     var Post = mongoose.model('Post', PostSchema);
     return Post;
 });

@@ -129,10 +129,10 @@ define([
         mongooseLink: mongooseLink(),
         jwt: jwt,
         argot: argot,
-//        delay: false,
-        delay: function () {
-            return _.random(20, 100);
-        },
+        delay: false,
+//        delay: function () {
+//            return _.random(20, 100);
+//        },
         ERR_MSG: ERR_MSG
     };
 })

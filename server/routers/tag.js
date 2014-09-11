@@ -15,19 +15,13 @@ define([
                 Tag
                     .findById(id)
                     .exec(function (err, docs) {
-                        route.cap(err, res, function () {
-
-                            res.send(docs);
-                        });
+                        res.send(docs);
                     });
             })
             .post(function (req, res, next) {
                 var tag = new Tag(req.body);
                 tag.save(function (err, product, numberAffected) {
-                    route.cap(err, res, function () {
-
-                        res.send(tag);
-                    });
+                    res.send(tag);
                 });
             })
             .put(function (req, res, next) {
@@ -37,10 +31,7 @@ define([
                 }, {
                     name: form.name
                 }, function (err, numberAffected, raw) {
-                    route.cap(err, res, function () {
-
-                        res.send(form);
-                    });
+                    res.send(form);
                 });
             })
             .delete(function (req, res, next) {
@@ -48,10 +39,8 @@ define([
                 Tag.remove({
                     _id: id
                 }, function (err, numberAffected, raw) {
-                    route.cap(err, res, function () {
-                        res.send({
-                            _id: id
-                        });
+                    res.send({
+                        _id: id
                     });
                 });
             });

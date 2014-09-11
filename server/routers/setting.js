@@ -16,20 +16,14 @@ define([
                 Setting
                     .findById(id)
                     .exec(function (err, docs) {
-                        route.cap(err, res, function () {
-
-                            res.send(docs);
-                        });
+                        res.send(docs);
                     });
             })
             .post(function (req, res, next) {
                 var setting = new Setting(req.body);
 
                 setting.save(function (err, product, numberAffected) {
-                    route.cap(err, res, function () {
-
-                        res.send(setting);
-                    });
+                    res.send(setting);
                 });
             })
             .put(function (req, res, next) {
@@ -42,23 +36,17 @@ define([
                     value: form.value,
                     note: form.note
                 }, function (err, numberAffected, raw) {
-                    route.cap(err, res, function () {
-
-                        res.send(form);
-                    });
+                    res.send(form);
                 });
             })
             .delete(function (req, res, next) {
-
                 var id = req.param('id');
 
                 Setting.remove({
                     _id: id
                 }, function (err, numberAffected, raw) {
-                    route.cap(err, res, function () {
-                        res.send({
-                            _id: id
-                        });
+                    res.send({
+                        _id: id
                     });
                 });
             });

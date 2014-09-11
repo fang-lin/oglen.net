@@ -25,7 +25,7 @@ define([
                         })
                         .then(function (res) {
                             if (res.status === 200) {
-                                if (res.data.token) {
+                                if (res.data.ticket) {
                                     session.create(res.data);
                                     $rootScope.$broadcast(VISITOR_EVENTS.signInSuccess);
                                 }
@@ -38,7 +38,7 @@ define([
                     return session.visitor();
                 },
                 isSignIn: function () {
-                    return !!session.token();
+                    return !!session.ticket();
                 }
 //                isAuthorized: function (authorizedRoles) {
 //                    if (!angular.isArray(authorizedRoles)) {

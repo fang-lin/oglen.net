@@ -48,8 +48,6 @@ define([
                 $rootScope.menu = menu;
                 $rootScope.info = info;
 
-                console.log($rootScope.menu)
-
                 $rootScope.fetchSettings = function (force) {
                     if (force || !$rootScope.settings) {
                         Settings.query(function (res) {

@@ -14,10 +14,8 @@ define([
                 User
                     .count()
                     .exec(function (err, docs) {
-                        route.cap(err, res, function () {
-                            res.send({
-                                count: docs
-                            });
+                        res.send({
+                            count: docs
                         });
                     });
             });

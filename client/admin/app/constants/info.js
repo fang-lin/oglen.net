@@ -11,6 +11,7 @@ define(function () {
         'description': 'A Blog for oglen.net',
         'keywords': 'a, b, c',
         'generator': 'oglen.net',
-        'version': '0.1.0'
+        'version': '0.1.0',
+        'copyright': 'copyright 2014'
     };
 });

@@ -21,9 +21,9 @@ define([
                     if (verification === encrypt.md5(req.headers['user-agent'])) {
 
                         addVisitor(req, res, function (visitor) {
-                            var token = jwtSign(getVisitorProfile(visitor), jwtConfig.audience(req));
+                            var ticket = jwtSign(getVisitorProfile(visitor), jwtConfig.audience(req));
                             res.send({
-                                token: token,
+                                ticket: ticket,
                                 visitor: getVisitorProfile(visitor)
                             });
                         });
@@ -39,9 +39,7 @@ define([
                 });
 
                 visitor.save(function (err, product, numberAffected) {
-                    route.cap(err, res, function () {
-                        fn(product);
-                    });
+                    fn(product);
                 });
             }
 

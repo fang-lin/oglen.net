@@ -50,17 +50,6 @@ define([
     var expressRouter = express.Router();
 
     routerProvider(expressRouter)
-        .inject('cap', function (err, res, callback) {
-            if (err) {
-                logger.error(err);
-                res.status(500).send({
-                    code: err.code,
-                    msg: err.message
-                });
-            } else {
-                callback(logger);
-            }
-        })
         .all(function (router, route) {
             var delay = config.delay;
             if (delay) {
@@ -162,12 +151,12 @@ define([
             requireJwt: true,
             visitorAllow: ['get', 'post', 'put', 'delete']
         })
-        .when('/comments/count', {
+        .when('/comments/:postId/count', {
             action: commentsCount,
             requireJwt: true,
             visitorAllow: ['get']
         })
-        .when('/comments/:skip?/:limit?', {
+        .when('/comments/:postId/:skip?/:limit?', {
             action: comments,
             requireJwt: true,
             visitorAllow: ['get']
