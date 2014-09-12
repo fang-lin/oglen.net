@@ -57,7 +57,7 @@ define(function () {
                             };
 
                             $scope.skip = $routeParams.skip || 0;
-                            $scope.limit = $routeParams.limit || settings['pager_limit'] || 10;
+                            $scope.limit = $routeParams.limit || settings['pager_limit'];
                             $scope.post = Post.get({id: id});
                             $scope.refreshComment();
                             $scope.refreshComments();

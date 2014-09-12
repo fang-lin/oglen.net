@@ -10,9 +10,10 @@ define([
     'services/registerFactory',
     'services/registerInterceptorFactory',
     'services/sessionFactory',
+    'services/path',
     'angular',
     'angular-resource'
-], function (config, resourceFactory, encryptFactory, registerFactory, registerInterceptorFactory, sessionFactory) {
+], function (config, resourceFactory, encryptFactory, registerFactory, registerInterceptorFactory, sessionFactory, path) {
     'use strict';
 
     var services = angular.module(config.name + '.services', ['ngResource'])
@@ -26,6 +27,7 @@ define([
             function ($httpProvider) {
                 $httpProvider.interceptors.push('registerInterceptor');
             }]);
+//        .run(path);
 
     return services;
 });

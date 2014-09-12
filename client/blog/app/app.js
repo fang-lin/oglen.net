@@ -73,7 +73,6 @@ define([
 
                 $rootScope.$on('$routeChangeStart', function (event, next, current) {
                     $log.log('routeChangeStart:', next.controller);
-
                 });
 
                 if ($rootScope.isSignIn) {
