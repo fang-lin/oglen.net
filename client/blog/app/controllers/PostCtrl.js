@@ -24,7 +24,6 @@ define(function () {
                     if ($rootScope.isSignIn && settings) {
                         var id = $routeParams.id;
                         if (id) {
-
                             $scope.refreshComment = function () {
                                 $scope.comment = {
                                     post: id,
@@ -42,8 +41,8 @@ define(function () {
                                 });
                                 $scope.comments = Comments.query({
                                     postId: id,
-                                    skip: $scope.skip || 0,
-                                    limit: $scope.limit || 1000
+                                    skip: $scope.skip,
+                                    limit: $scope.limit
                                 });
                             };
 
@@ -57,16 +56,15 @@ define(function () {
                                 });
                             };
 
+                            $scope.skip = $routeParams.skip || 0;
+                            $scope.limit = $routeParams.limit || settings['pager_limit'] || 10;
                             $scope.post = Post.get({id: id});
                             $scope.refreshComment();
                             $scope.refreshComments();
                         }
                     }
                 }
-            )
-            ;
+            );
         }
-    ]
-        ;
-})
-;
+    ];
+});

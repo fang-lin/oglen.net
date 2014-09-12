@@ -24,7 +24,9 @@ define([
                 var setting = new Setting(req.body);
 
                 setting.save(function (err, product, numberAffected) {
-                    res.send(setting);
+                    route.cap(err, res, function () {
+                        res.send(setting);
+                    });
                 });
             })
             .put(function (req, res, next) {
@@ -35,7 +37,8 @@ define([
                 }, {
                     key: form.key,
                     value: form.value,
-                    note: form.note
+                    note: form.note,
+                    scopes: form.scopes
                 }, function (err, numberAffected, raw) {
                     res.send(form);
                 });

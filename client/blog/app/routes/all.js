@@ -15,21 +15,21 @@ define([
             function ($routeProvider, $locationProvider) {
                 $locationProvider.html5Mode(true);
                 $routeProvider
-                    .when('/', {
-                        templateUrl: 'app/views/posts.html',
-                        controller: 'PostsCtrl'
-                    })
                     .when('/catalog', {
                         templateUrl: 'app/views/catalog.html',
                         controller: 'CatalogCtrl'
                     })
-                    .when('/post/:id?', {
+                    .when('/post/:id/:skip?/:limit?', {
                         templateUrl: 'app/views/post.html',
                         controller: 'PostCtrl'
                     })
                     .when('/about', {
                         templateUrl: 'app/views/about.html',
                         controller: 'AboutCtrl'
+                    })
+                    .when('/:skip?/:limit?', {
+                        templateUrl: 'app/views/posts.html',
+                        controller: 'PostsCtrl'
                     })
                     .otherwise({
                         redirectTo: '/'

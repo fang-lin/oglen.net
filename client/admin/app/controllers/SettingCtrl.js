@@ -3,7 +3,9 @@
  * Author: isaac.fang@grapecity.com
  */
 
-define(function () {
+define([
+    'underscore'
+], function (_) {
     'use strict';
 
     return [
@@ -24,30 +26,31 @@ define(function () {
                         $scope.setting = Setting.get({id: id});
                     } else {
                         // add
-                        $scope.setting = {};
+                        $scope.setting = {
+                            scopes: ''
+                        };
                     }
 
                     $scope.submit = function (setting) {
                         event.preventDefault();
 
                         var $setting = setting;
+                        $setting.scopes = _.compact($setting.scopes.split(' '));
 
                         if ($setting._id) {
                             // update existing setting
                             Setting.update($setting, function (setting) {
-                                // update local setting
-                                $rootScope.settings[setting.key] = setting.value;
+                                // update settings
+                                $rootScope.fetchSettings(true);
                                 // todo: alert success.
                             });
                         } else {
                             // create new setting
                             Setting.save($setting, function (setting) {
+                                // update settings
+                                $rootScope.fetchSettings(true);
                                 $setting._id = setting._id;
-                                // update local setting
-                                $rootScope.settings[setting.key] = setting.value;
-
-                                var path = $location.path;
-                                path(path() + $setting._id, true);
+                                $location.path('/setting/' + $setting._id, true);
                             });
                         }
                     };

@@ -50,6 +50,17 @@ define([
     var expressRouter = express.Router();
 
     routerProvider(expressRouter)
+        .inject('cap', function (err, res, callback) {
+            if (err) {
+                logger.error(err);
+                res.status(500).send({
+                    code: err.code,
+                    msg: err.message
+                });
+            } else {
+                callback(logger);
+            }
+        })
         .all(function (router, route) {
             var delay = config.delay;
             if (delay) {
@@ -201,7 +212,7 @@ define([
             requireJwt: true,
             visitorAllow: false
         })
-        .when('/settings/:skip?/:limit?', {
+        .when('/settings/:scopes/:skip?/:limit?', {
             action: settings,
             requireJwt: true,
             visitorAllow: ['get']
