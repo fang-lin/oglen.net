@@ -10,29 +10,50 @@ define([
 
     var routes = angular.module(config.name + '.routes', [])
         .config([
-            '$routeProvider',
-            '$locationProvider',
-            function ($routeProvider, $locationProvider) {
-                $locationProvider.html5Mode(true);
-                $routeProvider
-                    .when('/catalog', {
+            '$stateProvider',
+            '$urlRouterProvider',
+            function ($stateProvider, $urlRouterProvider) {
+//                $locationProvider.html5Mode(true);
+//                $routeProvider
+//                    .when('/catalog', {
+//                        templateUrl: 'app/views/catalog.html',
+//                        controller: 'CatalogCtrl'
+//                    })
+//                    .when('/post/:id/:skip?/:limit?', {
+//                        templateUrl: 'app/views/post.html',
+//                        controller: 'PostCtrl'
+//                    })
+//                    .when('/about', {
+//                        templateUrl: 'app/views/about.html',
+//                        controller: 'AboutCtrl'
+//                    })
+//                    .when('/:skip?/:limit?', {
+//                        templateUrl: 'app/views/posts.html',
+//                        controller: 'PostsCtrl'
+//                    })
+//                    .otherwise({
+//                        redirectTo: '/'
+//                    });
+
+                $urlRouterProvider.otherwise('/');
+
+                $stateProvider
+                    .state('/catalog', {
+                        url: "/state1",
                         templateUrl: 'app/views/catalog.html',
                         controller: 'CatalogCtrl'
                     })
-                    .when('/post/:id/:skip?/:limit?', {
+                    .state('/post/:id/:skip?/:limit?', {
                         templateUrl: 'app/views/post.html',
                         controller: 'PostCtrl'
                     })
-                    .when('/about', {
+                    .state('/about', {
                         templateUrl: 'app/views/about.html',
                         controller: 'AboutCtrl'
                     })
-                    .when('/:skip?/:limit?', {
+                    .state('/:skip?/:limit?', {
                         templateUrl: 'app/views/posts.html',
                         controller: 'PostsCtrl'
-                    })
-                    .otherwise({
-                        redirectTo: '/'
                     });
             }]);
     return routes;

@@ -19,6 +19,8 @@
     "html5shiv": "~3.7.2",
     "respond": "~1.4.2",
     "crypto": "~3.24.10",
-    "normalize-css": "~3.0.1"
+    "normalize-css": "~3.0.1",
+    "font-awesome": "~4.2.0",
+    "angular-ui-router": "~0.2.11"
   }
 }

@@ -94,7 +94,8 @@ module.exports = function (grunt) {
                 }
             },
             options: {
-                preserveComments: false // false 'all' 'some'
+                preserveComments: false
+                // false 'all' 'some'
             }
         },
 
@@ -108,19 +109,21 @@ module.exports = function (grunt) {
                     preserveLicenseComments: false
                 }
             },
-//            blog: {
-//                options: {
-//                    baseUrl: 'client/',
-//                    name: 'blog/init',
-//                    mainConfigFile: 'client/blog/build.js',
-//                    out: 'dist/blog/init.js',
-//                    preserveLicenseComments: false
-//                }
-//            },
+            blog: {
+                options: {
+                    baseUrl: 'client/',
+                    name: 'blog/init',
+                    mainConfigFile: 'client/blog/build.js',
+                    out: 'dist/blog/init.js',
+                    preserveLicenseComments: false
+                }
+            },
             options: {
                 findNestedDependencies: true,
                 preserveLicenseComments: true,
+                // uglify, uglify2, closure, none
                 optimize: 'uglify2'
+
             }
         },
 
@@ -173,5 +176,5 @@ module.exports = function (grunt) {
 
     // Register grunt tasks
     grunt.registerTask('watching', ['watch:less']);
-    grunt.registerTask('build', ['bower', 'clean', 'less', 'uglify', 'copy', 'cssmin', 'requirejs:admin'/*, 'requirejs:blog'*/]);
+    grunt.registerTask('build', ['bower', 'clean', 'less', 'uglify', 'copy', 'cssmin', 'requirejs:admin', 'requirejs:blog']);
 };

@@ -14,6 +14,7 @@ define([
     'constants/all',
     'angular',
     'angular-route',
+    'angular-ui-router',
     'angular-animate',
     'angular-translate'
 ], function (config) {
@@ -23,6 +24,7 @@ define([
     angular
         .module(name, [
             'ngRoute',
+            'ui.router',
             'ngAnimate',
                 name + '.routes',
                 name + '.services',

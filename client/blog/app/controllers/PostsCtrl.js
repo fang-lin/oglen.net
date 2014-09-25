@@ -13,6 +13,7 @@ define(function () {
         '$location',
         'Posts',
         function ($rootScope, $routeParams, $scope, $location, Posts) {
+            console.log('ggggggggggg')
             $rootScope.$watch('settings', function (settings) {
                 if ($rootScope.isSignIn && settings) {
                     $scope.refresh = function () {
