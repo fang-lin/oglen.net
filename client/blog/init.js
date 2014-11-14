@@ -13,6 +13,7 @@ requirejs.config({
         'angular': '/lib/angular/angular',
         'angular-resource': '/lib/angular-resource/angular-resource',
         'angular-route': '/lib/angular-route/angular-route',
+        'angular-ui-router': '/lib/angular-ui-router/release/angular-ui-router',
         'angular-animate': '/lib/angular-animate/angular-animate',
         'angular-translate': '/lib/angular-translate/angular-translate',
         // Apps
@@ -37,6 +38,9 @@ requirejs.config({
             deps: ['angular']
         },
         'angular-route': {
+            deps: ['angular']
+        },
+        'angular-ui-router': {
             deps: ['angular']
         },
         'angular-animate': {

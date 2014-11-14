@@ -5,18 +5,20 @@
 
 define([
     'config',
-    'constants/menu',
-    'constants/info',
+    'constants/MENU',
+    'constants/INFO',
+    'constants/SETTINGS',
     'constants/AUTH_EVENTS',
     'angular'
-], function (config, menu, info, AUTH_EVENTS) {
+], function (config, MENU, INFO, SETTINGS, AUTH_EVENTS) {
     'use strict';
 
     var constants = angular.module(config.name + '.constants', [])
-        .constant('menu', menu)
-        .constant('info', info)
-        .constant('SALT', 'd8437cf0a5416a9742fc8742dd22b6fb')
-        .constant('AUTH_EVENTS', AUTH_EVENTS);
+        .constant('MENU', MENU)
+        .constant('INFO', INFO)
+        .constant('SETTINGS', SETTINGS)
+        .constant('AUTH_EVENTS', AUTH_EVENTS)
+        .constant('SALT', 'd8437cf0a5416a9742fc8742dd22b6fb');
 
     return constants;
 });

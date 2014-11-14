@@ -38,27 +38,28 @@ define([
             '$route',
             '$routeParams',
             '$log',
-            'menu',
-            'info',
+            'MENU',
+            'INFO',
+            'SETTINGS',
             'Settings',
             'authorization',
             'AUTH_EVENTS',
-            function ($rootScope, $location, $route, $routeParams, $log, menu, info, Settings, authorization, AUTH_EVENTS) {
+            function ($rootScope, $location, $route, $routeParams, $log, MENU, INFO, SETTINGS, Settings, authorization, AUTH_EVENTS) {
 
                 $rootScope.isLogin = authorization.isLogin();
                 $rootScope.user = authorization.user();
 
-                $rootScope.menu = menu;
-                $rootScope.info = info;
+                $rootScope.menu = MENU;
+                $rootScope.info = INFO;
 
                 $rootScope.fetchSettings = function (force) {
                     if (force || !$rootScope.settings) {
-                        Settings.query(function (res) {
+                        Settings.query({scopes: 'admin'}, function (res) {
                             var settings = {};
                             res.forEach(function (setting) {
                                 settings[setting.key] = setting.value;
                             });
-                            $rootScope.settings = settings;
+                            $rootScope.settings = angular.extend({}, SETTINGS, settings);
                         });
                     }
                 };

@@ -15,11 +15,9 @@ define([
 
                 Setting
                     .findById(id)
-                    .exec(function (err, docs) {
-                        route.cap(err, res, function () {
-
-                            res.send(docs);
-                        });
+                    .exec()
+                    .then(function (docs) {
+                        res.send(docs);
                     });
             })
             .post(function (req, res, next) {
@@ -27,7 +25,6 @@ define([
 
                 setting.save(function (err, product, numberAffected) {
                     route.cap(err, res, function () {
-
                         res.send(setting);
                     });
                 });
@@ -40,25 +37,20 @@ define([
                 }, {
                     key: form.key,
                     value: form.value,
-                    note: form.note
+                    note: form.note,
+                    scopes: form.scopes
                 }, function (err, numberAffected, raw) {
-                    route.cap(err, res, function () {
-
-                        res.send(form);
-                    });
+                    res.send(form);
                 });
             })
             .delete(function (req, res, next) {
-
                 var id = req.param('id');
 
                 Setting.remove({
                     _id: id
                 }, function (err, numberAffected, raw) {
-                    route.cap(err, res, function () {
-                        res.send({
-                            _id: id
-                        });
+                    res.send({
+                        _id: id
                     });
                 });
             });

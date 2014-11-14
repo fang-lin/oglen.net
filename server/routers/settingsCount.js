@@ -13,11 +13,9 @@ define([
             .get(function (req, res, next) {
                 Setting
                     .count()
-                    .exec(function (err, docs) {
-                        route.cap(err, res, function () {
-
-                            res.send({count: docs});
-                        });
+                    .exec()
+                    .then(function (docs) {
+                        res.send({count: docs});
                     });
             });
     };

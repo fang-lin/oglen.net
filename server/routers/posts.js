@@ -5,8 +5,8 @@
 
 define([
     'server/models/Post',
-    'server/models/Draft'
-], function (Post, Draft) {
+    'server/models/Comment'
+], function (Post, Comment) {
     'use strict';
 
     return function (route) {
@@ -14,6 +14,7 @@ define([
             .get(function (req, res, next) {
                 var skip = req.param('skip') || 0;
                 var limit = req.param('limit') || 100;
+
                 Post
                     .find()
                     .skip(skip)
@@ -31,12 +32,26 @@ define([
                         path: 'author',
                         select: '_id username email'
                     })
-                    .exec(function (err, docs) {
-                        route.cap(err, res, function () {
-
-                            res.send(docs);
+                    .exec()
+                    .then(function (docs) {
+                        var fulfilled = 0;
+                        var end = docs.length;
+                        docs.map(function (post) {
+                            Comment
+                                .find({
+                                    post: post._id
+                                })
+                                .count()
+                                .exec()
+                                .then(function (count) {
+                                    post.setValue('commentsCount', count);
+                                    if (++fulfilled === end) {
+                                        res.send(docs);
+                                    }
+                                })
                         });
                     });
+
             });
     };
 });

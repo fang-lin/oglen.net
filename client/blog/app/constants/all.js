@@ -6,15 +6,17 @@
 define([
     'config',
     'constants/menu',
-    'constants/info',
+    'constants/INFO',
+    'constants/SETTINGS',
     'constants/VISITOR_EVENTS',
     'angular'
-], function (config, menu, info, VISITOR_EVENTS) {
+], function (config, MENU, INFO, SETTINGS, VISITOR_EVENTS) {
     'use strict';
 
     var constants = angular.module(config.name + '.constants', [])
-        .constant('menu', menu)
-        .constant('info', info)
+        .constant('MENU', MENU)
+        .constant('INFO', INFO)
+        .constant('SETTINGS', SETTINGS)
         .constant('VISITOR_EVENTS', VISITOR_EVENTS);
 
     return constants;

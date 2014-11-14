@@ -77,23 +77,22 @@ define([
                 });
             }
 
-            function findUser(select, res, fn) {
+            function findUser(criteria, res, fn) {
                 User
-                    .find(select)
+                    .find(criteria)
                     .populate({
                         path: 'role',
                         select: '_id name privilege note'
                     })
-                    .exec(function (err, docs) {
-                        route.cap(err, res, function () {
-                            if (docs.length === 0) {
-                                res.status(401).send(config.ERR_MSG.nonexistentUser);
-                            } else if (docs.length === 1) {
-                                fn(docs[0]);
-                            } else {
-                                res.status(500).send(config.ERR_MSG.unknownErr);
-                            }
-                        });
+                    .exec()
+                    .then(function (docs) {
+                        if (docs.length === 0) {
+                            res.status(401).send(config.ERR_MSG.nonexistentUser);
+                        } else if (docs.length === 1) {
+                            fn(docs[0]);
+                        } else {
+                            res.status(500).send(config.ERR_MSG.unknownErr);
+                        }
                     });
             }
 
@@ -105,9 +104,7 @@ define([
                     loginAt: Date.now(),
                     cipher: cipher
                 }, function (err, numberAffected, raw) {
-                    route.cap(err, res, function () {
-                        fn();
-                    });
+                    fn();
                 });
             }
 

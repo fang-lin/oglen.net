@@ -15,9 +15,10 @@ define([
         post: {
             type: ObjectId,
             index: true,
-            required: true
+            required: true,
+            ref: 'Post'
         },
-        username: {
+        nickname: {
             type: String,
             required: true
         },

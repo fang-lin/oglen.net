@@ -4,8 +4,9 @@
  */
 
 define([
+    'underscore',
     'server/models/Setting'
-], function (Setting) {
+], function (_, Setting) {
     'use strict';
 
     return function (route) {
@@ -13,24 +14,23 @@ define([
             .get(function (req, res, next) {
                 var skip = req.param('skip') || 0;
                 var limit = req.param('limit') || 1000;
-                var scope = req.param('scope') || 'home';
-                var criteria = {scope: scope};
+                var scopes = req.param('scopes') || '-';
+                var query = Setting.find();
 
-                if (req.user.role) {
-                    // admin require
-                    criteria = {};
+                if (scopes !== '-') {
+                    query
+                        .all('scopes', _.compact(scopes.split('+')));
                 }
-                Setting
-                    .find(criteria)
+
+                query
                     .skip(skip)
                     .limit(limit)
                     .sort({
                         _id: -1
                     })
-                    .exec(function (err, docs) {
-                        route.cap(err, res, function () {
-                            res.send(docs);
-                        });
+                    .exec()
+                    .then(function (docs) {
+                        res.send(docs);
                     });
             });
     };

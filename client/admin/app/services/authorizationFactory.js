@@ -30,6 +30,7 @@ define([
                         });
                 },
                 isLogin: function () {
+                    console.log(session.token())
                     return !!session.token();
                 },
                 toArgot: function () {

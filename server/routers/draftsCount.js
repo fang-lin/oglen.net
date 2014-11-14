@@ -25,11 +25,9 @@ define([
                 }
 
                 query
-                    .exec(function (err, docs) {
-                        route.cap(err, res, function () {
-
-                            res.send(docs);
-                        });
+                    .exec()
+                    .then(function (docs) {
+                        res.send(docs);
                     });
             });
     };

@@ -16,11 +16,9 @@ define([
 
                 Draft
                     .findById(id)
-                    .exec(function (err, docs) {
-                        route.cap(err, res, function () {
-
-                            res.send(docs);
-                        });
+                    .exec()
+                    .then(function(docs){
+                        res.send(docs);
                     });
             })
             .delete(function (req, res, next) {
@@ -30,10 +28,8 @@ define([
                 Draft.remove({
                     _id: id
                 }, function (err, numberAffected, raw) {
-                    route.cap(err, res, function () {
-                        res.send({
-                            _id: id
-                        });
+                    res.send({
+                        _id: id
                     });
                 });
             });

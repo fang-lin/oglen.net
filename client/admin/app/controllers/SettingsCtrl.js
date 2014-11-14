@@ -23,6 +23,8 @@ define(function () {
                             $scope.count = res.count;
                         });
                         $scope.settings = Settings.query({
+                            scopes: '-'
+                        }, {
                             skip: $scope.skip,
                             limit: $scope.limit
                         });

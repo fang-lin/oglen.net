@@ -67,8 +67,9 @@ define(function () {
     return [
         '$rootScope',
         '$route',
+        '$routeParams',
         '$location',
-        function ($rootScope, $route, $location) {
+        function ($rootScope, $route, $routeParams, $location) {
 
             return {
                 restrict: 'E',
@@ -78,18 +79,27 @@ define(function () {
                     skip: '=',
                     limit: '=',
                     count: '=',
-                    base: '@'
+                    segment: '@'
                 },
                 link: function (scope, ele, attrs) {
-                    if ($rootScope.isLogin) {
+                    if ($rootScope.isSignIn) {
                         $rootScope.$watch('settings', function (settings) {
                             if (settings) {
+
+                                var segments = (scope.segment || '2:3').split(':');
+                                var paths = $location.path().split('/');
                                 var size = settings['pager_size'] || 5;
+
+                                scope.path = function (skip) {
+                                    paths[segments[0] - 0] = skip;
+                                    paths[segments[1] - 0] = scope.limit;
+                                    return '#' + paths.join('/');
+                                };
 
                                 scope.$watch('count', function (count) {
                                     if (count >= 0) {
                                         scope.chain = createChain(scope.skip - 0, scope.limit - 0, count - 0, size - 0, function (skip, limit) {
-                                            $location.path('/' + scope.base + '/' + skip + '/' + limit);
+                                            $location.path(scope.base + skip + '/' + limit);
                                         });
                                     }
                                 });

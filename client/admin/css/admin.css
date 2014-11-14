@@ -42,3 +42,8 @@ body {
 .draft:hover {
   background: #69f;
 }
+th,
+td {
+  padding: 3px;
+  border: solid #999 1px;
+}

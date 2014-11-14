@@ -15,13 +15,13 @@ module.exports = function (grunt) {
                     {src: 'client/robots.txt', dest: 'dist/robots.txt'},
                     {src: 'client/lib/html5shiv/dist/html5shiv.min.js', dest: 'dist/lib/html5shiv/dist/html5shiv.min.js'},
                     {src: 'client/lib/respond/dest/respond.min.js', dest: 'dist/lib/respond/dest/respond.min.js'},
-                    // writer
-                    {src: 'client/writer/index.html', dest: 'dist/writer/index.html'},
-                    {src: 'client/writer/config.js', dest: 'dist/writer/config.js'},
-                    {src: 'client/writer/css/all.css', dest: 'dist/writer/css/all.css'},
-                    {expand: true, flatten: true, src: ['client/writer/app/views/*'], dest: 'dist/writer/app/views/', filter: 'isFile'},
-                    {expand: true, flatten: true, src: ['client/writer/app/templates/*'], dest: 'dist/writer/app/templates/', filter: 'isFile'},
-                    {expand: true, flatten: true, src: ['client/writer/images/*'], dest: 'dist/writer/images/*', filter: 'isFile'},
+                    // admin
+                    {src: 'client/admin/index.html', dest: 'dist/admin/index.html'},
+                    {src: 'client/admin/config.js', dest: 'dist/admin/config.js'},
+                    {src: 'client/admin/css/all.css', dest: 'dist/admin/css/all.css'},
+                    {expand: true, flatten: true, src: ['client/admin/app/views/*'], dest: 'dist/admin/app/views/', filter: 'isFile'},
+                    {expand: true, flatten: true, src: ['client/admin/app/templates/*'], dest: 'dist/admin/app/templates/', filter: 'isFile'},
+                    {expand: true, flatten: true, src: ['client/admin/images/*'], dest: 'dist/admin/images/*', filter: 'isFile'},
                     // blog
                     {src: 'client/blog/index.html', dest: 'dist/blog/index.html'},
                     {src: 'client/blog/config.js', dest: 'dist/blog/config.js'},
@@ -36,14 +36,14 @@ module.exports = function (grunt) {
         cssmin: {
             combine: {
                 files: {
-                    'dist/writer/css/main.css': ['client/writer/css/main.css'],
+                    'dist/admin/css/main.css': ['client/admin/css/main.css'],
                     'dist/blog/css/main.css': ['client/blog/css/main.css']
                 }
             }
         },
 
         jshint: {
-            files: ['*.js', 'server/**/*.js', 'client/writer/*.js', 'client/writer/app/**/*.js'],
+            files: ['*.js', 'server/**/*.js', 'client/admin/*.js', 'client/admin/app/**/*.js'],
             options: {
                 force: false,
                 reporter: './test/jshint_reporter.js',
@@ -81,7 +81,7 @@ module.exports = function (grunt) {
         less: {
             development: {
                 files: {
-                    'client/writer/css/writer.css': 'client/writer/less/writer.less',
+                    'client/admin/css/admin.css': 'client/admin/less/admin.less',
                     'client/blog/css/blog.css': 'client/blog/less/blog.less'
                 }
             }
@@ -94,17 +94,19 @@ module.exports = function (grunt) {
                 }
             },
             options: {
-                preserveComments: false // false 'all' 'some'
+                preserveComments: false
+                // false 'all' 'some'
             }
         },
 
         requirejs: {
-            writer: {
+            admin: {
                 options: {
                     baseUrl: 'client/',
-                    name: 'writer/init',
-                    mainConfigFile: 'client/writer/build.js',
-                    out: 'dist/writer/init.js'
+                    name: 'admin/init',
+                    mainConfigFile: 'client/admin/build.js',
+                    out: 'dist/admin/init.js',
+                    preserveLicenseComments: false
                 }
             },
             blog: {
@@ -112,19 +114,24 @@ module.exports = function (grunt) {
                     baseUrl: 'client/',
                     name: 'blog/init',
                     mainConfigFile: 'client/blog/build.js',
-                    out: 'dist/blog/init.js'
+                    out: 'dist/blog/init.js',
+                    preserveLicenseComments: false
                 }
             },
             options: {
                 findNestedDependencies: true,
                 preserveLicenseComments: true,
+                // uglify, uglify2, closure, none
                 optimize: 'uglify2'
+
             }
         },
 
         watch: {
             less: {
-                files: ['client/writer/less/*.less'],
+                files: [
+                    'client/**/less/*.less'
+                ],
                 tasks: ['less']
             }
         },
@@ -138,7 +145,16 @@ module.exports = function (grunt) {
         },
 
         bower: {
-            install: {
+            options: {
+                targetDir: '/client/lib',
+                layout: 'byComponent',
+                install: true,
+                verbose: false,
+                cleanTargetDir: false,
+                cleanBowerDir: false,
+                bowerOptions: {
+                    forceLatest: true
+                }
             }
         }
     });
@@ -160,5 +176,5 @@ module.exports = function (grunt) {
 
     // Register grunt tasks
     grunt.registerTask('watching', ['watch:less']);
-    grunt.registerTask('build', ['bower', 'clean', 'less', 'uglify', 'copy', 'cssmin', 'requirejs:writer', 'requirejs:blog']);
+    grunt.registerTask('build', ['bower', 'clean', 'less', 'uglify', 'copy', 'cssmin', 'requirejs:admin', 'requirejs:blog']);
 };

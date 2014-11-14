@@ -7,7 +7,7 @@ define(function () {
     'use strict';
 
     return ['resource', function (resource) {
-        var Settings = resource('/settings/:skip/:limit');
+        var Settings = resource('/settings/:scopes/:skip/:limit');
         Settings.count = resource('/settings/count');
         return Settings;
     }];

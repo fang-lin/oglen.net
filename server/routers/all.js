@@ -162,12 +162,12 @@ define([
             requireJwt: true,
             visitorAllow: ['get', 'post', 'put', 'delete']
         })
-        .when('/comments/count', {
+        .when('/comments/:postId/count', {
             action: commentsCount,
             requireJwt: true,
             visitorAllow: ['get']
         })
-        .when('/comments/:skip?/:limit?', {
+        .when('/comments/:postId/:skip?/:limit?', {
             action: comments,
             requireJwt: true,
             visitorAllow: ['get']
@@ -212,7 +212,7 @@ define([
             requireJwt: true,
             visitorAllow: false
         })
-        .when('/settings/:skip?/:limit?', {
+        .when('/settings/:scopes/:skip?/:limit?', {
             action: settings,
             requireJwt: true,
             visitorAllow: ['get']

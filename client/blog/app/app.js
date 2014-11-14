@@ -14,6 +14,7 @@ define([
     'constants/all',
     'angular',
     'angular-route',
+    'angular-ui-router',
     'angular-animate',
     'angular-translate'
 ], function (config) {
@@ -23,6 +24,7 @@ define([
     angular
         .module(name, [
             'ngRoute',
+            'ui.router',
             'ngAnimate',
                 name + '.routes',
                 name + '.services',
@@ -35,29 +37,30 @@ define([
         .run([
             '$rootScope',
             '$log',
-            'menu',
-            'info',
+            'MENU',
+            'INFO',
+            'SETTINGS',
+            'VISITOR_EVENTS',
             'Settings',
             'register',
-            'VISITOR_EVENTS',
-            function ($rootScope, $log, menu, info, Settings, register, VISITOR_EVENTS) {
+            function ($rootScope, $log, MENU, INFO, SETTINGS, VISITOR_EVENTS, Settings, register) {
 
                 $rootScope.isSignIn = register.isSignIn();
                 $rootScope.visitor = register.visitor();
 
-                $rootScope.menu = menu;
-                $rootScope.info = info;
-
-                console.log($rootScope.menu)
+                $rootScope.menu = MENU;
+                $rootScope.info = INFO;
 
                 $rootScope.fetchSettings = function (force) {
                     if (force || !$rootScope.settings) {
-                        Settings.query(function (res) {
+                        Settings.query({
+                            scopes: 'blog'
+                        }, function (res) {
                             var settings = {};
                             res.forEach(function (setting) {
                                 settings[setting.key] = setting.value;
                             });
-                            $rootScope.settings = settings;
+                            $rootScope.settings = angular.extend({}, SETTINGS, settings);
                         });
                     }
                 };
@@ -72,7 +75,6 @@ define([
 
                 $rootScope.$on('$routeChangeStart', function (event, next, current) {
                     $log.log('routeChangeStart:', next.controller);
-
                 });
 
                 if ($rootScope.isSignIn) {
