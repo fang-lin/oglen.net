@@ -7,7 +7,7 @@ define(function () {
     'use strict';
 
     return {
-        'name': 'admin.oglen.net',
+        'name': 'root.oglen.net',
         'apiBase': '/api',
         'debug': true
     };

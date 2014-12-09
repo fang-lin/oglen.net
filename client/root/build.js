@@ -16,15 +16,15 @@ requirejs.config({
         'angular-animate': 'lib/angular-animate/angular-animate.min',
         'angular-translate': 'lib/angular-translate/angular-translate.min',
         // Apps
-        'config': 'admin/app/config',
-        'app': 'admin/app/app',
-        'services': 'admin/app/services',
-        'controllers': 'admin/app/controllers',
-        'routes': 'admin/app/routes',
-        'directives': 'admin/app/directives',
-        'filters': 'admin/app/filters',
-        'resources': 'admin/app/resources',
-        'constants': 'admin/app/constants'
+        'config': 'root/app/config',
+        'app': 'root/app/app',
+        'services': 'root/app/services',
+        'controllers': 'root/app/controllers',
+        'routes': 'root/app/routes',
+        'directives': 'root/app/directives',
+        'filters': 'root/app/filters',
+        'resources': 'root/app/resources',
+        'constants': 'root/app/constants'
     },
     shim: {
         bootstrap: {

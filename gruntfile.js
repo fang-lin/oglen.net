@@ -15,13 +15,13 @@ module.exports = function (grunt) {
                     {src: 'client/robots.txt', dest: 'dist/robots.txt'},
                     {src: 'client/lib/html5shiv/dist/html5shiv.min.js', dest: 'dist/lib/html5shiv/dist/html5shiv.min.js'},
                     {src: 'client/lib/respond/dest/respond.min.js', dest: 'dist/lib/respond/dest/respond.min.js'},
-                    // admin
-                    {src: 'client/admin/index.html', dest: 'dist/admin/index.html'},
-                    {src: 'client/admin/config.js', dest: 'dist/admin/config.js'},
-                    {src: 'client/admin/css/all.css', dest: 'dist/admin/css/all.css'},
-                    {expand: true, flatten: true, src: ['client/admin/app/views/*'], dest: 'dist/admin/app/views/', filter: 'isFile'},
-                    {expand: true, flatten: true, src: ['client/admin/app/templates/*'], dest: 'dist/admin/app/templates/', filter: 'isFile'},
-                    {expand: true, flatten: true, src: ['client/admin/images/*'], dest: 'dist/admin/images/*', filter: 'isFile'},
+                    // root
+                    {src: 'client/root/index.html', dest: 'dist/root/index.html'},
+                    {src: 'client/root/config.js', dest: 'dist/root/config.js'},
+                    {src: 'client/root/css/all.css', dest: 'dist/root/css/all.css'},
+                    {expand: true, flatten: true, src: ['client/root/app/views/*'], dest: 'dist/root/app/views/', filter: 'isFile'},
+                    {expand: true, flatten: true, src: ['client/root/app/templates/*'], dest: 'dist/root/app/templates/', filter: 'isFile'},
+                    {expand: true, flatten: true, src: ['client/root/images/*'], dest: 'dist/root/images/*', filter: 'isFile'},
                     // blog
                     {src: 'client/blog/index.html', dest: 'dist/blog/index.html'},
                     {src: 'client/blog/config.js', dest: 'dist/blog/config.js'},
@@ -36,14 +36,14 @@ module.exports = function (grunt) {
         cssmin: {
             combine: {
                 files: {
-                    'dist/admin/css/main.css': ['client/admin/css/main.css'],
+                    'dist/root/css/main.css': ['client/root/css/main.css'],
                     'dist/blog/css/main.css': ['client/blog/css/main.css']
                 }
             }
         },
 
         jshint: {
-            files: ['*.js', 'server/**/*.js', 'client/admin/*.js', 'client/admin/app/**/*.js'],
+            files: ['*.js', 'server/**/*.js', 'client/root/*.js', 'client/root/app/**/*.js'],
             options: {
                 force: false,
                 reporter: './test/jshint_reporter.js',
@@ -81,7 +81,7 @@ module.exports = function (grunt) {
         less: {
             development: {
                 files: {
-                    'client/admin/css/admin.css': 'client/admin/less/admin.less',
+                    'client/root/css/root.css': 'client/root/less/root.less',
                     'client/blog/css/blog.css': 'client/blog/less/blog.less'
                 }
             }
@@ -100,12 +100,12 @@ module.exports = function (grunt) {
         },
 
         requirejs: {
-            admin: {
+            root: {
                 options: {
                     baseUrl: 'client/',
-                    name: 'admin/init',
-                    mainConfigFile: 'client/admin/build.js',
-                    out: 'dist/admin/init.js',
+                    name: 'root/init',
+                    mainConfigFile: 'client/root/build.js',
+                    out: 'dist/root/init.js',
                     preserveLicenseComments: false
                 }
             },
@@ -176,5 +176,5 @@ module.exports = function (grunt) {
 
     // Register grunt tasks
     grunt.registerTask('watching', ['watch:less']);
-    grunt.registerTask('build', ['bower', 'clean', 'less', 'uglify', 'copy', 'cssmin', 'requirejs:admin', 'requirejs:blog']);
+    grunt.registerTask('build', ['bower', 'clean', 'less', 'uglify', 'copy', 'cssmin', 'requirejs:root', 'requirejs:blog']);
 };
